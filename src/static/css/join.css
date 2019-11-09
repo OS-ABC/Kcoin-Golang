@@ -1,0 +1,35 @@
+.logo-join {
+    display:block;
+    margin-top:50px;
+    position: relative;
+    width:100%;
+    height: auto;
+    text-align: center;
+}
+
+.title-join {
+    display: block;
+    font-family: PingFangHK-Semibold;
+    font-size: 20px;
+    color: #ffffff;
+    position: relative;
+    margin-top: 20px;
+    width:100%;
+    height:auto;
+    text-align:center;
+}
+
+.grid-join {
+    display: block;
+    position: relative;
+    width: 376px;
+    left:35%;
+    height: 700px
+}
+
+.father-div {
+    display: block;
+    width: 100%;
+    position: relative;
+    text-align: center;
+}
