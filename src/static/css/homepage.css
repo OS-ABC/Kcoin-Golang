@@ -1,0 +1,116 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {
+	margin: 0;
+}
+.header {
+	background-size: cover;
+	background-image: url("../img/bg2.png");
+	background-repeat: no-repeat;
+	padding-bottom: 16vw;
+}
+
+.title > .kcoin{
+	color: aliceblue;
+	font-size: 5vw;
+	font-weight: 500;
+	padding-top: 17vw;
+	margin-left: 10vw;
+}
+.title h2{
+	color: aliceblue;
+	font-size: 2vw;
+	font-weight: 500;
+	margin-left: 10vw;
+}
+.title p{
+	color:#B1B1B1;
+	font-size: 15px;
+	margin-left: 10vw;
+}
+
+.search {
+   	width: 25vw;
+   	height: 40px;
+   	border-radius: 18px;
+	margin-left: 9.5vw;
+   	outline: none;
+   	border: 1px solid #ccc;
+   	padding-left: 20px;
+   	position: absolute;
+}
+
+.search_btn {
+   	height: 35px;
+   	width: 35px;
+	position: absolute;
+   	background: url("../img/search.png") no-repeat;
+	margin-top: 5px;
+	margin-left: 32.5vw;
+   	border: none;
+   	outline: none;
+   	cursor: pointer;
+}
+.head {
+	padding-right: 3vw;
+	padding-top: 2vw;
+}
+.head a {
+	float: right;
+	color: aliceblue;
+	font-size: 2vw;
+	padding-right: 1vw;
+	text-decoration: none;
+}
+.container {
+	width: 100%;
+	text-align: center;
+}
+.container-child {
+	
+}
+.project {
+	display: inline-block;
+	margin-top: 40px;
+	margin-left: 10px;
+	margin-right: 10px;
+	width: 300px;
+	background: #F8F8FD;
+}
+.project > .project-cover {
+	width: 100%;
+	height: auto;
+}
+.project > .project-name {
+	text-align: left;
+	font-weight: 1000;
+	font-size: 30px;
+	padding-left: 10px;
+}
+.project > .introduction {
+	text-align: left;
+	padding-left: 20px;
+}
+.project > .CC {
+	color: #FFCC33;
+	font-size: 20px;
+	text-align: left;
+	padding-left: 20px;
+}
+.head_shot {
+	padding-left: 15px;
+	height: 50px;
+	float: left;
+}
+.footer {
+	background: #1B1B1B;
+	height: 100px;
+	margin-top: 2vw;
+}
+.footer p {
+	color: aliceblue;
+	text-align: center;
+	padding-top: 40px;
+	font-family: "华文行楷";
+}

@@ -1,18 +1,11 @@
 package main
 
 import (
-	"fmt"
-	_ "github.com/lib/pq"
-	"kcoin-golang/src/models"
-	_ "kcoin-golang/src/routers"
+	_ "Kcoin-Goloang/src/routers"
+    "github.com/astaxie/beego"
 )
 
 func main() {
-	var names = make([]string, 2)
-	names[0] = "test"
-	names[1] = "test2"
-
-	result := models.GetUserInfo(names[1])
-	fmt.Println(result)
+    beego.Run()
 }
 
