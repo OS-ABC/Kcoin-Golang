@@ -16,6 +16,9 @@ type JoinController struct {
 	beego.Controller
 }
 
+type MyProjectsController struct {
+	beego.Controller
+
 func (c *MainController) Get() {
 	c.Data["Website"] = "beego.me"
 	c.Data["Email"] = "astaxie@gmail.com"
@@ -28,4 +31,8 @@ func (c *LoginController) Get() {
 
 func (c *JoinController) Get() {
 	c.TplName = "join.html"
+}
+
+func (c *MyProjectsController) Get() {
+	c.TplName = "MyProjects.html"
 }

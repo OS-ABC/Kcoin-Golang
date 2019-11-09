@@ -1,0 +1,98 @@
+@charset "utf-8";
+
+*{
+    border: 0;
+    margin: 0;
+}
+
+body {
+	margin: 0;
+}
+
+.menu {
+	background-color: rgb(200, 200, 200);
+	float: left;
+	width: 300px;		
+	height: 900px;
+}
+
+.label {
+	align-content: center;
+	background-color: rgb(150, 150, 150);
+	height:40px;
+	width:300px;
+	font-size: 25px;
+	float:left;
+}
+
+.menu > .headshot {
+	align-content: center;
+	padding-top: 100px;
+	padding-left: 60px;
+	width:160px;
+	height:160px;
+}
+.menu > .nickname {
+	font-size: 50px;
+	padding-top: 20px;
+}
+.menu > .item {
+	padding-top: 80px;
+	float: left;
+	width: 300px;
+	height: 10%;
+	font-size: 25px;
+}
+
+.container {
+	align-content: center;
+	width: 900px;
+	height: 800px;
+	float: left;
+}
+
+.addprojbar {
+	width: 900px;
+	height: 60px;
+	float: left;
+	font-size: 25px;
+}
+.addprojbar > .btn{
+	width:125px; height:40px;
+	padding-right: 30px;
+	padding-top: 25px; 
+	float: right;
+	font-size: 25px;
+
+}
+
+.project {
+	float: left;
+	margin-top: 40px;
+	margin-left: 40px;
+	width: 250px;
+	background: #F8F8FD;
+}
+.project > .project-cover {
+	width: 100%;
+	height: auto;
+}
+.project > .projectName {
+	text-align: left;
+	font-weight: 1000;
+	font-size: 30px;
+	padding-left: 10px;
+}
+.project > .introduction {
+	padding-left: 20px;
+}
+.project > .CC {
+	color: #FFCC33;
+	font-size: 20px;
+	padding-left: 20px;
+}
+.head_shot {
+	padding-left: 15px;
+	height: 50px;
+	float: bottom;
+}
