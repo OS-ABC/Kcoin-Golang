@@ -1,8 +1,8 @@
 package routers
 
 import (
-	"HelloWebProject/controllers"
 	"github.com/astaxie/beego"
+	"kcoin-golang/src/controllers"
 )
 
 func init() {
