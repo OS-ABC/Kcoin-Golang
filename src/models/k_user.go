@@ -3,12 +3,13 @@ package models
 import (
 	"fmt"
 	"github.com/astaxie/beego/orm"
+	_ "github.com/lib/pq"
 )
 
 type KUser struct {
-	Id   int64	`orm:"pk;column(user_id);"`
-	UserName string
-	RegisterTime  int
+	Id           int64 `orm:"pk;column(user_id);"`
+	UserName     string
+	RegisterTime int
 	HeadShotUrl  string
 }
 
@@ -18,8 +19,6 @@ func init() {
 	if err != nil {
 		fmt.Println(err.Error())
 	}
-
-	//orm.RegisterModel(new(KUser))
 }
 
 func GetUserInfo(userName string) *KUser {
