@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8" />
+    <title>个人中心</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/personalPage.css"/>
+</head>
+
+<body>
+    <div id="container">
+        <div class="left-nav">
+            <div class="banner">
+                <a href="./index.html">
+                    <img src="../static/img/椭圆 1.png" style="vertical-align: middle;" width="28" height='28' />
+                    <b>KCOIN</b>
+                </a>
+            </div>
+            <div class="information">
+                <img src="{{.user.Data.HeadShotUrl}}" width="200" height="200"/>
+                <br />
+                <b>{{.user.Data.UserName}}</b>
+            </div>
+            <div class="list">
+                <ul>
+                    <!--左侧导航栏按钮的底色在这里设置-->
+                    <li><a id="personalCenter" href="#" style="background-color: rgb(208, 219, 219);">
+                        <img src="../static/img/图层 4.png" style="vertical-align: middle;" width="24" height="24"/>
+                        个人中心</a></li>
+                    <li><a href="./myProject.html">
+                        <img src="../static/img/图层 5.png" style="vertical-align: middle;" width="24" height="24"/>
+                        我的项目</a></li>
+                    <li><a href="#" >退出登录</a></li>
+                </ul>
+            </div>
+        </div>
+        <!--右边界面背景色的设置在css中mainInterface里-->
+        <div class="mainInterface">
+            <div class="money">
+                <img src="../static/img/kcoin-project-list-half-icon.png" width="150" height="150" />
+            </div>
+            <div class="record">
+                Kcoin记录
+            </div>
+            <div class="token">
+                项目token记录
+            </div>
+        </div>
+    </div>
+</body>
