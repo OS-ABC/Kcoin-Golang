@@ -2,9 +2,10 @@ package routers
 
 import (
 	"github.com/astaxie/beego"
-	"kcoin-golang/src/controllers"
+	"Kcoin-Goloang/src/controllers"
 )
 
 func init() {
     beego.Router("/", &controllers.MainController{})
+    beego.Router("/homepage", &controllers.HomePageController{})
 }
