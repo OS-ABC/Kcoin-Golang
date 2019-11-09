@@ -12,4 +12,5 @@ func init() {
 	beego.Router("/personalpage", &controllers.PersonalPageController{})
   beego.Router("/login", &controllers.LoginController{})
   beego.Router("/join", &controllers.JoinController{})
+  beego.Router("/import",&controllers.ImportController{})
 }
