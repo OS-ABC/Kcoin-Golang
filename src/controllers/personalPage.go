@@ -11,16 +11,6 @@ type PersonalPageController struct {
 	beego.Controller
 }
 
-type UserData struct {
-	UserName    string
-	HeadShotUrl string
-}
-
-type UserInfo struct { //首字母必须大写，要不然写不进去
-	Code string `json:"errorCode"`
-	Data UserData
-}
-
 func (c *PersonalPageController) Get() {
 	jsonBuf :=
 		`{
