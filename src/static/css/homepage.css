@@ -53,24 +53,32 @@ body {
    	cursor: pointer;
 }
 .head {
-	padding-right: 3vw;
-	padding-top: 2vw;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	position: fixed;
+	height: 40px;
+	width: 100%;
+	background-image: url("../img/head.png");
+	background-size: cover;
 }
 .head > .head-bt {
+	position: relative;
 	float: right;
 	color: aliceblue;
-	height:40px;
-	width:120px;
+	height: 40px;
+	width: 120px;
 	font-size: 28px;
 	text-decoration: none;
 	text-align: center;
 }
 .head > .login-bt {
+	position: relative;
 	float: right;
 	color: aliceblue;
 	font-size: 28px;
 	display:block;
 	margin-left: 15px;
+	margin-right: 15px;
 	width:100px;
 	height:40px;
 	border-radius: 20px 20px 20px 20px;
