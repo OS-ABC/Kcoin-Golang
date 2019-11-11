@@ -61,10 +61,13 @@
 }
 
 .form-group > label {
-    margin-top: 15px;
+    margin-top: 20px;
     display: block;
     font-family: PingFangHK-Semibold;
     font-size: 13px;
+    margin-bottom: 5px;
+    margin-left: 30px;
+    text-align: initial;
 }
 
 .required {
