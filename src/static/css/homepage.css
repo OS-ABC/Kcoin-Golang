@@ -75,6 +75,7 @@ body {
 	height:40px;
 	border-radius: 20px 20px 20px 20px;
 	background: #00CCFF;
+	text-decoration: none;
 	text-align: center;
 }
 .container {
