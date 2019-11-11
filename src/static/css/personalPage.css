@@ -36,6 +36,7 @@ ul {
 .mainInterface{
     background-color: #FFFFFF;
     position: relative;
+    min-height: 100vh;
     float: left;
     width: 80%;
     height: 100%;
@@ -74,7 +75,7 @@ ul {
     margin: 50px;
     width: 900px;
     height: 150px;
-    border: 2px;
+    border: 0px;
     border-radius: 15px;
     border-style: solid;
     border-color:#4da5b4fd;
@@ -83,23 +84,13 @@ ul {
 
 .record{
     position: relative;
-    border: 2px;
-    border-radius: 15px;
-    border-style: solid;
-    border-color:#4da5b4fd;
-    box-shadow: 0px 3px 7px #000000;
     margin: 50px;
     width: 900px;
     height: 150px;
 }
 
 .token{
-    border: 2px;
-    border-style: solid;
-    border-color:#4da5b4fd;
-    box-shadow: 0px 3px 7px #000000;
     position: relative;
-    border-radius: 15px;
     margin: 50px;
     width: 900px;
     height: 150px;
