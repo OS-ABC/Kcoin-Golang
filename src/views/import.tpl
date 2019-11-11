@@ -11,7 +11,7 @@
 
 		<ul class="steps">
 		    <li class="active">选择项目</li>
-		    <li class="active">初始信息</li>
+		    <li>初始信息</li>
 		    <li>初始分配</li>
 		</ul>
 		<div class="content">
@@ -20,15 +20,16 @@
 		</form>
 
 		<p>
-			<img class = "profile" src="../static/img/tx2.png" alt="profile" align="top">&nbsp
+			<img class = "profile" src={{.user.Data.HeadShotUrl}} alt="profile" align="top">&nbsp
 			<span id="username">{{.user.Data.UserName}}</span>&nbsp
-			<span id ="userprojects">(4个子项目)</span>
+			<span id ="userprojects">({{.memberList_len}}个项目)</span>
 		</p>
 		<ul class="projects">
-			<li>-</li>
-			<li>-Android-</li>
-			<li>HelloWorld</li>
-			<li>weatherForcast</li>
+			{{with .user.Data}}
+			{{range .ProjectList}}
+				<li>{{.ProjectName}}</li>
+			{{end}}
+			{{end}}
 		</ul>
 		</div>
 	</div>
