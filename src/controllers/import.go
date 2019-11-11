@@ -10,12 +10,15 @@ type ImportController struct {
 	beego.Controller
 }
 
+/*UserData:为personalpage和projectpage的主要结构体，定义了用户姓名、用户头像url、项目列表
+*/
 type UserData struct {
 	UserName    string          `json:"userName"`
 	HeadShotUrl string          `json:"headshotUrl"`
 	ProjectList []Project       //`json:""`
 }
-
+/*UserInfo:包括UserData和另外一个errorCode，errorCode主要用于调试
+ */
 type UserInfo struct {
     ErrorCode string              `json:"errorCode"`
     Data UserData              `json:"data"`
