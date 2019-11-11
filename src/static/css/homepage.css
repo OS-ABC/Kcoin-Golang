@@ -41,7 +41,7 @@ body {
    	position: absolute;
 }
 
-.search_btn {
+.search-btn {
    	height: 35px;
    	width: 35px;
 	position: absolute;
@@ -56,12 +56,26 @@ body {
 	padding-right: 3vw;
 	padding-top: 2vw;
 }
-.head a {
+.head > .head-bt {
 	float: right;
 	color: aliceblue;
-	font-size: 2vw;
-	padding-right: 1vw;
+	height:40px;
+	width:120px;
+	font-size: 28px;
 	text-decoration: none;
+	text-align: center;
+}
+.head > .login-bt {
+	float: right;
+	color: aliceblue;
+	font-size: 28px;
+	display:block;
+	margin-left: 15px;
+	width:100px;
+	height:40px;
+	border-radius: 20px 20px 20px 20px;
+	background: #00CCFF;
+	text-align: center;
 }
 .container {
 	width: 100%;
