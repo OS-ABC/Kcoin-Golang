@@ -1,19 +1,20 @@
 .content {
     position: relative;
-    width: 70%;
+    width: 100%;
     top: 10%;
-    left: 15%;
 }
 
 .left-subcontent {
-    width:60%;
+    position: relative;
+    width:40%;
+    left:150px;
     margin-top: 35px;
     margin-bottom: 50px;
-    float:left
+    left:150px;
 }
 
 .right-subcontent {
-    width:35%;
+    width:40%;
     margin-top: 120px;
     margin-left: 20px;
     margin-bottom: 50px;
@@ -60,10 +61,13 @@
 }
 
 .form-group > label {
-    margin-top: 15px;
+    margin-top: 20px;
     display: block;
     font-family: PingFangHK-Semibold;
     font-size: 13px;
+    margin-bottom: 5px;
+    margin-left: 30px;
+    text-align: initial;
 }
 
 .required {

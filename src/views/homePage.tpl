@@ -9,9 +9,9 @@
 <body>
 	<div class="header">
 		<div class="head">
-			<a>登录</a>
-			<a href="#container">项目列表</a>
-			<a>首页</a>
+			<a class="login-bt" href="login.html">登录</a>
+			<a class="head-bt" href="#container">项目列表</a>
+			<a class="head-bt" href="javascript:location.reload();">首页</a>
 		</div>
 		<div class="title">
 			<div class="kcoin">KCOIN</div>
@@ -20,7 +20,7 @@
 			<p>搜索您感兴趣的项目</p>
 			<form action="">
 				<input type=" text" class="search" placeholder="搜索">
-				<input type="button" class="search_btn">
+				<input type="button" class="search-btn">
 			</form>
 		</div>
 	</div>
