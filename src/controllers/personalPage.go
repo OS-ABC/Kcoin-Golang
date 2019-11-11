@@ -12,7 +12,7 @@ type PersonalPageController struct {
 }
 
 func (c *PersonalPageController) Get() {
-	//jsonBuf是一个用于调试的静态json，之后会调用webserver的借口，动态获取。
+	//jsonBuf是一个用于调试的静态json，之后会调用webserver的接口，动态获取。
 	jsonBuf :=
 		`{
 		"errorCode": "0",
