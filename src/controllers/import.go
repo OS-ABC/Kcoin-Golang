@@ -3,6 +3,8 @@ package controllers
 import (
 	"encoding/json"
 	"fmt"
+	"strconv"
+
 	"github.com/astaxie/beego"
 )
 
@@ -11,23 +13,25 @@ type ImportController struct {
 }
 
 type UserData struct {
-	UserName    string          `json:"userName"`
-	HeadShotUrl string          `json:"headshotUrl"`
-	ProjectList []Project       //`json:""`
+	UserName    string    `json:"userName"`
+	HeadShotUrl string    `json:"headshotUrl"`
+	ProjectList []Project `json:"projectList"`
 }
 
 type UserInfo struct {
-    ErrorCode string              `json:"errorCode"`
-    Data UserData              `json:"data"`
+	ErrorCode string   `json:"errorCode"`
+	Data      UserData `json:"data"`
 }
 
-func (c *ImportController) Get(){
-    jsonBuf :=
-    `{
+var memberList_len int //获取用户github中项目数量
+
+func (c *ImportController) Get() {
+	jsonBuf :=
+		`{
     "errorCode": "0",
-    "data": [
-    	"userName": "Joy",
-    	"headshotUrl": "../static/img/tx1.png",
+    "data": {
+    	"userName": "anaana",
+    	"headshotUrl": "../static/img/tx2.png",
     	"projectList":
     	[
 	        {
@@ -61,15 +65,14 @@ func (c *ImportController) Get(){
 	            ]
 	        }
         ]
-    ]
+    }
     }`
 	var user UserInfo
 	errorCode := json.Unmarshal([]byte(jsonBuf), &user)
 	if errorCode != nil {
 		fmt.Println("there is an error ,sorry ,please continue debug,haha", errorCode.Error())
 	}
-	c.Data["user"] = user
-	//c.Data[""]
+	c.Data["user"] = user                                               //json数据解包
+	c.Data["memberList_len"] = strconv.Itoa(len(user.Data.ProjectList)) //个人项目数量
 	c.TplName = "import.tpl"
 }
-
