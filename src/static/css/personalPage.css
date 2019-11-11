@@ -11,8 +11,11 @@ body{
     margin:0 auto;
     background-color:#ece9ecfd;
 }
-
-a:hover,a:active,a:link,a.visited{text-decoration:none;}
+a:link,a:visited,a:hover,a:active
+{
+    color: #1B1B1B;
+    text-decoration:none;
+}
 ul {
     list-style-type:none;
     margin:0;
@@ -36,6 +39,7 @@ ul {
 .mainInterface{
     background-color: #FFFFFF;
     position: relative;
+    min-height: 100vh;
     float: left;
     width: 80%;
     height: 100%;
