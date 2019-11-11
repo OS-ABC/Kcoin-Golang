@@ -78,5 +78,5 @@ func (c *HomePageController) Get() {
     //(*proj).ProjectCoverUrl = "../static/img/tx1.png"
 
     c.Data["Projects"] = proj
-    c.TplName = "HomePage.tpl"
+    c.TplName = "homePage.tpl"
 }
