@@ -50,6 +50,66 @@ func (c *HomePageController) Get() {
             ]
         },
         {
+            "projectName": "天气预报1",
+            "projectCoverUrl": "../static/img/projectbg.png",
+            "projectUrl": "",
+            "memberList": [
+                {
+                    "userName": "Tony",
+                    "headshotUrl": "../static/img/tx2.png"
+                },
+                {
+                    "userName": "Tony",
+                    "headshotUrl": "../static/img/tx1.png"
+                }
+            ]
+        },
+        {
+            "projectName": "天气预报1",
+            "projectCoverUrl": "../static/img/projectbg.png",
+            "projectUrl": "",
+            "memberList": [
+                {
+                    "userName": "Tony",
+                    "headshotUrl": "../static/img/tx2.png"
+                },
+                {
+                    "userName": "Tony",
+                    "headshotUrl": "../static/img/tx1.png"
+                }
+            ]
+        },
+        {
+            "projectName": "天气预报1",
+            "projectCoverUrl": "../static/img/projectbg.png",
+            "projectUrl": "",
+            "memberList": [
+                {
+                    "userName": "Tony",
+                    "headshotUrl": "../static/img/tx2.png"
+                },
+                {
+                    "userName": "Tony",
+                    "headshotUrl": "../static/img/tx1.png"
+                }
+            ]
+        },
+        {
+            "projectName": "天气预报1",
+            "projectCoverUrl": "../static/img/projectbg.png",
+            "projectUrl": "",
+            "memberList": [
+                {
+                    "userName": "Tony",
+                    "headshotUrl": "../static/img/tx2.png"
+                },
+                {
+                    "userName": "Tony",
+                    "headshotUrl": "../static/img/tx1.png"
+                }
+            ]
+        },
+        {
             "projectName": "天气预报2",
             "projectCoverUrl": "../static/img/projectbg.png",
             "projectUrl": "",
@@ -78,5 +138,6 @@ func (c *HomePageController) Get() {
     //(*proj).ProjectCoverUrl = "../static/img/tx1.png"
 
     c.Data["Projects"] = proj
+    c.Data["isLogin"] = true
     c.TplName = "homePage.tpl"
 }
