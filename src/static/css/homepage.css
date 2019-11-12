@@ -86,6 +86,9 @@ body {
 	text-decoration: none;
 	text-align: center;
 }
+.head > .login-bt:hover{
+	background: #04e7ff;
+}
 .container {
 	width: 100%;
 	text-align: center;
