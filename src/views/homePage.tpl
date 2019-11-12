@@ -9,7 +9,11 @@
 <body>
 	<div class="header">
 		<div class="head">
-			<a class="login-bt" href="login.html">登录</a>
+			{{if .isLogin}}
+				<img class="login-headshot" alt="" src="../static/img/tx2.png">
+			{{else}}
+				<a class="login-bt" href="login.html">登录</a>
+			{{end}}
 			<a class="head-bt" href="#container">项目列表</a>
 			<a class="head-bt" href="javascript:location.reload();">首页</a>
 		</div>
