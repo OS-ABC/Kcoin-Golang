@@ -36,7 +36,7 @@
 
         <div class="mainInterface">
             <div class="addprojbar">
-                <div style="padding-left: 40px; padding-top: 25px; float: left;">我的项目列表(6)</div>
+                <div style="padding-left: 40px; padding-top: 25px; float: left;">我的项目列表(2)</div>
                 <div style="padding-right: 30px; padding-top: 25px; float: right; font-size: 25px;">
                     <input type="button" style="width:125px; height:40px;" onclick="javascript:top.location='import.html';" value="添加项目">
                 </div>
@@ -44,8 +44,8 @@
 
             <div class="container">
                 <div class="container-child">
-                    {{with .Projects}}
-                    {{range .Data}}
+                    {{with .user.Data}}
+                    {{range .ProjectList}}
                     <div class="project">
                         <img class="project-cover" alt="project" src="{{.ProjectCoverUrl}}"/>
                         <div class="project-name">{{.ProjectName}} </div>
@@ -54,7 +54,7 @@
                         <hr/>
                         {{range .MemberList}}
                         <img class="head_shot" alt="" src="{{.MemberHeadshotUrl}}"/>
-                        <!--可以设置成，如果成员过多，只显示前几名成员，后面加上点点点。-->
+                        <!--后续或许可以设置成，如果成员过多，只显示前几名成员，后面加上点点点。-->
                         {{end}}
                     </div>
                     {{end}}
