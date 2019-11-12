@@ -86,22 +86,30 @@ body {
 	text-decoration: none;
 	text-align: center;
 }
-.head > .login-bt:hover{
+.head > .login-bt:hover {
 	background: #04e7ff;
+}
+.head > .login-headshot {
+	position: relative;
+	float: right;
+	margin-right: 15px;
+	margin-left: 15px;
+	width: 50px;
 }
 .container {
 	width: 100%;
-	text-align: center;
+	font-size: 0;
 }
 .container-child {
-	
+	margin: auto;
+	width: 1250px;
 }
 .project {
 	display: inline-block;
 	margin-top: 40px;
-	margin-left: 10px;
-	margin-right: 10px;
-	width: 300px;
+	margin-left: 15px;
+	margin-right: 15px;
+	width: 220px;
 	background: #F8F8FD;
 }
 .project > .project-cover {
@@ -116,6 +124,7 @@ body {
 }
 .project > .introduction {
 	text-align: left;
+	font-size: 20px;
 	padding-left: 20px;
 }
 .project > .CC {
@@ -130,6 +139,7 @@ body {
 	float: left;
 }
 .footer {
+	position: relative;
 	background: #1B1B1B;
 	height: 100px;
 	margin-top: 2vw;
