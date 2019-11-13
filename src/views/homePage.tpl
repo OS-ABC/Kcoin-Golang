@@ -40,7 +40,8 @@
 				<div class="CC">CC:12138</div>
 				<hr/>
                 {{range .MemberList}}
-				<img class="head_shot" alt="" src="{{.MemberHeadshotUrl}}"/>
+				<img class="head_shot" alt="" src="{{.HeadShotUrl}}"/>
+
                 {{end}}
 			</div>
             {{end}}
