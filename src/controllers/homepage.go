@@ -11,16 +11,13 @@ type HomePageController struct {
 }
 
 //对应Json中数据结构的结构体
-type ProjectMember struct {
-    MemberName string           `json:"userName"`
-    MemberHeadshotUrl string    `json:"headshotUrl"`
-}
+
 
 type Project struct {
     ProjectName string          `json:"projectName"`
     ProjectCoverUrl string      `json:"projectCoverUrl"`
     ProjectUrl string           `json:"projectUrl"`
-    MemberList []ProjectMember  `json:"memberList"`
+    MemberList []UserData       `json:"memberList"`
 }
 type Result struct {
     ErrorCode string            `json:"errorCode"`
