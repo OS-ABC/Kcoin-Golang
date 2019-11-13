@@ -10,8 +10,7 @@ type HomePageController struct {
     beego.Controller
 }
 
-var projectName string = "天气预报"
-
+//对应Json中数据结构的结构体
 type ProjectMember struct {
     MemberName string           `json:"userName"`
     MemberHeadshotUrl string    `json:"headshotUrl"`
@@ -25,11 +24,11 @@ type Project struct {
 }
 type Result struct {
     ErrorCode string            `json:"errorCode"`
-    Data []Project		       `json:"data"`
+    Data []Project		        `json:"data"`
 }
 
 func (c *HomePageController) Get() {
-
+    //测试数据
     jsonBuf :=
     `{
     "errorCode": "0",
@@ -127,17 +126,18 @@ func (c *HomePageController) Get() {
     ]
     }`
 
-    var tmp Result
+    //把Json字符串中的数据解析到结构体中
+    var proj Result
     err := json.Unmarshal([]byte(jsonBuf),&tmp)
     if err != nil {
         fmt.Println("err=", err)
         return
     }
-    proj := tmp
-    //(*proj).ProjectName = "天气预报233"
-    //(*proj).ProjectCoverUrl = "../static/img/tx1.png"
 
+    //把结构体传到模板当中
     c.Data["Projects"] = proj
+    //设置当前登录状态
     c.Data["isLogin"] = true
+    //设置Get方法对应展示的模板
     c.TplName = "homePage.tpl"
 }
