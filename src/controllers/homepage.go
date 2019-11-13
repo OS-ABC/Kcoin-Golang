@@ -128,7 +128,7 @@ func (c *HomePageController) Get() {
 
     //把Json字符串中的数据解析到结构体中
     var proj Result
-    err := json.Unmarshal([]byte(jsonBuf),&tmp)
+    err := json.Unmarshal([]byte(jsonBuf),&proj)
     if err != nil {
         fmt.Println("err=", err)
         return
