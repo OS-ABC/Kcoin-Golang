@@ -1,7 +1,7 @@
 package main
 
 import (
-	_ "Kcoin-Goloang/src/routers"
+	_ "Kcoin-Golang/src/routers"
 	"github.com/astaxie/beego"
 )
 
