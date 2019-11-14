@@ -11,7 +11,7 @@ type Project struct {
 }
 //homepage
 //对应Json中数据结构的结构体
-type ProjectList struct {
+type ProjectListInfo struct {
 	ErrorCode string            `json:"errorCode"`
 	Data []Project		        `json:"data"`
 }
