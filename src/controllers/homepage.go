@@ -11,14 +11,6 @@ type HomePageController struct {
 }
 
 //对应Json中数据结构的结构体
-
-
-type Project struct {
-    ProjectName string          `json:"projectName"`
-    ProjectCoverUrl string      `json:"projectCoverUrl"`
-    ProjectUrl string           `json:"projectUrl"`
-    MemberList []UserData       `json:"memberList"`
-}
 type Result struct {
     ErrorCode string            `json:"errorCode"`
     Data []Project		        `json:"data"`
