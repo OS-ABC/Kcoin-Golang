@@ -3,6 +3,7 @@
     <meta charset="UTF-8" />
     <title>我的项目</title>
     <link rel="stylesheet" type="text/css" href="../static/css/personalProjects.css"/>
+    <link rel="stylesheet" type="text/css" href="../static/css/personalPage.css"/>
 </head>
 
 <body>
@@ -25,7 +26,7 @@
                     <li><a id="personalCenter" href="./personalpage">
                         <img src="../static/img/list-star.png" style="vertical-align: middle;" width="24" height="24"/>
                         个人中心</a></li>
-                    <li><a href="#" style="background-color: rgb(208, 219, 219);">
+                    <li><a href="#" style="background-color: #FFFFFF;">
                         <img src="../static/img/list-rocket.png" style="vertical-align: middle;" width="24" height="24"/>
                         我的项目</a></li>
                     <li><a href="#" >退出登录</a></li>
@@ -44,8 +45,8 @@
 
             <div class="container">
                 <div class="container-child">
-                    {{with .user.Data}}
-                    {{range .ProjectList}}
+                    {{with .user}}
+                    {{range .Data.ProjectList}}
                     <div class="project">
                         <img class="project-cover" alt="project" src="{{.ProjectCoverUrl}}"/>
                         <div class="project-name">{{.ProjectName}} </div>
@@ -53,7 +54,7 @@
                         <div class="CC">CC:12138</div>
                         <hr/>
                         {{range .MemberList}}
-                        <img class="head_shot" alt="" src="{{.MemberHeadshotUrl}}"/>
+                        <img class="head_shot" alt="" src="{{.HeadShotUrl}}"/>
                         <!--后续或许可以设置成，如果成员过多，只显示前几名成员，后面加上点点点。-->
                         {{end}}
                     </div>
