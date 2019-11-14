@@ -1,19 +1,20 @@
 package controllers
 
-import(
-	"github.com/astaxie/beego"
+import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/astaxie/beego"
 )
 
 type PersonalProjectsController struct {
-    beego.Controller
+	beego.Controller
 }
 
 func (c *PersonalProjectsController) Get() {
 
-    jsonBuf :=
-    `{
+	jsonBuf :=
+		`{
     "errorCode": "0",
     "data": {
         "userName": "Cyan",
@@ -54,11 +55,11 @@ func (c *PersonalProjectsController) Get() {
     }
     }`
 
-    var user UserInfo
-    errorCode := json.Unmarshal([]byte(jsonBuf), &user)
+	var user UserInfo
+	errorCode := json.Unmarshal([]byte(jsonBuf), &user)
 	if errorCode != nil {
 		fmt.Println("Oops, there is an error:( please keep debugging.", errorCode.Error())
-    }
+	}
 
 	c.Data["user"] = user
 	c.TplName = "personalProjects.html"

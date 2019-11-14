@@ -10,8 +10,8 @@ func init() {
 	beego.Router("/", &controllers.MainController{})
 	beego.Router("/homepage", &controllers.HomePageController{})
 	beego.Router("/personalpage", &controllers.PersonalPageController{})
-  beego.Router("/login", &controllers.LoginController{})
-  beego.Router("/join", &controllers.JoinController{})
-  beego.Router("/import",&controllers.ImportController{})
-  beego.Router("/personalprojects", &controllers.PersonalProjectsController{})
+	beego.Router("/login", &controllers.LoginController{})
+	beego.Router("/join", &controllers.JoinController{})
+	beego.Router("/import", &controllers.ImportController{})
+	beego.Router("/personalprojects", &controllers.PersonalProjectsController{})
 }
