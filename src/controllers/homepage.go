@@ -10,19 +10,6 @@ type HomePageController struct {
     beego.Controller
 }
 
-//对应Json中数据结构的结构体
-
-
-type Project struct {
-    ProjectName string          `json:"projectName"`
-    ProjectCoverUrl string      `json:"projectCoverUrl"`
-    ProjectUrl string           `json:"projectUrl"`
-    MemberList []UserData       `json:"memberList"`
-}
-type Result struct {
-    ErrorCode string            `json:"errorCode"`
-    Data []Project		        `json:"data"`
-}
 
 func (c *HomePageController) Get() {
     //测试数据
@@ -124,7 +111,7 @@ func (c *HomePageController) Get() {
     }`
 
     //把Json字符串中的数据解析到结构体中
-    var proj Result
+    var proj ProjectListInfo
     err := json.Unmarshal([]byte(jsonBuf),&proj)
     if err != nil {
         fmt.Println("err=", err)
