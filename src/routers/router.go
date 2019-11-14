@@ -1,7 +1,7 @@
 package routers
 
 import (
-	"Kcoin-Goloang/src/controllers"
+	"Kcoin-Golang/src/controllers"
 
 	"github.com/astaxie/beego"
 )
