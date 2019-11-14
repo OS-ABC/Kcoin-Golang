@@ -9,6 +9,12 @@ type Project struct {
 	ProjectUrl string           `json:"projectUrl"`
 	MemberList []UserData       `json:"memberList"`
 }
+//homepage
+//对应Json中数据结构的结构体
+type ProjectList struct {
+	ErrorCode string            `json:"errorCode"`
+	Data []Project		        `json:"data"`
+}
 
 //homepage import
 /*UserData:为personalpage和projectpage的主要结构体，定义了用户姓名、用户头像url、项目列表
