@@ -89,7 +89,7 @@ body {
 .head > .login-bt:hover {
 	background: #04e7ff;
 }
-.head > .login-headshot {
+.head > a > .login-headshot {
 	position: relative;
 	float: right;
 	margin-right: 15px;

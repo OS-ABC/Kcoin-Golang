@@ -10,7 +10,7 @@
 	<div class="header">
 		<div class="head">
 			{{if .isLogin}}
-				<img class="login-headshot" alt="" src="{{.user.Data.HeadShotUrl}}">
+				<a href="./personalpage"><img class="login-headshot"  alt="" src="{{.user.Data.HeadShotUrl}}"></a>
 			{{else}}
 				<a class="login-bt" href="login.html">登录</a>
 			{{end}}
