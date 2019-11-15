@@ -23,8 +23,9 @@ func (c *PersonalPageController) Get() {
 	//		"headShotUrl": "../static/img/tx2.png"
 	//	}
 	//}`
+	userName := c.Ctx.GetCookie("userName")
 	var user UserInfo//user中存放着json解析后获得的数据。
-	jsonBuf , _ := models.GetUserInfo("chen_cheng")
+	jsonBuf , _ := models.GetUserInfo(userName)
 	errorCode := json.Unmarshal([]byte(jsonBuf), &user)//将jsonBuf的数据解析，然后赋值给user，如果出错会返回对应的errorCode
 	if errorCode != nil {//出错了，panic
 		fmt.Println("there is an error ,sorry ,please continue debug,haha", errorCode.Error())
