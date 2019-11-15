@@ -1,9 +1,8 @@
 package controllers
 
 import (
-	"fmt"
+	"Kcoin-Golang/src/models"
 	"github.com/astaxie/beego"
-	_"Kcoin-Golang/src/models"
 )
 
 type AuthoController struct {
@@ -17,7 +16,7 @@ type Json struct{
 
 func (c * AuthoController) Get(){
 	var code string=c.GetString("code")
-	text:=models.GetJson(code)
+	text:=models.GetGithubAuthJson(code)
 
 	//存储用户名到cooike中，获取语法：c.Ctx.GetCookie("userName")
 	c.Ctx.SetCookie("userName",text.Data.Name,100)
