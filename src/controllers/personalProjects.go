@@ -57,6 +57,8 @@ func (c *PersonalProjectsController) Get() {
 
 	var user UserInfo
 	errorCode := json.Unmarshal([]byte(jsonBuf), &user)
+	user.Data.UserName = c.Ctx.GetCookie("userName")
+	user.Data.HeadShotUrl = c.Ctx.GetCookie("headShotUrl")
 	if errorCode != nil {
 		fmt.Println("Oops, there is an error:( please keep debugging.", errorCode.Error())
 	}
