@@ -19,11 +19,6 @@ type projectInfo struct {
 	Projects  []KProject `json:"data"`
 }
 
-func init() {
-	// 需要在init中注册定义的model
-	orm.RegisterModel(new(KProject))
-}
-
 //查询并以json形式返回所有的项目信息
 func GetAllProjectsInfo() (string, error) {
 	o := orm.NewOrm()

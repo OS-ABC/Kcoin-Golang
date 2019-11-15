@@ -12,4 +12,6 @@ func init() {
 	if err != nil {
 		fmt.Println(err.Error())
 	}
+
+	orm.RegisterModel(new(KProject))
 }
