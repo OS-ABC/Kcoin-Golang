@@ -20,9 +20,7 @@ type Json struct{
 	ErrorCode int
 	Data Data
 }
-func GetJson(code string) Json{
-	//client_id := "c698bd09d35414343da4"
-	//client_secret :="e680c1f3ae01fab2175efa4b3366cc43d7ca36ac"
+func GetGithubAuthJson(code string) Json{
 	client_id := beego.AppConfig.String("client_id")
 	client_secret := beego.AppConfig.String("client_secret")
 	var url_1 string="https://github.com/login/oauth/access_token"+"?code="+string(code)+"&client_id="+client_id+"&client_secret="+client_secret
