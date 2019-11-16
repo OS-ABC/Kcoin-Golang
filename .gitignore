@@ -3,3 +3,4 @@ src/src
 *.exe
 *.exe~
 src/.idea/
+.idea/
