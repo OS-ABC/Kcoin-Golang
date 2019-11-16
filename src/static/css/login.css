@@ -1,0 +1,159 @@
+.content {
+    position: relative;
+    width: 100%;
+    top: 10%;
+}
+
+.left-subcontent {
+    position: relative;
+    width:40%;
+    left:150px;
+    margin-top: 35px;
+    margin-bottom: 50px;
+    left:150px;
+}
+
+.right-subcontent {
+    width:40%;
+    margin-top: 120px;
+    margin-left: 20px;
+    margin-bottom: 50px;
+    float:right
+}
+
+.login-subtitle {
+    text-align:center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-family: PingFangHK-Semibold;
+    font-size: 28px;
+    color: #323a45;
+}
+
+.grid {
+    position: absolute;
+    background: #ffffff;
+    border-radius: 5px;
+    width: 310px;
+    height: 420px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.row {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -12px;
+    margin-right: -12px
+}
+
+.cell {
+    -webkit-box-flex: 1;
+    flex: 1 0 0;
+    max-width: 100%;
+    padding: 0 12px
+}
+
+.form-group {
+    display: block;
+    position: relative
+}
+
+.form-group > label {
+    margin-top: 20px;
+    display: block;
+    font-family: PingFangHK-Semibold;
+    font-size: 13px;
+    margin-bottom: 5px;
+    margin-left: 30px;
+    text-align: initial;
+}
+
+.required {
+    border: 1px #1ba1e2 dashed !important;
+    width: 320px;
+    height: 40px;
+}
+
+.link {
+    color: #60a8f0 !important;
+    font-family: PingFangHK-Semibold;
+    font-size: 13px;
+    float: right;
+    bottom:20px;
+    position:relative;
+    text-decoration: none;
+}
+
+.bottom-login {
+    background: #60A8F0;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 5px;
+    text-align: center;
+    width: 320px;
+    height: 40px;
+    box-shadow: none;
+    text-decoration: none;
+    max-width: 400px;
+    height: 40px;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.link-underBotton {
+    display: block;
+    outline-color: #9d9d9d;
+    font-family: PingFangHK-Semibold;
+    font-size: 13px;
+    float: right;
+    position: relative;
+    float: right;
+    width: 25%;
+}
+
+.cell {
+    display: block;
+    background-color: lime;
+}
+
+.block-dark {
+    display: block;
+    position: relative;
+    top:22px;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 5px;
+    text-align: center;
+    width: 320px;
+    height: 40px;
+    box-shadow: none;
+    background-color: #666666;
+}
+
+.buttom-dark {
+    color: #ffffff;
+    width: 100% !important;
+    text-decoration: none;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.github-icon {
+    width: 25px !important;
+    height: 25px !important;
+    position: relative;
+    top: 7px;
+    left: 25px;
+}
+
+.gitee-icon {
+    width: 36px !important;
+    height: 36px !important;
+    position: relative;
+    top: 3px;
+    left: -7px;
+}

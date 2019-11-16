@@ -1,0 +1,108 @@
+@charset "utf-8";
+
+*{
+    border: 0;
+    margin: 0;
+}
+
+body{
+    font:19px/1.5 Microsoft YaHei;
+    position:relative;
+    margin:0 auto;
+    background-color:#ece9ecfd;
+}
+a:link,a:visited,a:hover,a:active
+{
+    color: #1B1B1B;
+    text-decoration:none;
+}
+ul {
+    list-style-type:none;
+    margin:0;
+    padding:0;
+}
+
+#container{
+    background-color: #123456;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.left-nav{
+    background-color: #ece9ecfd;
+    position: relative;
+    float: left;
+    width: 20%;
+}
+
+.mainInterface{
+    background-color: #FFFFFF;
+    position: relative;
+    min-height: 100vh;
+    float: left;
+    width: 80%;
+    height: 100%;
+}
+
+.banner{
+    background-color: #8a818afd;
+    position:relative;
+    padding-top: 10px;
+    padding-left: 10px;
+    vertical-align: middle;
+    width: 100%;
+    height: 40px;
+}
+
+.information{
+    position: relative;
+    width: 100%;
+    height: 250px;
+    text-align: center;
+    padding-top: 30px;
+    padding-top: 50px;
+}
+
+.list{
+    position: relative;
+    padding-top: 30px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.money{
+    position: relative;
+    box-shadow: 0px 3px 7px #000000;
+    margin: 50px;
+    width: 900px;
+    height: 150px;
+    border: 0px;
+    border-radius: 15px;
+    border-style: solid;
+    border-color:#4da5b4fd;
+    padding: 2px;
+}
+
+.record{
+    position: relative;
+    margin: 50px;
+    width: 900px;
+    height: 150px;
+}
+
+.token{
+    position: relative;
+    margin: 50px;
+    width: 900px;
+    height: 150px;
+}
+
+.list a{
+    display:block;
+    font-weight:bold;
+    width:100%;
+    height: 60px;
+    text-align: center;
+}
