@@ -138,6 +138,9 @@ func (c *HomePageController) Get() {
         c.Data["user"] = user
     } else {
         c.Data["isLogin"] = false
+        c.Ctx.SetCookie("userName","",100)
+        c.Ctx.SetCookie("headShotUrl","",100)
+        c.Ctx.SetCookie("status", string('0'),100)
     }
 
 
