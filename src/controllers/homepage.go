@@ -2,7 +2,6 @@ package controllers
 
 import (
     "Kcoin-Golang/src/models"
-    _ "Kcoin-Golang/src/models"
     "encoding/json"
     "fmt"
     "github.com/astaxie/beego"
