@@ -1,0 +1,152 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {
+	margin: 0;
+}
+.header {
+	background-size: cover;
+	background-image: url("../img/bg2.png");
+	background-repeat: no-repeat;
+	padding-bottom: 16vw;
+}
+
+.title > .kcoin{
+	color: aliceblue;
+	font-size: 5vw;
+	font-weight: 500;
+	padding-top: 17vw;
+	margin-left: 10vw;
+}
+.title h2{
+	color: aliceblue;
+	font-size: 2vw;
+	font-weight: 500;
+	margin-left: 10vw;
+}
+.title p{
+	color:#B1B1B1;
+	font-size: 15px;
+	margin-left: 10vw;
+}
+
+.search {
+   	width: 25vw;
+   	height: 40px;
+   	border-radius: 18px;
+	margin-left: 9.5vw;
+   	outline: none;
+   	border: 1px solid #ccc;
+   	padding-left: 20px;
+   	position: absolute;
+}
+
+.search-btn {
+   	height: 35px;
+   	width: 35px;
+	position: absolute;
+   	background: url("../img/search.png") no-repeat;
+	margin-top: 5px;
+	margin-left: 32.5vw;
+   	border: none;
+   	outline: none;
+   	cursor: pointer;
+}
+.head {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	position: fixed;
+	height: 40px;
+	width: 100%;
+	background-image: url("../img/head.png");
+	background-size: cover;
+}
+.head > .head-bt {
+	position: relative;
+	float: right;
+	color: aliceblue;
+	height: 40px;
+	width: 120px;
+	font-size: 28px;
+	text-decoration: none;
+	text-align: center;
+}
+.head > .login-bt {
+	position: relative;
+	float: right;
+	color: aliceblue;
+	font-size: 28px;
+	display:block;
+	margin-left: 15px;
+	margin-right: 15px;
+	width:100px;
+	height:40px;
+	border-radius: 20px 20px 20px 20px;
+	background: #00CCFF;
+	text-decoration: none;
+	text-align: center;
+}
+.head > .login-bt:hover {
+	background: #04e7ff;
+}
+.head > a > .login-headshot {
+	position: relative;
+	float: right;
+	margin-right: 15px;
+	margin-left: 15px;
+	width: 50px;
+}
+.container {
+	width: 100%;
+	font-size: 0;
+}
+.container-child {
+	margin: auto;
+	width: 1250px;
+}
+.project {
+	display: inline-block;
+	margin-top: 40px;
+	margin-left: 15px;
+	margin-right: 15px;
+	width: 220px;
+	background: #F8F8FD;
+}
+.project > .project-cover {
+	width: 100%;
+	height: auto;
+}
+.project > .project-name {
+	text-align: left;
+	font-weight: 1000;
+	font-size: 30px;
+	padding-left: 10px;
+}
+.project > .introduction {
+	text-align: left;
+	font-size: 20px;
+	padding-left: 20px;
+}
+.project > .CC {
+	color: #FFCC33;
+	font-size: 20px;
+	text-align: left;
+	padding-left: 20px;
+}
+.head_shot {
+	padding-left: 15px;
+	height: 50px;
+	float: left;
+}
+.footer {
+	position: relative;
+	background: #1B1B1B;
+	height: 100px;
+	margin-top: 2vw;
+}
+.footer p {
+	color: aliceblue;
+	text-align: center;
+	padding-top: 40px;
+	font-family: "华文行楷";
+}

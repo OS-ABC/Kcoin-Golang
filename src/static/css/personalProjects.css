@@ -1,0 +1,158 @@
+@charset "utf-8";
+/* CSS Document */
+
+.container {
+	width: 100%;
+	text-align: center;
+	float: left;
+}
+.container-child {
+	
+}
+
+.addprojbar {
+	width: 100%;
+	height: 60px;
+	float: left;
+	font-size: 25px;
+	border: 1px;
+}
+
+.project {
+	display: inline-block;
+	margin-top: 40px;
+	margin-left: 10px;
+	margin-right: 10px;
+	width: 300px;
+	background: #F8F8FD;
+}
+.project > .project-cover {
+	width: 100%;
+	height: auto;
+}
+.project > .project-name {
+	text-align: left;
+	font-weight: 1000;
+	font-size: 30px;
+	padding-left: 10px;
+}
+.project > .introduction {
+	text-align: left;
+	padding-left: 20px;
+}
+.project > .CC {
+	color: #FFCC33;
+	font-size: 20px;
+	text-align: left;
+	padding-left: 20px;
+}
+.head_shot {
+	padding-left: 15px;
+	height: 50px;
+	float: left;
+}
+
+
+
+/*表示点击按钮后，其他区域阴影*/
+.black_overlay{ 
+    display: none; 
+    position: absolute; 
+    top: 0%; 
+    left: 0%; 
+    width: 100%; 
+    height: 100%; 
+    background-color: black; 
+    z-index:1001; 
+    -moz-opacity: 0.8; 
+    opacity:.80; 
+    filter: alpha(opacity=88); 
+}
+
+/*以下为点击按钮后高亮的图层*/
+
+.main{
+    width:800px;
+    margin: auto;
+    position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+}
+.content{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.steps {    
+    position: relative;
+    counter-reset: step;  /*创建步骤数字计数器*/
+    margin:0;
+    padding:0;
+}
+
+/*步骤描述*/
+.steps li {
+    list-style-type: none;
+    font-size: 12px;
+    color:black;
+    text-align: center;
+    width: 33.3%;
+    position: relative;
+    float: left;
+    padding-bottom: 5px;
+}   
+/*步骤数字*/
+.steps li:before {
+  display: block;
+  content: counter(step); /*设定计数器内容*/
+  counter-increment: step;  /*计数器值递增*/
+  width: 32px;
+  height: 32px;
+  background-color: #ffd7d8;
+  line-height: 32px;
+  border-radius: 32px;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  font-weight: 700;
+  margin: 0 auto 8px auto;
+}
+ 
+/*连接线*/
+.steps li ~ li:after {
+  content: '';
+  width: 100%;
+  height: 2px;
+  background-color: #ffd7d8;
+  position: absolute;
+  left: -50%;
+  top: 15px;
+  z-index: -1; /*放置在数字后面*/
+}
+ 
+.steps li.active:before,
+.steps li.active:after {
+  background-color: #ff5b5d;
+}
+
+img.profile{
+    height: 25px;
+}
+#username{
+    font-weight:bold;
+}
+#userprojects{
+    color:gray;
+}
+ul.projects{        
+        list-style-position: outside;
+    font-size:130%;
+    padding: 0px;
+}
+.projects li{
+    margin-top:5px;
+    list-style-type: none;
+    border-radius: 5px;
+    background-color:#edf0f5;
+    padding: 5px;
+}

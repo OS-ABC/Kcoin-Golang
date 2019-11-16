@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>
+            KCoin
+        </title>
+        <link rel="stylesheet" href="../static/css/login.css" />
+    </head>
+
+    <body style="background-color:#333333;">
+        <div id="large-header" class="content">
+            <canvas id="demo-canvas" style="z-index:1000;position:absolute"></canvas>
+            <img class="left-subcontent" src="../static/img/login-index.png"/>
+            <div class="right-subcontent">
+                <div class="grid">
+                    <div class="login-subtitle">登录</div>
+                    <div class="row" style="z-index:1001;position:absolute">
+                        <form action="http://its.pku.edu.cn">
+                            <div class="form-group" >
+                                <label>邮箱/账号</label>
+                                <input autofocus="autofocus" data-validate="required" maxlength="120" name="email"
+                                    type="text" value="" class="required">
+                             </div>
+                            <div class="form-group">
+                                <label style="width: 50%;">密码</label>
+                                <div class="link" style="width: 25%;">
+                                        <a href="http://www.baidu.com" style="text-decoration: none;color: #60a8f0">忘记密码</a>
+                                </div>
+                                <input class="required" data-clear-button="false" data-role="input"
+                                data-validate="required pattern=^\w{6,10}$ custom=validateEmailAndPwd"
+                                maxlength="10" name="password" type="password" value=""
+                                data-role-input="true" style="width: 320px; height: 40px;position: relative;bottom: 16px;"/>
+                            </div>
+                            <div class="form-group">
+                                <input class="bottom-login" type="submit" value="登录"/>
+                                <div class="link-underBotton" style=" z-index: 1001;">
+                                    <a href="join.html" style="text-decoration: none;color:  #60a8f0;">注册账号</a>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="block-dark">
+                                    <img class="github-icon" src="../static/img/github-icon.png">
+                                    <a  class="bottom-dark" style="position: relative;left: 24px;top:1px;
+                                    text-decoration: none;color: aliceblue;font-size: 14px;" 
+                                    href="https://github.com/login/oauth/authorize?client_id=c698bd09d35414343da4">使用 GitHub 账号登录</a>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="block-dark">
+                                    <img class="gitee-icon" src="../static/img/gitee-icon.png">
+                                    <a  class="bottom-dark" style="position: relative;bottom: 10px;left: -13px;
+                                    text-decoration: none;color: aliceblue;font-size: 14px;" 
+                                    href="http://kcoin.kaiyuanshe.cn/auth/gitee/login">
+                                        使用 Gitee 账号登录</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="../static/js/EasePack.min.js"></script>
+        <script src="../static/js/TweenLite.min.js"></script>
+        <script src="../static/js/helloweb.js"></script>
+    </body>
+</html>
+
+
+ 

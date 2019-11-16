@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8" />
+    <title>我的项目</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/personalProjects.css"/>
+    <link rel="stylesheet" type="text/css" href="../static/css/personalPage.css"/>
+</head>
+
+<body>
+    <div id="container">
+        <div class="left-nav">
+            <div class="banner">
+                <a href="./homepage">
+                    <img src="../static/img/kcoin-logo-blue.png" style="vertical-align: middle;" width="28" height='28' />
+                    <b>KCOIN</b>
+                </a>
+            </div>
+            <div class="information">
+                <img src="{{.user.Data.HeadShotUrl}}" width="200" height="200"/>
+                <br />
+                <b>{{.user.Data.UserName}}</b>
+            </div>
+            <div class="list">
+                <ul>
+                    <!--左侧导航栏按钮的底色在这里设置-->
+                    <li><a id="personalCenter" href="./personalpage">
+                        <img src="../static/img/list-star.png" style="vertical-align: middle;" width="24" height="24"/>
+                        个人中心</a></li>
+                    <li><a href="#" style="background-color: #FFFFFF;">
+                        <img src="../static/img/list-rocket.png" style="vertical-align: middle;" width="24" height="24"/>
+                        我的项目</a></li>
+                    <li><a href="#" >退出登录</a></li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="mainInterface">
+            <div class="addprojbar">
+                <div style="padding-left: 40px; padding-top: 25px; float: left;">我的项目列表(2)</div>
+                <div style="padding-right: 30px; padding-top: 25px; float: right; font-size: 25px;">
+                    <input type="button" style="width:125px; height:40px;" onclick="javascript:top.location='import.html';" value="添加项目">
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="container-child">
+                    {{with .user}}
+                    {{range .Data.ProjectList}}
+                    <div class="project">
+                        <img class="project-cover" alt="project" src="{{.ProjectCoverUrl}}"/>
+                        <div class="project-name">{{.ProjectName}} </div>
+                        <div class="introduction">introduction</div>
+                        <div class="CC">CC:12138</div>
+                        <hr/>
+                        {{range .MemberList}}
+                        <img class="head_shot" alt="" src="{{.HeadShotUrl}}"/>
+                        <!--后续或许可以设置成，如果成员过多，只显示前几名成员，后面加上点点点。-->
+                        {{end}}
+                    </div>
+                    {{end}}
+                    {{end}}
+                </div>
+            </div>  
+        </div>
+    </div>
+</body>
