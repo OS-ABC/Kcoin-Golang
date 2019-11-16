@@ -9,31 +9,11 @@
 <body>
     <div id="container">
         <div class="left-nav">
-            <div class="banner">
-                <a href="./homepage">
-                    <img src="../static/img/kcoin-logo-blue.png" style="vertical-align: middle;" width="28" height='28' />
-                    <b>KCOIN</b>
-                </a>
-            </div>
-            <div class="information">
-                <img src="{{.user.Data.HeadShotUrl}}" width="200" height="200"/>
-                <br />
-                <b>{{.user.Data.UserName}}</b>
-            </div>
-            <div class="list">
-                <ul>
-                    <!--左侧导航栏按钮的底色在这里设置-->
-                    <li><a id="personalCenter" href="./personalpage">
-                        <img src="../static/img/list-star.png" style="vertical-align: middle;" width="24" height="24"/>
-                        个人中心</a></li>
-                    <li><a href="#" style="background-color: #FFFFFF;">
-                        <img src="../static/img/list-rocket.png" style="vertical-align: middle;" width="24" height="24"/>
-                        我的项目</a></li>
-                    <li><a href="#" >退出登录</a></li>
-                </ul>
-            </div>
+            {{template "./leftNav.html" .}}
         </div>
-
+        <script type="text/javascript">
+            document.getElementById("personalProjectsLink").style.backgroundColor = 'white';
+        </script>
 
         <div class="mainInterface">
             <div class="addprojbar">
