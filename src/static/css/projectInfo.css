@@ -1,0 +1,50 @@
+body {
+    margin: 0;
+}
+.head {
+    position: relative;
+    height: 70px;
+    background-color: #333333;
+}
+.navigation {
+    position: relative;
+    height: 160px;
+    padding-left: 100px;
+    background-color: #bfbfbf;
+}
+.navigation > img {
+    position: absolute;
+    width: 150px;
+    height: 100%;
+    border-style: solid;
+    border-width: 6px;
+    border-color: #FFFFFF;
+    border-radius: 5px;
+    margin-left: 50px;
+    margin-top: 20px;
+}
+.navigation > .prj-name {
+    position: absolute;
+    font-size: 60px;
+    margin-left: 250px;
+    margin-top: 30px;
+    color: #323a45;
+}
+.navigation > .first {
+    margin-left: 250px;
+
+}
+.navigation > a {
+    float: left;
+    margin-top: 110px;
+    margin-left: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    border-radius: 10px;
+    font-size: 30px;
+}
+#prj-info {
+    background-color: #FFFFFF;
+    height: 60px;
+}
