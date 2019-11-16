@@ -23,6 +23,12 @@ func (c *PersonalPageController) Get() {
 	//		"headShotUrl": "../static/img/tx2.png"
 	//	}
 	//}`
+	status:=c.Ctx.GetCookie("status")
+	{
+		if status =="0"||status ==""{
+			defer c.Redirect("/login.html",302)
+		}
+	}
 	userName := c.Ctx.GetCookie("userName")
 	var user UserInfo//user中存放着json解析后获得的数据。
 	jsonBuf , _ := models.GetUserInfo(userName)

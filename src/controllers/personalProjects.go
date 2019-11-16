@@ -54,7 +54,12 @@ func (c *PersonalProjectsController) Get() {
         ]
     }
     }`
-
+	status:=c.Ctx.GetCookie("status")
+	{
+		if status =="0"||status ==""{
+			defer c.Redirect("/login.html",302)
+		}
+	}
 	var user UserInfo
 	errorCode := json.Unmarshal([]byte(jsonBuf), &user)
 	user.Data.UserName = c.Ctx.GetCookie("userName")
