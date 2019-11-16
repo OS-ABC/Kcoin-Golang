@@ -2,36 +2,22 @@
 <head>
     <meta charset="UTF-8" />
     <title>个人中心</title>
+    <script type="text/javascript">
+		function changePersonalPageColor(){
+			document.getElementById("personalPageLink").style.backgroundColor = 'white';
+		}
+	</script>
     <link rel="stylesheet" type="text/css" href="../static/css/personalPage.css"/>
 </head>
 
 <body>
     <div id="container">
         <div class="left-nav">
-            <div class="banner">
-                <a href="./homepage">
-                    <img src="../static/img/kcoin-logo-blue.png" style="vertical-align: middle;" width="28" height='28' />
-                    <b>KCOIN</b>
-                </a>
-            </div>
-            <div class="information">
-                <img src="{{.user.Data.HeadShotUrl}}" width="200" height="200"/>
-                <br />
-                <b>{{.user.Data.UserName}}</b>
-            </div>
-            <div class="list">
-                <ul>
-                    <!--左侧导航栏按钮的底色在这里设置-->
-                    <li><a href="#" style="background-color: #FFFFFF;">
-                        <img src="../static/img/list-star.png" style="vertical-align: middle;" width="24" height="24"/>
-                        个人中心</a></li>
-                    <li><a href="./personalprojects">   <!--修改此处超链接，使其指向新提交的个人项目页面。-->
-                        <img src="../static/img/list-rocket.png" style="vertical-align: middle;" width="24" height="24"/>
-                        我的项目</a></li>
-                    <li><a href="./homepage" >退出登录</a></li>
-                </ul>
-            </div>
+            {{template "./leftNav.html" .}}
         </div>
+        <script type="text/javascript">
+            document.getElementById("personalPageLink").style.backgroundColor = 'white';
+        </script>
         <!--右边界面背景色的设置在css中mainInterface里-->
         <div class="mainInterface">
             <div class="money">
