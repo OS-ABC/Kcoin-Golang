@@ -28,7 +28,7 @@ func (c *PersonalPageController) Get() {
 	jsonBuf , _ := models.GetUserInfo(userName)
 	errorCode := json.Unmarshal([]byte(jsonBuf), &user)//将jsonBuf的数据解析，然后赋值给user，如果出错会返回对应的errorCode
 	if errorCode != nil {//出错了，panic
-		fmt.Println("there is an error ,sorry ,please continue debug,haha", errorCode.Error())
+		fmt.Println("you r in personalPage controller ,there is ia bug ,and the information is : ", errorCode.Error())
 	}
 	c.Data["user"] = user
 	c.TplName = "personalPage.html"//该controller对应的页面
