@@ -3,14 +3,6 @@
     <meta charset="UTF-8" />
     <title>个人中心</title>
     <link rel="stylesheet" type="text/css" href="../static/css/personalPage.css"/>
-    <script type="text/javascript">
-		function changePersonalPageColor(){
-			document.getElementById("personalPageLink").style.backgroundColor = 'white';
-		}
-        function changePersonalProjectsColor(){
-			document.getElementById("personalProjectsLink").style.backgroundColor = 'white';
-		}
-	</script>
 </head>
 <body>
     <div class="banner">
@@ -20,7 +12,7 @@
             </a>
         </div>
         <div class="information">
-            <img src="{{.user.Data.HeadShotUrl}}" style="width:200;height:200;border-radius:50%;overflow:hidden"/>
+            <img src="{{.user.Data.HeadShotUrl}}" style="width:200px;height:200px;border-radius:50%;overflow:hidden"/>
             <br />
             <b>{{.user.Data.UserName}}</b>
         </div>
