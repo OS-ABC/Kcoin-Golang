@@ -1,5 +1,45 @@
 var step_num = 1;
 
+function showPopup(){ 
+    step_num = 1; 
+    var step = document.getElementById("step2");
+    step.className = "";
+    step = document.getElementById("step3");
+    step.className = "";
+    var page = document.getElementById("myprojects");
+    page.style.display="block";
+    page = document.getElementById("init_message");
+    page.style.display="none";
+    page = document.getElementById("config_project");
+    page.style.display="none";
+    var button = document.getElementById("btnNextStep");
+    button.innerHTML="下一步";
+
+    var popUp = document.getElementById("import"); 
+    popUp.style.position= "absolute";
+    popUp.style.zIndex="100";
+    popUp.style.width = "100%"; 
+    popUp.style.height = "100%"; 
+    popUp.style.visibility = "visible"; 
+} 
+
+function hidePopup(){
+    step_num = 1; 
+    var step = document.getElementById("step2");
+    step.className = "";
+    step = document.getElementById("step3");
+    step.className = "";
+    var page = document.getElementById("myprojects");
+    page.style.display="block";
+    page = document.getElementById("init_message");
+    page.style.display="none";
+    page = document.getElementById("config_project");
+    page.style.display="none";
+
+    var popUp = document.getElementById("import"); 
+    popUp.style.visibility = "hidden";    
+} 
+
 function next_step(){
     if(step_num >=1 && step_num < 3)
         step_num += 1;
