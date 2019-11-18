@@ -18,6 +18,18 @@ func (c * AuthoController) Get(){
 	var code string=c.GetString("code")
 	text:=models.GetGithubAuthJson(code)
 
+	name := text.Data.Name
+	uri := text.Data.Uri
+	o := orm.NewOrm()
+	o.Using("default")
+
+	insertSql := `INSERT INTO "K_User" (USER_NAME,REGISTER_TIME,HEAD_SHOT_URL) VALUES (?,now(),?);`
+	_, err := o.Raw(insertSql,name,uri).Exec()
+	
+	if err != nil {
+		panic(err)
+	}
+
 	//存储用户名到cooike中，获取语法：c.Ctx.GetCookie("userName")
 	c.Ctx.SetCookie("userName",text.Data.Name,3600)
 	//存储用户头像url到cooike中，获取语法：c.Ctx.GetCookie("userName")
