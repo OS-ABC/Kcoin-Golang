@@ -49,8 +49,6 @@
 		</div>
 	</div>
 	<div style="clear: both"></div>
-	<div class="footer">
-		<p>北京大学软件与微电子学院-新工科试验班</p>
-	</div>
+	{{template "./footer.html" .}}
 </body>
 </html>
