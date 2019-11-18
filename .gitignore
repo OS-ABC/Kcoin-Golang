@@ -4,3 +4,6 @@ src/src
 *.exe~
 src/.idea/
 .idea/
+
+# Mac OS
+**/.DS_Store
