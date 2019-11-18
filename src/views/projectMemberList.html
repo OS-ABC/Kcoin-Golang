@@ -4,7 +4,7 @@
     <title>项目信息</title>
     <style>
         .memberListContainer{
-            background-color: blue;
+            background-color: white;
             margin: auto;
             margin-top: 80px;
             width: 1200px;
@@ -14,7 +14,7 @@
             float:left;
             width: 300px;
             height: 125px;
-            background-color: green;
+            background-color: white;
         }
         .pageList{
             position: relative;
@@ -25,10 +25,20 @@
         .lookMore{
             line-height: 50px;
         }
-        .lookMore > p{
+        .lookMore > a{
             position: relative;
             left: 92%;
             color:cadetblue;
+        }
+        .memberItem > .headShot{
+            float:left;
+            width: 125px;
+            height: 125px;
+        }
+        .memberItem > .memberInfo{
+            float: left;
+            width: 175px;
+            height: 125px;
         }
     </style>
 </head>
@@ -43,25 +53,18 @@
     <div class="memberListContainer">
         <div class="pageList">
             <div class="lookMore">
-                <p class="">查看更多</p>
+                <a href="">查看更多</a>
             </div>
         </div>
         <div class="memberItem">
-
-        </div>
-        <div class="memberItem">
-
+            <div class="headShot">
+                <img src="../static/img/tx1.png" style="width: 100px;height: 100px;border-radius:50%;overflow:hidden" />
             </div>
-            <div class="memberItem">
-
-                </div>
-                <div class="memberItem">
-
-                    </div>
-                    <div class="memberItem">
-
-                        </div>
-        
+            <div class="memberInfo">
+                <p>用户名：DoubleJ</p>
+                <p>贡献度：1 收益：1</p>
+            </div>
+        </div>
     </div>
     {{template "./footer.html" .}}
 </body>
