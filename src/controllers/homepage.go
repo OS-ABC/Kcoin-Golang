@@ -140,6 +140,7 @@ func (c *HomePageController) Get() {
         c.Ctx.SetCookie("userName","",100)
         c.Ctx.SetCookie("headShotUrl","",100)
         c.Ctx.SetCookie("status", string('0'),100)
+        c.Ctx.SetCookie("lastUri",c.Ctx.Request.RequestURI)
     }
 
 

@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"Kcoin-Golang/src/models"
+	"fmt"
 	"github.com/astaxie/beego"
 )
 
@@ -24,8 +25,8 @@ func (c * AuthoController) Get(){
 	c.Ctx.SetCookie("headShotUrl",text.Data.Uri,100)
 	//存储用户登录状态到cooike中，其中1表示已登录，获取语法：c.Ctx.GetCookie("userName")
 	c.Ctx.SetCookie("status", string('1'),100)
-
-	c.Redirect("/homepage",302)
+	fmt.Printf(c.Ctx.GetCookie("lastUri"))
+	c.Redirect(c.Ctx.GetCookie("lastUri"),302)
 
 }
 
