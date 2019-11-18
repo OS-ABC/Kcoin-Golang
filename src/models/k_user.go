@@ -12,6 +12,13 @@ func (err noResultErr) Error() string {
 	return "There is no result."
 }
 
+type KUser struct{
+	Id 		int64 	`orm:"pk;column(user_id);"`
+	UserName 	string	`json:"user_name"`
+	RegisterTime 	string 	`json:"register_time"`
+	HeadShotUrl 	string 	`json:"head_shot_url"`
+}
+
 type userInfo struct {
 	ErrorCode string   `json:"errorCode"`
 	UserData  userData `json:"data"`
