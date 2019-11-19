@@ -3,6 +3,7 @@ package controllers
 import (
 	"Kcoin-Golang/src/models"
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/orm"
 )
 
 type AuthoController struct {
