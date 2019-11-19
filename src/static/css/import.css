@@ -4,12 +4,13 @@ html, body {
     margin: 0;
     padding: 0;
 }
+
 .main{
 	width:800px;
 	margin: auto;
 	position: relative;
-		top: 50%;
-		transform: translateY(-50%);
+	top: 50%;
+	transform: translateY(-50%);
 }
 .content{
 	padding-left: 20px;
@@ -129,7 +130,6 @@ ul.projects{
 }
 
 #next_back{
-	margin-right: 20px;
 	margin-top: 20px;
 }
 
@@ -141,7 +141,9 @@ button.back{
 	font-size: 110%;
 	padding-top: 2px;
 	padding-bottom: 2px;
-	float:right;
+	/* float:right; */
+	margin-left: 590px;
+	margin-bottom: 20px;
 }
 
 button.next{
@@ -182,22 +184,22 @@ input.projectname{
 
 .upload{
 	padding: 4px 10px;
-	font-size: 110%;
 	border-style: ridge;
 	border-radius: 5px;
     border: 1px solid #999;
     text-decoration: none;
     color: #ff5b5d;
 }
+
 .change{
 	border-style: ridge;
 	border-radius: 5px;
 	color:#ff5b5d;
-	font-size: 110%;
+	font-size: 25px;
 	overflow: hidden;
 	position: absolute;
 	left:20px;
-	bottom: -4px;
+	bottom: 65px;
 	opacity:0;
 	width:90px;
 }
