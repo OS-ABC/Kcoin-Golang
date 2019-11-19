@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8" />
+    <title>项目信息</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/projectNotice.css"/>
+</head>
+
+<body>
+
+    {{template "./projectTopNav.html" .}}
+
+    <script type="text/javascript">
+        document.getElementById("proj-notice").style.backgroundColor = 'white';
+    </script>
+
+    <div class="container">
+        <ul class="time-vertical">
+            <li><b></b><span>08.08</span><a href="javascript:void(0)">贡献规则发生变更：每次提交可以获得100个token</a>
+            </li>
+            <li><b></b><span>05.08</span><a href="javascript:void(0)">每次提交可以获得50个token</a></li>
+            <li><b></b><span>03.08</span><a href="javascript:void(0)">博客园</a></li>
+            <li><b></b><span>01.08</span><a href="javascript:void(0)">创业</a></li>
+        </ul>
+    </div>
+
+    {{template "./footer.html" .}}
+</body>

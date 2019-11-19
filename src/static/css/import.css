@@ -4,12 +4,13 @@ html, body {
     margin: 0;
     padding: 0;
 }
+
 .main{
 	width:800px;
 	margin: auto;
 	position: relative;
-		top: 50%;
-		transform: translateY(-50%);
+	top: 50%;
+	transform: translateY(-50%);
 }
 .content{
 	padding-left: 20px;
@@ -62,27 +63,36 @@ html, body {
   top: 15px;
   z-index: -1; /*放置在数字后面*/
 }
- 
- 	 
+  
 .steps li.active:before,
 .steps li.active:after {
   background-color: #ff5b5d;
 }
 
-
-
 /*主体*/
-input{
+input.url_input{
 	border-style: ridge;
+	border-radius: 5px;
 	margin-top: 5px;
 	padding-left: 5px;
 	padding-top: 5px;
 	padding-bottom: 5px;
-	border-radius: 5px;
 	color:gray;
 	font-size: 110%;
-	width:100%;
+	width:90%;
 }
+
+input.submit{
+	border-style: ridge;
+	border-radius: 5px;
+	background-color:white;
+	color:#ff5b5d;
+	font-size: 110%;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	margin-left: 5px;
+}
+
 h1 {
 	background-color: #434343;
 	padding-top: 5px;
@@ -92,24 +102,104 @@ h1 {
 	font-weight:normal;
 	font-size: 160%;
 }
+
 img.profile{
 	height: 25px;
 }
+
 #username{
 	font-weight:bold;
 }
+
 #userprojects{
 	color:gray;
 }
+
 ul.projects{   		
-		list-style-position: outside;
+	list-style-position: outside;
 	font-size:130%;
 	padding: 0px;
 }
+
 .projects li{
 	margin-top:5px;
 	list-style-type: none;
 	border-radius: 5px;
 	background-color:#edf0f5;
 	padding: 5px;
+}
+
+#next_back{
+	margin-top: 20px;
+}
+
+button.back{
+	border-style: ridge;
+	border-radius: 5px;
+	color:#ff5b5d;
+	background-color: white;
+	font-size: 110%;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	/* float:right; */
+	margin-left: 590px;
+	margin-bottom: 20px;
+}
+
+button.next{
+	border-style: ridge;
+	border-radius: 5px;
+	font-size: 110%;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	margin-left: 15px;
+	background-color: #ff5b5d;
+	color:white;
+	float:right;
+}
+
+#myprojects{
+	display: block;
+}
+
+#init_message{
+	display: none;
+}
+#config_project{
+	display: none;
+}
+
+#config_project p{
+	color:gray;
+}
+
+input.projectname{
+	border-style: ridge;
+	border-radius: 5px;
+	padding: 5px;
+	color:gray;
+	font-size: 110%;
+	width:98%;
+}
+
+.upload{
+	padding: 4px 10px;
+	border-style: ridge;
+	border-radius: 5px;
+    border: 1px solid #999;
+    text-decoration: none;
+    color: #ff5b5d;
+}
+
+.change{
+	border-style: ridge;
+	border-radius: 5px;
+	color:#ff5b5d;
+	font-size: 25px;
+	overflow: hidden;
+	position: absolute;
+	left:20px;
+	bottom: 65px;
+	opacity:0;
+	width:90px;
 }

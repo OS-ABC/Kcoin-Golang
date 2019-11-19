@@ -1,0 +1,60 @@
+@charset "utf-8"
+
+body {
+}
+
+.container {
+    height: 60%;
+    width: 100%;
+    padding-left: 150px;
+    padding-top: 150px;
+    /* background-color: #dddddd; */
+    font-size: 20px;
+
+}
+
+.yearNode {
+
+}
+
+/*纵向时间轴*/
+.time-vertical {
+    list-style-type: none;
+    border-left: 10px solid #ff7070;
+    margin-left: 10px;
+    padding: 0px;
+    height: 400px;
+}
+ 
+.time-vertical li {
+    height: 100px;
+    position: relative;
+}
+ 
+.time-vertical li a {
+    display: inline-block;
+    margin-left: 20px;
+    margin-top: 15px;
+    text-decoration: none;
+    color: #000;
+}
+ 
+.time-vertical li b:before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: -16px;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #ff7070;
+    border-radius: 10px;
+    background: #fff;
+    vertical-align: middle;
+}
+ 
+.time-vertical li span {
+    position: absolute;
+    color: #ff5050;
+    top: 18px;
+    left: -65px;
+}
