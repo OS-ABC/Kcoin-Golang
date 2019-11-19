@@ -25,6 +25,7 @@ func (c *PersonalPageController) Get() {
 	//}`
 	status:=c.Ctx.GetCookie("status")
 	{
+		c.Ctx.SetCookie("lastUri",c.Ctx.Request.RequestURI)
 		if status =="0"||status ==""{
 			defer c.Redirect("/login.html",302)
 		}
