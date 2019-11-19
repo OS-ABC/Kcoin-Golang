@@ -12,28 +12,6 @@ func (err noResultErr) Error() string {
 	return "There is no result."
 }
 
-/*type userInfo struct {
-	ErrorCode string   `json:"errorCode"`
-	UserData  userData `json:"data"`
-}
-
-type userBase struct {
-	UserName    string `json:"userName"`
-	HeadShotURL string `json:"headShotUrl"`
-}
-
-type userData struct {
-	userBase
-	Projects []project `json:"projectList"`
-}
-
-type project struct {
-	ProjectName     string     `json:"projectName"`
-	ProjectCoverUrl string     `json:"projectCoverUrl"`
-	ProjectUrl      string     `json:"projectUrl"`
-	Members         []userBase `json:"memberList"`
-}*/
-
 func GetUserInfo(userName string) (string, error) {
 	userInfo := UserInfo{}
 	userInfo.ErrorCode = "default Error"
