@@ -31,7 +31,7 @@ func (c *PersonalPageController) Get() {
 		}
 	}
 	userName := c.Ctx.GetCookie("userName")
-	var user UserInfo//user中存放着json解析后获得的数据。
+	user := models.UserInfo{Data:&models.UserData{}}//user中存放着json解析后获得的数据。
 	jsonBuf , _ := models.GetUserInfo(userName)
 	errorCode := json.Unmarshal([]byte(jsonBuf), &user)//将jsonBuf的数据解析，然后赋值给user，如果出错会返回对应的errorCode
 	if errorCode != nil {//出错了，panic
