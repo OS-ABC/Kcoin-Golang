@@ -12,7 +12,7 @@ func (err noResultErr) Error() string {
 	return "There is no result."
 }
 
-type userInfo struct {
+/*type userInfo struct {
 	ErrorCode string   `json:"errorCode"`
 	UserData  userData `json:"data"`
 }
@@ -32,10 +32,10 @@ type project struct {
 	ProjectCoverUrl string     `json:"projectCoverUrl"`
 	ProjectUrl      string     `json:"projectUrl"`
 	Members         []userBase `json:"memberList"`
-}
+}*/
 
 func GetUserInfo(userName string) (string, error) {
-	var userInfo userInfo
+	userInfo := UserInfo{}
 	userInfo.ErrorCode = "default Error"
 
 	maps, err := getSQLQueryResult(userName)
@@ -50,10 +50,10 @@ func GetUserInfo(userName string) (string, error) {
 	userData.UserName = userName
 	for i := range maps {
 		if name := maps[i]["user_name"].(string); name == userName {
-			userData.HeadShotURL = maps[i]["head_shot_url"].(string)
+			userData.HeadShotUrl = maps[i]["head_shot_url"].(string)
 		}
 	}
-	userInfo.UserData = *userData
+	userInfo.Data = userData
 
 	return jsonize(userInfo)
 }
@@ -102,8 +102,8 @@ where kuip.project_id in
 ON a.project_id=b.project_id`
 }
 
-func buildProjectsDataFrom(maps []orm.Params) *userData {
-	userData := new(userData)
+func buildProjectsDataFrom(maps []orm.Params) *UserData {
+	userData := &UserData{}
 	projectToIndex := make(map[string]int)
 	index := 0
 	for i := range maps {
@@ -112,22 +112,22 @@ func buildProjectsDataFrom(maps []orm.Params) *userData {
 			// 如果project name不存在, 那么添加这个projectName, 并且新建这个Project的信息
 			projectToIndex[projectName] = index
 			index++
-			var projectInfo project
+			projectInfo := &Project{}
 			projectInfo.ProjectName = projectName
 			projectInfo.ProjectUrl = maps[i]["project_url"].(string)
 			projectInfo.ProjectCoverUrl = maps[i]["project_cover_url"].(string)
-			userData.Projects = append(userData.Projects, projectInfo)
+			userData.ProjectList = append(userData.ProjectList, projectInfo)
 		}
-		var member userBase
+		member := &UserData{}
 		member.UserName = maps[i]["user_name"].(string)
-		member.HeadShotURL = maps[i]["head_shot_url"].(string)
+		member.HeadShotUrl = maps[i]["head_shot_url"].(string)
 		projectIndex := projectToIndex[projectName]
-		userData.Projects[projectIndex].Members = append(userData.Projects[projectIndex].Members, member)
+		userData.ProjectList[projectIndex].MemberList = append(userData.ProjectList[projectIndex].MemberList, member)
 	}
 	return userData
 }
 
-func jsonize(info userInfo) (string, error) {
+func jsonize(info UserInfo) (string, error) {
 	if res, err := json.Marshal(&info); err != nil {
 		fmt.Println(err.Error())
 		return fmt.Sprint(info), err

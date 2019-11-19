@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"Kcoin-Golang/src/models"
 	"encoding/json"
 	"fmt"
 
@@ -60,7 +61,7 @@ func (c *PersonalProjectsController) Get() {
 			defer c.Redirect("/login.html",302)
 		}
 	}
-	var user UserInfo
+	var user models.UserInfo
 	errorCode := json.Unmarshal([]byte(jsonBuf), &user)
 	user.Data.UserName = c.Ctx.GetCookie("userName")
 	user.Data.HeadShotUrl = c.Ctx.GetCookie("headShotUrl")
