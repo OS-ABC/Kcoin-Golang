@@ -24,7 +24,8 @@
     position: relative;
     width: 376px;
     left:35%;
-    height: 700px
+    height: 700px;
+    z-index: 1001;
 }
 
 .father-div {
@@ -33,3 +34,4 @@
     position: relative;
     text-align: center;
 }
+
