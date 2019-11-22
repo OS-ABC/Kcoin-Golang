@@ -52,3 +52,39 @@ a:link,a:visited,a:hover,a:active
     font-size: 30px;
     height: 60px;
 }
+.projectsetting{
+	float: left;
+	margin-top: 60px;
+	height: 100px;
+	
+}
+.projectsetting p1{
+	color: #A9AFB5;
+	margin-top: 110px;
+	margin-left: 20px;
+	font-size: 16px;
+	}
+.projectsetting p2{
+	padding-top: 10px;
+	margin-left: 20px;
+	color: #A9AFB5;
+	font-size: 16px;
+	}
+.upload-pjname {
+	font-size: 16px;
+	width: 1150px;
+	height: 35px;
+	border-radius: 5px;
+	outline: none;
+	border: 1px solid #B5B3B3;
+	margin-left: 20px;
+    }
+.upload-pjcover {
+	font-size: 16px;
+	width: 250px;
+	height: 23px;
+	border-radius: 10px;
+	outline: none;
+	border: 1px solid #B5B3B3;
+	margin-left: 20px;
+    }
