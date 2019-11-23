@@ -4,6 +4,7 @@ import (
 	"Kcoin-Golang/src/models"
 	"encoding/json"
 	"fmt"
+	"strconv"
 
 	"github.com/astaxie/beego"
 )
@@ -55,11 +56,11 @@ func (c *PersonalProjectsController) Get() {
         ]
     }
     }`
-	status:=c.Ctx.GetCookie("status")
+	status := c.Ctx.GetCookie("status")
 	{
-		c.Ctx.SetCookie("lastUri",c.Ctx.Request.RequestURI)
-		if status =="0"||status ==""{
-			defer c.Redirect("/login.html",302)
+		c.Ctx.SetCookie("lastUri", c.Ctx.Request.RequestURI)
+		if status == "0" || status == "" {
+			defer c.Redirect("/login.html", 302)
 		}
 	}
 	var user models.UserInfo
@@ -71,5 +72,6 @@ func (c *PersonalProjectsController) Get() {
 	}
 
 	c.Data["user"] = user
+	c.Data["memberList_len"] = strconv.Itoa(len(user.Data.ProjectList)) //个人项目数量
 	c.TplName = "personalProjects.html"
 }
