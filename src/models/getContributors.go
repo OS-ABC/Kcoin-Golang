@@ -52,9 +52,10 @@ func getContributors(userName string,programName string) string {
 	return cl
 }
 
-
-//使用实例：
-//func main() {
-//	var info =getContributors("OS-ABC","Kcoin-Golang")
-//	fmt.Println(info)
-//}
+func getNumOfContributors() int {
+	info := getContributors("OS-ABC","Kcoin-Golang")
+	res := strings.TrimSpace(info)
+	str_arr := strings.Split(res, " ")
+	count := len(str_arr)
+	return count
+}
