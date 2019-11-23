@@ -52,4 +52,17 @@ func getContributors(userName string,programName string) string {
 	return cl
 }
 
+//获取贡献者的人数
+func GetContributorNum(url string) int {
 
+	str1 := strings.Split(url, "https://github.com/")[1]
+	str2 := strings.Split(str1, "/")
+	user_Name := str2[0]
+	program_Name := str2[1]
+
+	info := getContributors(user_Name,program_Name)
+	res := strings.TrimSpace(info)
+	str_arr := strings.Split(res, " ")
+	count := len(str_arr)
+	return count
+}
