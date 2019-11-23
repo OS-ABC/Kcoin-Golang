@@ -18,14 +18,15 @@
         </script>
 
         <div class="mainInterface">
-            <div class="addprojbar">
-                <div style="padding-left: 40px; padding-top: 25px; float: left;">我的项目列表(2)</div>
+            <div class="navigation">
+                <a  class="first" id="manage" onclick="show_joined()">我参加的项目({{.memberList_len}})</a>
+                <a  id="join" onclick="show_managed()">我管理的项目({{.memberList_len}})</a>
                 <div style="padding-right: 30px; padding-top: 25px; float: right; font-size: 25px;">
                     <input type="button" style="width:125px; height:40px;" onclick="showPopup();" value="添加项目">
                 </div>
             </div>
 
-            <div class="container">
+            <div class="container" id="joined_projects">
                 <div class="container-child">
                     {{with .user}}
                     {{range .Data.ProjectList}}
@@ -43,6 +44,9 @@
                     {{end}}
                     {{end}}
                 </div>
+            </div> 
+            <div class="container" id="managed_projects">
+                <p>test管理项目</p>
             </div>  
         </div>
     </div>
@@ -63,7 +67,6 @@
 				<div id="myprojects">
 					<form>
 						<input class = "url_input" type="text" placeholder="快速导入: 请输入Github项目的URL">
-						<input class = "submit" type="submit" value="确&nbsp认">
 					</form>
 					<div id = "projectslist">
 						<p>

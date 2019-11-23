@@ -99,3 +99,21 @@ function showImg(input) {
     var url = window.URL.createObjectURL(file)
     document.getElemtById('upload_image').src=url
 }
+
+function show_joined(){   
+    var popUp = document.getElementById("joined_projects"); 
+    popUp.style.display = "block";
+    popUp = document.getElementById("managed_projects"); 
+    popUp.style.display = "none";
+    document.getElementById("join").style.backgroundColor = 'white';
+    document.getElementById("manage").style.backgroundColor = '#bfbfbf';
+}
+
+function show_managed(){
+    var popUp = document.getElementById("managed_projects"); 
+    popUp.style.display = "block";
+    popUp = document.getElementById("joined_projects"); 
+    popUp.style.display = "none";
+    document.getElementById("join").style.backgroundColor = '#bfbfbf';
+    document.getElementById("manage").style.backgroundColor = 'white';
+}
