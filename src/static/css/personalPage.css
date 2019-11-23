@@ -92,8 +92,8 @@ ul {
 }
 
 .token{
-    position: relative;
-    margin: 50px;
+    position: absolute;
+    margin-top: 200px;
     width: 900px;
     height: 150px;
 }
@@ -105,3 +105,67 @@ ul {
     height: 60px;
     text-align: center;
 }
+
+.sermore{
+    margin-left: 550px;
+    font-weight: 500;
+    font-size: 18px;
+    color: #c00;    
+}
+
+.customers
+{
+	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+	width:120%;
+    border-collapse:collapse;
+    margin-top: 20px;
+}
+.customers td, .customers th 
+{
+	font-size:1em;
+	border:0px solid #ffffff;
+	padding:3px 7px 2px 7px;
+}
+.customers th 
+{
+	font-size:1em;
+	text-align:left;
+	padding-top:5px;
+	padding-bottom:4px;
+	background-color:#FFFFFF;
+	
+}
+.customers tr.alt td 
+{
+	color:#000000;
+	background-color:#e2e0e0;
+}
+
+ul.pagination {
+    position: absolute;
+    display: inline-block;
+    padding: 0;
+    margin: 10px;
+    margin-top: 80px;
+    
+}
+
+ul.pagination li {display: inline;}
+
+ul.pagination li a {
+    color: black;
+    float: left;
+    padding: 3px 6px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+    margin: 0 4px;
+}
+
+ul.pagination li a.active {
+    background-color: rgb(176, 225, 248);
+    color: white;
+    border: 1px solid rgb(176, 225, 248);
+}
+
+ul.pagination li a:hover:not(.active) {background-color: #ddd;}
