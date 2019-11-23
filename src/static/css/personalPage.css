@@ -87,7 +87,7 @@ ul {
 .record{
     position: relative;
     margin: 50px;
-    width: 120%;
+    width: 900px;
     height: 150px;
 }
 
@@ -109,15 +109,16 @@ ul {
 .sermore{
     margin-left: 550px;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 18px;
     color: #c00;    
 }
 
 .customers
 {
 	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
-	width:90%;
-	border-collapse:collapse;
+	width:120%;
+    border-collapse:collapse;
+    margin-top: 20px;
 }
 .customers td, .customers th 
 {
@@ -141,9 +142,11 @@ ul {
 }
 
 ul.pagination {
+    position: absolute;
     display: inline-block;
     padding: 0;
     margin: 10px;
+    margin-top: 80px;
     
 }
 
