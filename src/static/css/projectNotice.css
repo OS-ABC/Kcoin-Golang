@@ -4,34 +4,39 @@ body {
 }
 
 .container {
-    height: 60%;
     width: 1200px;
     padding-left: 150px;
     padding-top: 150px;
-    /* background-color: #dddddd; */
     font-size: 20px;
 
 }
 
-.yearNode {
-
+.yearNode {         /*表示年份的结点*/
+    width: 80px;
+    height: 30px;
+    border-radius: 15px;    /*给矩形增加圆角*/
+    background-color: #ff7070;
+    position: relative;
+    left: -45px;
+    top: 30px;
+    text-align: center;
+    margin-bottom: 100px; 
 }
 
-/*纵向时间轴*/
+
 .time-vertical {
     list-style-type: none;
-    border-left: 10px solid #ff7070;
+    border-left: 10px solid #ff7070;/*左侧边界，显示效果为纵向的时间线*/ 
     margin-left: 10px;
     padding: 0px;
-    height: 400px;
 }
  
-.time-vertical li {
+.time-vertical div {
     height: 100px;
     position: relative;
 }
  
-.time-vertical li a {
+.time-vertical div a {
     display: inline-block;
     margin-left: 20px;
     margin-top: 15px;
@@ -39,7 +44,7 @@ body {
     color: #000;
 }
  
-.time-vertical li b:before {
+.time-vertical div b:before {
     content: '';
     position: absolute;
     top: 15px;
@@ -52,7 +57,7 @@ body {
     vertical-align: middle;
 }
  
-.time-vertical li span {
+.time-vertical div span {
     position: absolute;
     color: #ff5050;
     top: 18px;
