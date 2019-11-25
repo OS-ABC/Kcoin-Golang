@@ -4,6 +4,7 @@ import (
 	"Kcoin-Golang/src/models"
 	"encoding/json"
 	"fmt"
+	"log"
 	"strconv"
 
 	"github.com/astaxie/beego"
@@ -83,15 +84,12 @@ func (c *PersonalProjectsController) Post() {
 	c.Data["test_projectName"] = U.ProjectName
 	c.Data["test_projectUrl"] = U.ProjectUrl
 
-	/*
-		f, h, err := c.GetFile("uploadname")
-		if err != nil {
-			log.Fatal("getfile err ", err)
-		}
-		defer f.Close()
-		c.SaveToFile("uploadname", "static/upload/"+h.Filename) // 保存位置在 static/upload, 没有文件夹要先创建
-		c.Data["filename"] = h.Filename
-	*/
+	f, h, err := c.GetFile("uploadname")
+	if err != nil {
+		log.Fatal("getfile err ", err)
+	}
+	defer f.Close()
+	c.Data["test_filename"] = h.Filename
 
 	c.TplName = "personalProjects.html"
 
