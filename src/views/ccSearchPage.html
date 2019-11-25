@@ -20,37 +20,16 @@
         </script>
         <!--右边界面背景色的设置在css中mainInterface里-->
         <div class="mainInterface">
-            <div class="money">
-                <img src="../static/img/kcoin-project-list-half-icon.png" width="150" height="150" style="position: absolute;"/>
-                Kcoin<br />
-                100,000
-            </div>
             <div class="record">
                 Kcoin记录
-                <a class="sermore" href="./ccsearchpage">查看更多</a>
                 <table class="customers">
+                    <!--现在使用自定义的数据测试，后续实现从数据库中读取并实现按照读取数据自动分页-->
                     <tr class="alt">
                         <th>日期</th>
                         <th>操作类型</th>
                         <th>cc数量</th>
                     </tr>
-                    <!--之后从数据库读取cc的操作数据-->
                     <tr>
-                        <th>11.19</th>
-                        <th>sell</th>
-                        <th>-1000</th>
-                    </tr>
-                    <tr>
-                        <th>11.20</th>
-                        <th>buy</th>
-                        <th>5000</th>
-                    </tr>
-                    <tr>
-                        <th>11.21</th>
-                        <th>sell</th>
-                        <th>-1500</th>
-                    </tr>
-                    <!--<tr>
                     {{with .user.Data}}
                     {{range .UserCcOpeList}}
                         <td>{{.OpeCcDate}}</td>
@@ -59,11 +38,14 @@
                     </tr>
                     {{end}}
                     {{end}}
-                    -->
-            </div>
-            </div>
-            <div class="token">
-                项目token记录
+                </table>         
+                <body>
+                    <ul class="pagination">
+                      <li><a href="#">«</a></li>
+                      <li><a class="active" href="#">1</a></li>
+                      <li><a href="#">»</a></li>
+                    </ul>                 
+                </body>
             </div>
         </div>
     </div>
