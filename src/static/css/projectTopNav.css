@@ -69,3 +69,19 @@ a:link,a:visited,a:hover,a:active
     font-size: 30px;
     height: 60px;
 }
+
+.topNavLogo{
+    float: left;
+    width: 60px;
+    height: 60px;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 10px;
+}
+
+.topNavName{
+    float: left;
+    line-height: 70px;
+    font-size: 28px;
+    color: aliceblue;
+}
