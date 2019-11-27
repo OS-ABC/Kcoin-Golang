@@ -11,5 +11,7 @@ type ProjectNoticeController struct {
 }
 
 func (c *ProjectNoticeController) Get() {
+	id := c.Ctx.Input.Param(":id")
+	c.Data["id"] = id
 	c.TplName = "projectNotice.html"		//该controller对应的页面
 }
