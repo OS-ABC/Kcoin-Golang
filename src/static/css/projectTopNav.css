@@ -37,6 +37,23 @@ a:link,a:visited,a:hover,a:active
     margin-top: 30px;
     color: #323a45;
 }
+
+.navigation > .invest{
+    position: absolute;
+    right: 150px;
+    top: 50px;
+    width: 100px;
+    height: 50px;
+    text-align: center;
+    background-color: rgb(56, 212, 69);
+    border-radius: 20px;
+    font-size: 25px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+
 .navigation > .first {
     margin-left: 250px;
 
@@ -51,4 +68,20 @@ a:link,a:visited,a:hover,a:active
     border-radius: 10px;
     font-size: 30px;
     height: 60px;
+}
+
+.topNavLogo{
+    float: left;
+    width: 60px;
+    height: 60px;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 10px;
+}
+
+.topNavName{
+    float: left;
+    line-height: 70px;
+    font-size: 28px;
+    color: aliceblue;
 }
