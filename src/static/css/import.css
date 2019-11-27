@@ -157,6 +157,18 @@ button.next{
 	color:white;
 	float:right;
 }
+button.confirm{
+	border-style: ridge;
+	border-radius: 5px;
+	font-size: 110%;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	margin-left: 15px;
+	background-color: #ff5b5d;
+	color:white;
+	float:right;
+	display: none;
+}
 
 #myprojects{
 	display: block;
