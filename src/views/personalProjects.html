@@ -18,14 +18,15 @@
         </script>
 
         <div class="mainInterface">
-            <div class="addprojbar">
-                <div style="padding-left: 40px; padding-top: 25px; float: left;">我的项目列表(2)</div>
+            <div class="navigation">
+                <a  class="first" id="manage" onclick="show_joined()">我参加的项目({{.memberList_len}})</a>
+                <a  id="join" onclick="show_managed()">我管理的项目({{.memberList_len}})</a>
                 <div style="padding-right: 30px; padding-top: 25px; float: right; font-size: 25px;">
                     <input type="button" style="width:125px; height:40px;" onclick="showPopup();" value="添加项目">
                 </div>
             </div>
 
-            <div class="container">
+            <div class="container" id="joined_projects">
                 <div class="container-child">
                     {{with .user}}
                     {{range .Data.ProjectList}}
@@ -43,6 +44,12 @@
                     {{end}}
                     {{end}}
                 </div>
+            </div> 
+            <div class="container" id="managed_projects">
+                <p>test</p>
+                <p>{{.test_projectUrl}}</p>
+                <p>{{.test_projectName}}</p>
+                <p>{{.test_filename}}</p>
             </div>  
         </div>
     </div>
@@ -60,47 +67,43 @@
 				<li id="step3">初始分配</li>
 			</ul>
 			<div class="content">
-				<div id="myprojects">
-					<form>
-						<input class = "url_input" type="text" placeholder="快速导入: 请输入Github项目的URL">
-						<input class = "submit" type="submit" value="确&nbsp认">
-					</form>
-					<div id = "projectslist">
-						<p>
-							<img class = "profile" src={{.user.Data.HeadShotUrl}} alt="profile" align="top">&nbsp
-							<span id="username">{{.user.Data.UserName}}</span>&nbsp
-							<span id ="userprojects">({{.memberList_len}}个项目)</span>
-						</p>
-						
-						<ul class="projects">
-							{{with .user.Data}}
-							{{range .ProjectList}}
-								<li>{{.ProjectName}}</li>
-							{{end}}
-							{{end}}
-						</ul>
-					</div>
-				</div>
-				<div id="init_message">
-					<p>初始信息页面</p>
-				</div>
-				<div id="config_project">
-					<p>&nbsp</p>
-					<p>1. 填写项目名称</p>
-					<form>
-						<input class = "projectname" type="text">
-					</form>
-					<p>2. 上传项目封面（选填，但只能添加不大于2M的图片）</p>
-					<a href="javascript:;" class="upload">选择文件
-						<input class="change" id="upload_image" type="file" accept=".jpg, .png" onchange="showImg(this)"/>
-					</a>
-                </div>
-                <div id="next_back">
-                    <form>
+                <form id="models.Project"  enctype="multipart/form-data" action="/personalprojects" method="post">
+                    <div id="myprojects">
+                        <input class = "url_input" name = "ProjectUrl" type="text" placeholder="快速导入: 请输入Github项目的URL">
+                        <div id = "projectslist">
+                            <p>
+                                <img class = "profile" src={{.user.Data.HeadShotUrl}} alt="profile" align="top">&nbsp
+                                <span id="username">{{.user.Data.UserName}}</span>&nbsp
+                                <span id ="userprojects">({{.memberList_len}}个项目)</span>
+                            </p>
+                            
+                            <ul class="projects">
+                                {{with .user.Data}}
+                                {{range .ProjectList}}
+                                    <li>{{.ProjectName}}</li>
+                                {{end}}
+                                {{end}}
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="init_message">
+                        <p>test</p>
+                    </div>
+                    <div id="config_project">
+                        <p>&nbsp</p>
+                        <p>1. 填写项目名称</p>
+                        <input class = "projectname" name = "ProjectName" type="text">
+                        <p>2. 上传项目封面（选填，但只能添加不大于2M的图片）</p>
+                        <a href="javascript:;" class="upload">选择文件
+                            <input class="change" id="upload_image" name = "uploadname" type="file" accept=".jpg, .png" onchange="showImg(this)"/>
+                        </a>
+                    </div>
+                    <div id="next_back">                    
                         <button class = "next" id="btnNextStep" type="button" onclick="next_step()">下一步</button>
+                        <button class = "confirm" id="btnconfirm" type="submit">&nbsp确&nbsp&nbsp定&nbsp</button>
                         <button class = "back" id="btnBackStep" type="button" onclick="back_step()">前一步</button>
-                    </form>
-                </div>
+                    </div>
+                </form>
 			</div>
         </div>
     </div>

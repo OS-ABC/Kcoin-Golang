@@ -9,5 +9,7 @@ type ProjectInfoController struct {
 }
 
 func (c *ProjectInfoController) Get() {
+	id := c.Ctx.Input.Param(":id")
+	c.Data["id"] = id
 	c.TplName = "projectInfo.html"
 }
