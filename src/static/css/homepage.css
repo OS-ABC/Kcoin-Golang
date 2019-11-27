@@ -4,20 +4,6 @@
 body {
 	margin: 0;
 }
-
-a:link,a:visited,a:active
-{
-    color: #1B1B1B;
-    text-decoration:none;
-}
-
-a:hover{
-	color: #1B1B1B;
-	text-decoration:none;
-	border: 2px;
-	border-color: blue;
-}
-
 .header {
 	background-size: cover;
 	background-image: url("../img/bg2.png");
@@ -83,7 +69,8 @@ a:hover{
 	width: 120px;
 	font-size: 28px;
 	text-decoration: none;
-	text-align: center;
+    text-align: right;
+    padding-right: 20px;
 }
 .head > .login-bt {
 	position: relative;

@@ -15,6 +15,14 @@
 				<a class="login-bt" href="login.html">登录</a>
 			{{end}}
 			<a class="head-bt" href="#container">项目列表</a>
+
+
+			{{if .isPlatformAdmin}}
+				<a class="head-bt" href="./projectfunding">平台管理</a>
+			{{else}}
+				<!--不是平台管理员，不显示平台管理按钮-->
+			{{end}}
+			
 			<a class="head-bt" href="javascript:location.reload();">首页</a>
 		</div>
 		<div class="title">
@@ -33,7 +41,6 @@
 		<div class="container-child">
             {{with .Projects}}
             {{range .Data}}
-			<a href="./projectInfo/{{.ProjectName}}">
 			<div class="project">
 				<img class="project-cover" alt="project" src="{{.ProjectCoverUrl}}"/>
 				<div class="project-name">{{.ProjectName}} </div>
@@ -45,7 +52,6 @@
 
                 {{end}}
 			</div>
-			</a>
             {{end}}
             {{end}}
 		</div>
