@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8" />
+    <title>项目信息</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/projectFunding.css"/>
+</head>
+
+<body>
+
+    {{template "./projectTopNav.html" .}}
+
+    <script type="text/javascript">
+        document.getElementById("proj-notice").style.backgroundColor = 'white';
+    </script>
+
+    <div class="record">
+        <table class="customers">
+            <!--现在使用自定义的数据测试，后续实现从数据库中读取并实现按照读取数据自动分页-->
+            <tr>
+                <th>日期</th>
+                <th>注资项目</th>
+                <th>cc数量</th>
+            </tr>
+            <div>
+                <tr>
+                    <td>11.22</td>
+                    <td>Sonorous77/Robot</td>
+                    <td>2000</td>
+                </tr>
+                <tr>
+                    <td>11.22</td>
+                    <td>Sonorous77/Weather forecast</td>
+                    <td>3000</td>
+                </tr>
+                <tr>
+                    <td>11.23</td>
+                    <td>OS-ABC/HelloWorld</td>
+                    <td>5000</td>
+                </tr>
+                <tr>
+                    <td>11.24</td>
+                    <td>Sonorous77/Robot</td>
+                    <td>5000</td>
+                </tr>
+                <tr>
+                    <td>11.24</td>
+                    <td>OS-ABC/HelloWorld</td>
+                    <td>2000</td>
+                </tr>
+                <tr>
+                    <td>11.25</td>
+                    <td>OS-ABC/HelloWorld</td>
+                    <td>6000</td>
+                </tr>
+            </div>
+        </table>         
+    </div>
+
+    {{template "./footer.html" .}}
+</body>
