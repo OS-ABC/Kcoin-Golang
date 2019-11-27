@@ -7,7 +7,7 @@
 </head>
 <body>
     <div class="head">
-        <a href="./homepage">
+        <a href="/homepage">
             <img class="topNavLogo" src="../static/img/kcoin-logo-blue.png"/>
             <div class="topNavName">KCOIN</div>
         </a>
@@ -15,11 +15,11 @@
     <div class="navigation">
         <img src="../static/img/projectbg.png">
         <button type="button" class="invest" onclick="">投资</button>
-        <div class="prj-name">KCoin</div>
-        <a class="first" id="prj-info" href="./projectInfo">项目详情</a>
-        <a id="proj-notice" href="./projectNotice">项目动态</a>
-        <a id="prj-mem" href="./projectMemberList">项目成员</a>
-        <a id="prj-set" href="./projectSetting">项目设置</a>
+        <div class="prj-name">{{.id}}</div>
+        <a class="first" id="prj-info" href="/projectInfo/{{.id}}">项目详情</a>
+        <a id="proj-notice" href="/projectNotice/{{.id}}">项目动态</a>
+        <a id="prj-mem" href="/projectMemberList/{{.id}}">项目成员</a>
+        <a id="prj-set" href="/projectSetting/{{.id}}">项目设置</a>
     </div>
 </body>
 </html>
