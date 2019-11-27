@@ -156,3 +156,31 @@ ul.projects{
     background-color:#edf0f5;
     padding: 5px;
 }
+
+#managed_projects{
+    display: none;
+}
+
+/* 参加项目和管理项目头部 */
+a:link,a:visited,a:hover,a:active
+{
+    color: #1B1B1B;
+    text-decoration:none;
+}
+
+.navigation > .first {
+    margin-left: 40px;
+    background-color:#bfbfbf;
+}
+.navigation > a {
+    float: left;
+    margin-top: 20px;
+    margin-left: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    border-radius: 10px;
+    font-size: 30px;
+    height: 60px;
+}
+

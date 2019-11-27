@@ -33,6 +33,7 @@
 		<div class="container-child">
             {{with .Projects}}
             {{range .Data}}
+			<a href="./projectInfo/{{.ProjectName}}">
 			<div class="project">
 				<img class="project-cover" alt="project" src="{{.ProjectCoverUrl}}"/>
 				<div class="project-name">{{.ProjectName}} </div>
@@ -44,6 +45,7 @@
 
                 {{end}}
 			</div>
+			</a>
             {{end}}
             {{end}}
 		</div>
