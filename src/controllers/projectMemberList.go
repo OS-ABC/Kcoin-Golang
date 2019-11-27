@@ -11,6 +11,7 @@ type ProjectMemberListController struct {
 }
 
 func (c *ProjectMemberListController) Get() {
-
+	id := c.Ctx.Input.Param(":id")
+	c.Data["id"] = id
 	c.TplName = "projectMemberList.html" //该controller对应的页面
 }
