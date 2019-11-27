@@ -1,0 +1,134 @@
+.topNavLogo{
+    float: left;
+    width: 60px;
+    height: 60px;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 10px;
+}
+.topNavName{
+    float: left;
+    line-height: 70px;
+    font-size: 28px;
+    color: aliceblue;
+}
+.head {
+    position: relative;
+    height: 70px;
+    background-color: #333333;
+}
+.container {
+    width: 100%;
+    font-size: 0;
+}
+.container-child {
+    margin: auto;
+    width: 1250px;
+}
+.project {
+    display: inline-block;
+    margin-top: 40px;
+    margin-left: 15px;
+    margin-right: 15px;
+    width: 220px;
+    background: #F8F8FD;
+}
+.project > .project-cover {
+    width: 100%;
+    height: auto;
+}
+.project > .project-name {
+    text-align: left;
+    font-weight: 1000;
+    font-size: 30px;
+    padding-left: 10px;
+}
+.project > .introduction {
+    text-align: left;
+    font-size: 20px;
+    padding-left: 20px;
+}
+.project > .CC {
+    color: #FFCC33;
+    font-size: 20px;
+    text-align: left;
+    padding-left: 20px;
+}
+.head_shot {
+    padding-left: 15px;
+    height: 50px;
+    float: left;
+}
+
+.main{
+    width:500px;
+    margin: auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.content{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#injection{
+    position:absolute;
+    left:0px;
+    top:0px;
+    /*width:300px; */
+    min-height:700px;
+}
+input[type="text"]{
+    border: 2px solid #ccc;
+    padding: 6px 0px;
+    border-radius: 10px;
+    padding-left:20px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s
+}
+input:focus{
+    border-color: #3052e9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)
+}
+
+input[type="button"] {
+    position: relative;
+    display: inline-block;
+    background: #D0EEFF;
+    border: 1px solid #99D3F5;
+    border-radius: 4px;
+    padding: 4px 12px;
+    overflow: hidden;
+    color: #3052e9;
+    text-decoration: none;
+    text-indent: 0;
+    line-height: 20px;
+}
+#commit{
+    border-style: ridge;
+    border-radius: 5px;
+    font-size: 110%;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    margin-left: 15px;
+    background-color: #ff5b5d;
+    color: white;
+
+}
+#cancel{
+    border-style: ridge;
+    border-radius: 5px;
+    font-size: 110%;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    margin-left: 15px;
+    background-color: white;
+    color:#ff5b5d;
+
+}

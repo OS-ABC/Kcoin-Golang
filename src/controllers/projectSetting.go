@@ -6,12 +6,12 @@ import (
 	"github.com/astaxie/beego"
 )
 
-type ProjectMemberListController struct {
+type ProjectSettingController struct {
 	beego.Controller
 }
 
-func (c *ProjectMemberListController) Get() {
+func (c *ProjectSettingController) Get() {
 	id := c.Ctx.Input.Param(":id")
 	c.Data["id"] = id
-	c.TplName = "projectMemberList.html" //该controller对应的页面
+	c.TplName = "projectSetting.html" //该controller对应的页面
 }

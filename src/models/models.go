@@ -21,6 +21,15 @@ type ProjectInfo struct {
 	Data  []*Project `json:"data"`
 }
 
+//ccSearchPage
+/*UserCcData:为ccSearchPage的主要结构体，包括kcoin记录中的cc操作日期，操作类型和cc的数量
+ */
+ type UserCcOpe struct{
+	OpeCcDate 	string	 `json:"opeCcDate"`
+	OpeCcType	string	 `json:"opeCcType"`
+	OpeCcNumber	string	 `json:"opeCcNumber"`
+}
+
 //homepage import
 /*UserData:为personalpage和projectpage的主要结构体，定义了用户姓名、用户头像url、项目列表
  */
@@ -29,6 +38,7 @@ type UserData struct {
 	UserName    string    `json:"userName"`
 	HeadShotUrl string    `json:"headshotUrl"`
 	ProjectList []*Project `json:"projectList"`
+	UserCcOpeList []*UserCcOpe `json:"userCcOpeList"`
 }
 
 //import personPage
