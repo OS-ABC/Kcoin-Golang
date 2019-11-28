@@ -23,4 +23,5 @@ func init() {
 	beego.Router("/ccsearchpage/?:id", &controllers.CcSearchPageController{})
 	beego.Router("/capitalInjection", &controllers.CapitalInjectionController{})
 	beego.Router("/projectfunding", &controllers.ProjectFundingController{})
+	beego.Router("/platformInformation", &controllers.PlatformInformationController{})
 }
