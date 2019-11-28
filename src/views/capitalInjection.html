@@ -12,12 +12,7 @@
 
 <body onload="hidePopup();">
 
-<div class="head">
-    <a href="/homepage">
-        <img class="topNavLogo" src="../static/img/kcoin-logo-blue.png"/>
-        <div class="topNavName">KCOIN</div>
-    </a>
-</div>
+    {{template "./platformAdminTopNav.html" .}}
     <div class="container" id="container">
         <script type="text/javascript">
             document.getElementById("personalProjectsLink").style.backgroundColor = 'white';
