@@ -15,6 +15,9 @@ func (c *HomePageController) Get() {
     //从cookie中取出状态
     isLogin :=c.Ctx.GetCookie("status")
 
+    //暂时用假数据代替
+    isPlatformAdmin := "1"
+
     //把Json字符串中的数据解析到结构体中
     var proj models.ProjectInfo
     projectBuf , _ := models.GetAllProjectsInfo()
@@ -26,6 +29,13 @@ func (c *HomePageController) Get() {
 
     //把结构体传到模板当中
     c.Data["Projects"] = proj
+
+    //判断当前用户是不是平台管理员
+    if isPlatformAdmin == "1" {
+        c.Data["isPlatformAdmin"] = true
+    } else {
+        c.Data["isPlatformAdmin"] = false
+    }
 
     //判断当前登录状态
     if isLogin == "1"{
