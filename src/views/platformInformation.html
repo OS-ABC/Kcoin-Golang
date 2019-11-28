@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>平台信息</title>
+    <style>
+        .pltinfo-container {
+            margin: auto;
+            width: 1200px;
+            font-size: 0;
+        }
+        .pltinfo-card {
+			display: inline-block;
+			vertical-align: top;
+			border: 2px solid #52B1EC;
+			border-radius: 10px;
+			width: 500px;
+			height: 500px;
+			margin-top: 70px;
+			margin-left: 46px;
+			margin-right: 46px;
+        }
+        .card-head {
+			height: 70px;
+			background-color: #ACDCFA;
+        }
+        .card-title {
+			display: inline-block;
+			vertical-align: bottom;
+			font-size: 25px;
+			color: #3B43F4;
+			height: 70px;
+			line-height: 70px;
+			text-align: center;
+			margin-left: 20px;
+        }
+        .card-value {
+			display: inline-block;
+			vertical-align: bottom;
+			font-size: 25px;
+			font-weight: bold;
+			color: #5DCBED;
+			height: 370px;
+			width: 500px;
+			line-height: 70px;
+			text-align: center;
+			
+        }
+		 .card-value p{
+			display: inline-block;
+			vertical-align: bottom;
+			font-size: 25px;
+			font-weight: bold;
+			color: #5DCBED;
+			height: 70px;
+			width: 150px;
+			line-height: 70px;
+			text-align: center;
+			margin-left: 30px;
+        }
+        .record-label {
+			font-size: 15px;
+			text-align: center;
+			color: #1B82EB;
+			width: 100px;
+			height: 30px;
+			line-height: 30px;
+			margin: -15px auto;
+			background-color: #41F2FD;
+			border-radius: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    {{template "./platformAdminTopNav.html" .}}
+    <script type="text/javascript">
+        document.getElementById("platform-information").style.backgroundColor = 'white';
+    </script>
+
+    <div class="pltinfo-container">
+        <div class="pltinfo-card">
+            <div class="card-head">
+				<div class="card-title">平台拥有的CC数</div>   
+            <div class="record-label">CC记录</div>
+			<div class="card-value">
+				<p>日期</p>  <p> 数量</p>
+				<p>11.23</p>  <p> +1000</p>
+				<p>11.25</p>  <p> +2000</p></div>
+            </div>
+        </div>
+        <div class="pltinfo-card">
+            <div class="card-head">
+                <div class="card-title">托管在平台的项目总数</div>
+            </div>
+            <div class="record-label">项目记录</div>
+			<div class="card-value">
+				<p>日期</p>  <p> 数量</p>
+			    <p>11.23</p>  <p> +2</p>
+			    <p>11.25</p>  <p> +1</p></div>
+        </div>
+    </div>
+    {{template "./footer.html" .}}
+</body>
+</html>
