@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>HomePage</title>
-	<link rel="stylesheet" type="text/css" href="../static/css/homepage.css"/>
+	<link rel="stylesheet" type="text/css" href="/static/css/homepage.css"/>
 </head>
 
 <body>
@@ -41,7 +41,7 @@
 		<div class="container-child">
             {{with .Projects}}
             {{range .Data}}
-			<a href="./projectInfo/{{.ProjectName}}">
+			<a href="/project/{{.ProjectName}}/info">
 			<div class="project">
 				<img class="project-cover" alt="project" src="{{.ProjectCoverUrl}}"/>
 				<div class="project-name">{{.ProjectName}} </div>
