@@ -78,11 +78,10 @@
                             </p>
                             
                             <ul class="projects">
-                                {{with .user.Data}}
-                                {{range .ProjectList}}
+                                {{range .repos.Data}}
                                     <li>{{.ProjectName}}</li>
                                 {{end}}
-                                {{end}}
+
                             </ul>
                         </div>
                     </div>
