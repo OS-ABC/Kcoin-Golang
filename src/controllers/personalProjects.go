@@ -96,47 +96,50 @@ func (c *PersonalProjectsController) Post() {
 }
 
 func (c *PersonalProjectsController) Get() {
-	jsonBuf :=
-		`{
-"errorCode": "0",
-"data": {
-"userName": "Cyan",
-"headshotUrl": "../static/img/tx1.png",
-"projectList":
-[
-    {
-        "projectName": "天气预报1",
-        "projectCoverUrl": "../static/img/projectbg.png",
-        "projectUrl": "",
-        "memberList": [
-            {
-                "userName": "Tony",
-                "headshotUrl": "../static/img/tx2.png"
-            },
-            {
-                "userName": "Tony",
-                "headshotUrl": "../static/img/tx1.png"
-            }
-        ]
-    },
-    {
-        "projectName": "天气预报2",
-        "projectCoverUrl": "../static/img/projectbg.png",
-        "projectUrl": "",
-        "memberList": [
-            {
-                "userName": "Joy",
-                "headshotUrl": "../static/img/tx1.png"
-            },
-            {
-                "userName": "Tony",
-                "headshotUrl": "../static/img/tx2.png"
-            }
-        ]
-    }
-]
-}
-}`
+//	jsonBuf :=
+//		`{
+//"errorCode": "0",
+//"data": {
+//"userName": "Cyan",
+//"headshotUrl": "../static/img/tx1.png",
+//"projectList":
+//[
+//    {
+//        "projectName": "天气预报1",
+//        "projectCoverUrl": "../static/img/projectbg.png",
+//        "projectUrl": "",
+//        "memberList": [
+//            {
+//                "userName": "Tony",
+//                "headshotUrl": "../static/img/tx2.png"
+//            },
+//            {
+//                "userName": "Tony",
+//                "headshotUrl": "../static/img/tx1.png"
+//            }
+//        ]
+//    },
+//    {
+//        "projectName": "天气预报2",
+//        "projectCoverUrl": "../static/img/projectbg.png",
+//        "projectUrl": "",
+//        "memberList": [
+//            {
+//                "userName": "Joy",
+//                "headshotUrl": "../static/img/tx1.png"
+//            },
+//            {
+//                "userName": "Tony",
+//                "headshotUrl": "../static/img/tx2.png"
+//            }
+//        ]
+//    }
+//]
+//}
+//}`
+	name := c.Ctx.GetCookie("userName")
+	userBuf , _ := models.GetUserInfo(name)
+	projectBuf , _ := models.GetGithubRepos(name)
 
 	status := c.Ctx.GetCookie("status")
 	{
@@ -146,14 +149,19 @@ func (c *PersonalProjectsController) Get() {
 		}
 	}
 	var user models.UserInfo
-	errorCode := json.Unmarshal([]byte(jsonBuf), &user)
-	user.Data.UserName = c.Ctx.GetCookie("userName")
-	user.Data.HeadShotUrl = c.Ctx.GetCookie("headShotUrl")
+	var projects models.ProjectInfo
+	errorCode := json.Unmarshal([]byte(userBuf), &user)
+	errorCode2 := json.Unmarshal([]byte(projectBuf),&projects)
+
 	if errorCode != nil {
+		fmt.Println("Oops, there is an error:( please keep debugging.", errorCode.Error())
+	}
+	if errorCode2 != nil {
 		fmt.Println("Oops, there is an error:( please keep debugging.", errorCode.Error())
 	}
 
 	c.Data["user"] = user
-	c.Data["memberList_len"] = strconv.Itoa(len(user.Data.ProjectList)) //个人项目数量
+	c.Data["repos"] = projects
+	c.Data["memberList_len"] = strconv.Itoa(len(projects.Data)) //个人项目数量
 	c.TplName = "personalProjects.html"
 }
