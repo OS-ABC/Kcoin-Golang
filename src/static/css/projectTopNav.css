@@ -54,6 +54,15 @@ a:link,a:visited,a:hover,a:active
 }
 
 
+.navigation > .starNum{
+    position:absolute;
+    right: 300px;
+    top: 60px;
+    font-size: 20px;
+    
+}
+
+
 .navigation > .first {
     margin-left: 250px;
 

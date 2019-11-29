@@ -15,7 +15,8 @@
     <div class="navigation">
         <img src="/static/img/projectbg.png">
         <button type="button" class="invest" onclick="">投资</button>
-        <div class="prj-name">{{.id}}</div>
+        <div class="prj-name">{{.id}} </div>
+        <div class="starNum">stars: {{.starNum}} contributors: {{.contributorsNum}}</div>
         <a class="first" id="prj-info" href="/project/{{.id}}/info">项目详情</a>
         <a id="proj-notice" href="/project/{{.id}}/notice">项目动态</a>
         <a id="prj-mem" href="/project/{{.id}}/memberList">项目成员</a>
