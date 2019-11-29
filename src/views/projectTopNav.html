@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Kcoin</title>
-    <link rel="stylesheet" type="text/css" href="../static/css/projectTopNav.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/projectTopNav.css"/>
 </head>
 <body>
     <div class="head">
         <a href="/homepage">
-            <img class="topNavLogo" src="../static/img/kcoin-logo-blue.png"/>
+            <img class="topNavLogo" src="/static/img/kcoin-logo-blue.png"/>
             <div class="topNavName">KCOIN</div>
         </a>
     </div>
     <div class="navigation">
-        <img src="../static/img/projectbg.png">
+        <img src="/static/img/projectbg.png">
         <button type="button" class="invest" onclick="">投资</button>
         <div class="prj-name">{{.id}}</div>
-        <a class="first" id="prj-info" href="/projectInfo/{{.id}}">项目详情</a>
-        <a id="proj-notice" href="/projectNotice/{{.id}}">项目动态</a>
-        <a id="prj-mem" href="/projectMemberList/{{.id}}">项目成员</a>
-        <a id="prj-set" href="/projectSetting/{{.id}}">项目设置</a>
+        <a class="first" id="prj-info" href="/project/{{.id}}/info">项目详情</a>
+        <a id="proj-notice" href="/project/{{.id}}/notice">项目动态</a>
+        <a id="prj-mem" href="/project/{{.id}}/memberList">项目成员</a>
+        <a id="prj-set" href="/project/{{.id}}/setting">项目设置</a>
     </div>
 </body>
 </html>
