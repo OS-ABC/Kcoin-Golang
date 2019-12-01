@@ -112,3 +112,9 @@ function show_managed(){
     document.getElementById("join").style.backgroundColor = '#bfbfbf';
     document.getElementById("manage").style.backgroundColor = 'white';
 }
+
+function setUrl(url) {
+    var projectUrl = document.getElementById("projectUrl");
+    projectUrl.value = url;
+    next_step();
+}
