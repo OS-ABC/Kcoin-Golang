@@ -5,14 +5,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"strconv"
+
 	"github.com/astaxie/beego"
 )
 
 type ImportController struct {
 	beego.Controller
 }
-
-var memberList_len int //获取用户github中项目数量
 
 func (c *ImportController) Get() {
 	jsonBuf :=
