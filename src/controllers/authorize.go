@@ -9,6 +9,11 @@ import (
 type AuthoController struct {
 	beego.Controller
 }
+func SetProjectsDescription(string projecturl,string description) (error errorcode) {
+updatesql := UPDATE K_Project SET project_url = 'projecturl',project_description = 'description' WHERE id = 4
+_,error := o.Raw(updatesql,projecturl , description).Exec()
+return error
+}
 
 func (c *AuthoController) Get() {
 	var code string = c.GetString("code")
