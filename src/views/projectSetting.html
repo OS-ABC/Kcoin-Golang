@@ -21,7 +21,12 @@
 	}
 .projectsetting p2{
 	display:block;
-	margin-top: 50px;
+	margin-left: 20px;
+	color: #A9AFB5;
+	font-size: 16px;
+	}
+	.projectsetting p3{
+	display:block;
 	margin-left: 20px;
 	color: #A9AFB5;
 	font-size: 16px;
@@ -46,7 +51,18 @@
     padding:10px;
     border-radius: 10px;
     color: #27D5F5;
-    }
+	}
+	
+	textarea.projectintro{
+	border-style: ridge;
+	border-radius: 5px;
+	padding: 5px;
+	color:gray;
+	font-size: 110%;
+	margin-left: 20px;
+    width: 1140px;
+    height:100px;  
+}
 	
 	}
 </style>
@@ -61,7 +77,9 @@
 		<form action="">
 			<p1>1.填写项目名称</p1>
 			<input type="text" class="upload-pjname" placeholder="项目名称">
-			<p2>2.上传项目封面（选填，但只能添加不大于2M的图片）</p2>
+			<p2>2. 填写项目描述</p2>
+			<textarea class = "projectintro" name = "ProjectIntro" maxlength="200" type="text">{{.TextField}}</textarea>
+			<p3>3.上传项目封面（选填，但只能添加不大于2M的图片）</p3>
 			<label class="upload-button" for="xFile">选择文件</label>
 			<input type="file" id="xFile" style="position:absolute;clip:rect(0 0 0 0);">	
 		</form>

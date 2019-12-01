@@ -50,6 +50,7 @@
                 <p>{{.test_projectUrl}}</p>
                 <p>{{.test_projectName}}</p>
                 <p>{{.test_filename}}</p>
+                <p>{{.test_ProjectIntro}}</p>
             </div>  
         </div>
     </div>
@@ -92,7 +93,9 @@
                         <p>&nbsp</p>
                         <p>1. 填写项目名称</p>
                         <input class = "projectname" name = "ProjectName" type="text">
-                        <p>2. 上传项目封面（选填，但只能添加不大于2M的图片）</p>
+                        <p>2. 填写项目描述</p>
+                        <textarea class = "projectintro" name = "ProjectIntro" maxlength="200" placeholder="不超过200字符" type="text"></textarea>
+                        <p>3. 上传项目封面（选填，但只能添加不大于2M的图片）</p>
                         <a href="javascript:;" class="upload">选择文件
                             <input class="change" id="upload_image" name = "uploadname" type="file" accept=".jpg, .png" onchange="showImg(this)"/>
                         </a>
