@@ -3,60 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>项目信息</title>
-    <style>
-        .info-container {
-            margin: auto;
-            width: 1200px;
-            font-size: 0;
-        }
-        .info-card {
-            display: inline-block;
-            vertical-align: top;
-            border-style: solid;
-            border-width: 4px;
-            border-radius: 10px;
-            border-color: #bfbfbf;
-            width: 500px;
-            height: 500px;
-            margin-top: 70px;
-            margin-left: 46px;
-            margin-right: 46px;
-        }
-        .card-head {
-            height: 70px;
-            background-color: #bfbfbf;
-        }
-        .card-title {
-            display: inline-block;
-            vertical-align: bottom;
-            font-size: 25px;
-            height: 70px;
-            line-height: 70px;
-            text-align: center;
-            margin-left: 20px;
-        }
-        .card-value {
-            display: inline-block;
-            vertical-align: bottom;
-            font-size: 35px;
-            font-weight: bold;
-            color: #ff3600;
-            height: 70px;
-            line-height: 70px;
-            text-align: center;
-            margin-left: 300px;
-        }
-        .record-label {
-            font-size: 15px;
-            text-align: center;
-            width: 100px;
-            height: 30px;
-            line-height: 30px;
-            margin: -15px auto;
-            background-color: #FFFFFF;
-            border-radius: 15px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/static/css/project.css"/>
 </head>
 
 <body>
@@ -65,20 +12,20 @@
         document.getElementById("prj-info").style.backgroundColor = 'white';
     </script>
 
-    <div class="info-container">
-        <div class="info-card">
-            <div class="card-head">
-                <div class="card-title">KCoin 总值</div>
-                <div class="card-value">0</div>
+    <div class="projectInfo-container">
+        <div class="projectInfo-card">
+            <div class="projectInfo-card-head">
+                <div class="projectInfo-card-title">KCoin 总值</div>
+                <div class="projectInfo-card-value">0</div>
             </div>
-            <div class="record-label">发放记录</div>
+            <div class="projectInfo-record-label">发放记录</div>
         </div>
-        <div class="info-card">
-            <div class="card-head">
-                <div class="card-title">Token 总值</div>
-                <div class="card-value">0</div>
+        <div class="projectInfo-card">
+            <div class="projectInfo-card-head">
+                <div class="projectInfo-card-title">Token 总值</div>
+                <div class="projectInfo-card-value">0</div>
             </div>
-            <div class="record-label">发放记录</div>
+            <div class="projectInfo-record-label">发放记录</div>
         </div>
     </div>
 

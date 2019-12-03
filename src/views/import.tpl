@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<link type="text/css" rel="stylesheet" href="../static/css/import.css">
+	<link type="text/css" rel="stylesheet" href="../static/css/personal.css">
 	<script type="text/javascript" src="../static/js/import.js"></script>
 	<title>我的项目</title>
 </head>
