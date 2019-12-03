@@ -13,21 +13,27 @@ func GetAllProjectsInfo() (string, error) {
 	o.Using("default")
 
 	var projectsInfo ProjectInfo
-	//var projects []Project
 	projectsInfo.ErrorCode = "default Error"
 
-	//var projects []KProject
-	querySql := `SELECT project_id , project_name , project_url , project_cover_url FROM "K_Project"`
-	_, err := o.Raw(querySql).QueryRows(&projectsInfo.Data)
-	for i := range projectsInfo.Data {
-		u := &UserData{}
-		u.HeadShotUrl = "../static/img/tx1.png"
-		u.UserName = "abc"
-		projectsInfo.Data[i].MemberList = append(projectsInfo.Data[i].MemberList, u)
-	}
-	if err != nil {
-		fmt.Println(err.Error())
-		return fmt.Sprint(projectsInfo), err
+	/******************************************query all projects************************************************/
+	queryProjectSql := `SELECT project_id , project_name , project_url , project_cover_url FROM "K_Project" `
+	/***********************************************************************************************************/
+
+	_, err := o.Raw(queryProjectSql).QueryRows(&projectsInfo.Data)
+
+	/******************************************query menberList in one project**********************************/
+	queryUsersInProjectSql := `select u.user_id,u.user_name,u.head_shot_url
+								from "K_User" u left join "K_User_in_Project" up on u.user_id=up.user_id
+       							where up.project_id=?`
+	/**********************************************************************************************************/
+	for _, v := range projectsInfo.Data {
+		var memberList []*UserData
+		_, err := o.Raw(queryUsersInProjectSql, v.ProjectId).QueryRows(&memberList)
+		if err != nil {
+			fmt.Println(err.Error())
+			return fmt.Sprint(projectsInfo), err
+		}
+		v.MemberList = memberList
 	}
 	projectsInfo.ErrorCode = "0"
 	res, err := json.Marshal(&projectsInfo)
