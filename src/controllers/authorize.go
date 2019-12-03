@@ -16,17 +16,19 @@ func (c *AuthoController) Get() {
 	text := getUserJson(accessToken)
 
 	name := text.Data.Name
-	GithubUser.setGithubUserAccessToken(name, accessToken)
+	id := text.Data.Id
+	//TODO 修改参数
+	GithubUser.setGithubUserAccessToken(id, accessToken)
 	uri := text.Data.Uri
 
 	o := orm.NewOrm()
 	o.Using("default")
-
-	querySql := `select * from "K_User" where USER_NAME = ?`
+// TODO 移到model 改成ID查询
+	querySql := `select * from "K_User" where GITHUB_USER_ID = ?`
 	res, _ := o.Raw(querySql, name).Exec()
 	if res == nil {
-		insertSql := `INSERT INTO "K_User" (USER_NAME,REGISTER_TIME,HEAD_SHOT_URL) VALUES (?,now(),?);`
-		_, err := o.Raw(insertSql, name, uri).Exec()
+		insertSql := `INSERT INTO "K_User" (USER_NAME,REGISTER_TIME,HEAD_SHOT_URL,GITHUB_USER_ID) VALUES (?,now(),?);`
+		_, err := o.Raw(insertSql, name, uri, id).Exec()
 
 		if err != nil {
 			panic(err)
