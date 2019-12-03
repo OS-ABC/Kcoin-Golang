@@ -62,7 +62,7 @@ func getUserJson(access_token string) UserJson {
 	//TODO 获取ID
 	var name string = strings.Split(strings.Split(string(body_2), ",")[0], "\"")[3]
 	var uri string = strings.Split(strings.Split(string(body_2), ",")[3], "\"")[3]
-	var id string = strings.Split(strings.Split(string(body_2),",")[1],"\"")[3]
+	var id string = strings.Split(strings.Split(string(body_2),",")[2],"\"")[1]
 
 	//select id according to name
 
