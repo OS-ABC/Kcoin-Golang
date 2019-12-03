@@ -27,7 +27,7 @@ func (c *AuthoController) Get() {
 	querySql := `select * from "K_User" where GITHUB_USER_ID = ?`
 	res, _ := o.Raw(querySql, name).Exec()
 	if res == nil {
-		insertSql := `INSERT INTO "K_User" (USER_NAME,REGISTER_TIME,HEAD_SHOT_URL,GITHUB_USER_ID) VALUES (?,now(),?);`
+		insertSql := `INSERT INTO "K_User" (USER_NAME,REGISTER_TIME,HEAD_SHOT_URL,GITHUB_USER_ID) VALUES (?,now(),?,?);`
 		_, err := o.Raw(insertSql, name, uri, id).Exec()
 
 		if err != nil {
