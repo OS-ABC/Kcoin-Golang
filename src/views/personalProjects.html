@@ -69,7 +69,7 @@
 			<div class="content">
                 <form id="models.Project"  enctype="multipart/form-data" action="/personalprojects" method="post">
                     <div id="myprojects">
-                        <input class = "url_input" name = "ProjectUrl" type="text" placeholder="快速导入: 请输入Github项目的URL">
+                        <input class = "url_input" id = "projectUrl" name = "ProjectUrl" type="text" placeholder="快速导入: 请输入Github项目的URL">
                         <div id = "projectslist">
                             <p>
                                 <img class = "profile" src={{.user.Data.HeadShotUrl}} alt="profile" align="top">&nbsp
@@ -78,11 +78,10 @@
                             </p>
                             
                             <ul class="projects">
-                                {{with .user.Data}}
-                                {{range .ProjectList}}
-                                    <li>{{.ProjectName}}</li>
+                                {{range .repos.Data}}
+                                    <li onclick="setUrl({{.ProjectUrl}})">{{.ProjectName}}</li>
                                 {{end}}
-                                {{end}}
+
                             </ul>
                         </div>
                     </div>
