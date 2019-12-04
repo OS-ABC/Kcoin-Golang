@@ -151,6 +151,6 @@ func GetStarNum(url string) int {
 
 //使用实例：
 //func main() {
-//	var info =getStarNum("https://github.com/OS-ABC/Kcoin-Golang")
+//	var info =GetStarNum("https://github.com/OS-ABC/Kcoin-Golang")
 //	fmt.Println(info)
 //}
