@@ -15,20 +15,22 @@ import (
  * 这是一个全局数据结构，目前只有两个字段，用来保存Github名和对应access_token
  */
 type GithubInfo struct {
-	GithubName  string
+	GithubId  string
+	GithubName string
 	AccessToken string
 }
 
 type GithubUserMap map[string]*GithubInfo
+//Github UserID -》GithubInfo
 
 var GithubUser GithubUserMap
-
+// name->id
 type noUserError struct {
-	userName string
+	userId string
 }
-
+// name->id
 func (this noUserError) Error() string {
-	return "No such user" + this.userName
+	return "No such user" + this.userId
 }
 
 func init() {
@@ -37,6 +39,7 @@ func init() {
 }
 
 type Data struct {
+	Id string `json:userId`
 	Name string `json:"userName"`
 	Uri  string `json:"headShotUrl"`
 }
@@ -56,17 +59,25 @@ func getUserJson(access_token string) UserJson {
 	if err_2 != nil {
 		panic(err_2)
 	}
+
+	// 获取ID
 	var name string = strings.Split(strings.Split(string(body_2), ",")[0], "\"")[3]
 	var uri string = strings.Split(strings.Split(string(body_2), ",")[3], "\"")[3]
+	var id string = strings.Split(strings.Split(string(body_2),",")[1],":")[1]
+
+	//select id according to name
+
 
 	data := Data{
 		Name: name,
 		Uri:  uri,
+		Id:  id,
 	}
 	json := UserJson{
 		ErrorCode: 0,
 		Data:      data,
 	}
+	// 结构体加ID字段
 
 	return json
 }
@@ -94,26 +105,29 @@ func getAccessToken(code string) (accessToken string, err error) {
 /**
  * 设置Github User这个map的Access Token字段.
  */
-func (this GithubUserMap) setGithubUserAccessToken(name string, accessToken string) {
-	if _, ok := this[name]; !ok {
-		this[name] = new(GithubInfo)
+// 参数name->id
+func (this GithubUserMap) setGithubUserAccessToken(id string,name string, accessToken string) {
+	if _, ok := this[id]; !ok {
+		this[id] = new(GithubInfo)
 	}
-	this[name].AccessToken = accessToken
-	this[name].GithubName = name
+	this[id].AccessToken = accessToken
+	this[id].GithubId = id
+	this[id].GithubName = name
 }
-
-func (this GithubUserMap) getGithubUserAccessToken(name string) (string, error) {
-	if userInfo, ok := this[name]; ok {
+// 参数name-》id
+func (this GithubUserMap) getGithubUserAccessToken(userId string) (string, error) {
+	if userInfo, ok := this[userId]; ok {
 		return userInfo.AccessToken, nil
 	} else {
-		err := noUserError{userName: name}
+		err := noUserError{userId: userId}
 		return "", err
 	}
 }
-
-func registerGithubWebhooks(userName string, repoName string) {
-	accessToken, _ := GithubUser.getGithubUserAccessToken(userName)
+//getWebhooksUrl 可以通过
+func registerGithubWebhooks(userId string, repoName string) {
+	accessToken, _ := GithubUser.getGithubUserAccessToken(userId)
 	postPayload := getPayloadOfRegisterGithubWebhooks()
+	userName := GithubUser[userId].GithubName
 	api_url := getWebhooksUrlBy(userName, repoName)
 	bytePostPayload := []byte(postPayload)
 	buffer := bytes.NewBuffer(bytePostPayload)

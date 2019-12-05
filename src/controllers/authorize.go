@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"Kcoin-Golang/src/models"
 	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
@@ -16,17 +17,19 @@ func (c *AuthoController) Get() {
 	text := getUserJson(accessToken)
 
 	name := text.Data.Name
-	GithubUser.setGithubUserAccessToken(name, accessToken)
+	id := text.Data.Id
+	// 修改参数
+	GithubUser.setGithubUserAccessToken(id,name, accessToken)
 	uri := text.Data.Uri
 
 	o := orm.NewOrm()
 	o.Using("default")
-
-	querySql := `select * from "K_User" where USER_NAME = ?`
-	res, _ := o.Raw(querySql, name).Exec()
+//  移到model 改成GitID查询
+	res, _ := models.FinduserByGitId(id)
 	if res == nil {
-		insertSql := `INSERT INTO "K_User" (USER_NAME,REGISTER_TIME,HEAD_SHOT_URL) VALUES (?,now(),?);`
-		_, err := o.Raw(insertSql, name, uri).Exec()
+		//insertSql := `INSERT INTO "K_User" (USER_NAME,REGISTER_TIME,HEAD_SHOT_URL,GITHUB_USER_ID) VALUES (?,now(),?,?);`
+		//_, err := o.Raw(insertSql, name, uri, id).Exec()
+		err := models.InsertUser(name,uri,id)
 
 		if err != nil {
 			panic(err)
