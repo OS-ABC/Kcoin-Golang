@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"Kcoin-Golang/src/models"
 	"bytes"
 	"context"
 	_ "encoding/json"
@@ -9,6 +10,9 @@ import (
 	"io/ioutil"
 	"net/http"
 	"strings"
+	"github.com/astaxie/beego/orm"
+),
+	"Kcoin-Golang/src/models"
 )
 
 /**
@@ -124,33 +128,29 @@ func (this GithubUserMap) getGithubUserAccessToken(userId string) (string, error
 	}
 }
 //查询项目url是否合法，且判断用户是否有权限导入
-//数据库部分尚未能测试
+
 func CheckGithubRepoUrl(userId , url string) error{
-	userName, repoName, err := ParseGithubUrl(url)
+	_, repoName, err := models.ParseGithubHTTPSUrl(url)
 	//TODO:err处理等待解析函数pr合并后更新
 	if err != nil {
 		return err
 	}
+	info := GithubUser[userId]
+	userName := info.GithubName
 	apiUrl := "https://api.github.com/repos/"+userName+"/"+repoName
 	resp, err := http.Get(apiUrl)
 	if err != nil {
 		return err
 	}
-	if resp.StatusCode == 404 {
-		//fmr.Errorf()可直接返回error类型，参数为error.Error()返回值
-		return fmt.Errorf("this repo Url is not valid")
+	if resp.StatusCode != 200 {
+		if resp.StatusCode == 404 {
+			//fmr.Errorf()可直接返回error类型，参数为error.Error()返回值
+			return fmt.Errorf("this repo Url is not valid")
+		} else {
+			return fmt.Errorf("err %d", resp.StatusCode)
+		}
 	}
-	sqlQueryUserName := `SELECT user_name FROM "K_User" WHERE github_user_name = ?`
-	o := orm.NewOrm()
-	o.Using("defalut")
-	var thisUserName string
-	o.Raw(sqlQueryUserName, userId).QueryRow(&thisUserName)
-	if thisUserName == userName {
-		return nil
-	} else {
-		return fmt.Errorf("the user does not own this repo")
-	}
-
+	return nil
 }
 
 
