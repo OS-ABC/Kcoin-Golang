@@ -41,7 +41,8 @@ function next_step(){
         var userName = 'Guibeen'    //c.Ctx.getCookie('userName');
        
         //用斜杠‘/’分割项目url，则倒数第二项为用户名。两个用户名相等，则项目属于该用户
-        if(userName === temp[temp.length-2])
+        if(userName === temp[temp.length-2] ||
+            userName === temp[temp.length-2].replace("git@github.com:", ""))    //使用SSH
             isProjOwner = true;
         //如果两个条件都不满足，则提示错误并返回
         if(!isProjOwner && !orgMember) {
