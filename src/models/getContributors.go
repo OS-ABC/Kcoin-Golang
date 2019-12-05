@@ -31,12 +31,13 @@ type ContributorData []struct {
 	Contributions     int    `json:"contributions"`
 }
 
+
 //获取项目贡献者信息的接口
 // 函数名：getContributors
 // 函数参数：userName string programName string
 // 返回值：string 包含所有的contributor信息，不同的contributor用" "分割
 
-func getContributors(userName string, programName string) string {
+func GetContributors(userName string, programName string) string {
 	var url_1 string = "https://api.github.com/repos/" + userName + "/" + programName + "/" + "contributors"
 
 	client := &http.Client{}
@@ -66,7 +67,7 @@ func GetContributorNum(url string) int {
 
 	user_Name, program_Name, _ := ParseGithubHTTPSUrl(url)
 
-	info := getContributors(user_Name, program_Name)
+	info := GetContributors(user_Name, program_Name)
 	res := strings.TrimSpace(info)
 	str_arr := strings.Split(res, " ")
 	count := len(str_arr)
