@@ -113,3 +113,19 @@ func jsonize(info UserInfo) (string, error) {
 		return string(res), nil
 	}
 }
+
+func FinduserByGitId(id string)(string, error){
+	o := orm.NewOrm()
+	_ = o.Using("default")
+	querySql := `select * from "K_User" where GITHUB_USER_ID = ?`
+	res, err := o.Raw(querySql, id).QueryRows()
+	return string(res) , err
+}
+
+func InsertUser(name string,uri string ,id string)(error){
+	o := orm.NewOrm()
+	_ = o.Using("default")
+	insertSql := `INSERT INTO "K_User" (USER_NAME,REGISTER_TIME,HEAD_SHOT_URL,GITHUB_USER_ID) VALUES (?,now(),?,?);`
+	_, err := o.Raw(insertSql, name, uri, id).Exec()
+	return err
+}

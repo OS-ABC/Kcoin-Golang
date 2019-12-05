@@ -23,11 +23,11 @@ type GithubUserMap map[string]*GithubInfo
 //Github UserID -》GithubInfo
 
 var GithubUser GithubUserMap
-//TODO name-》id
+// name->id
 type noUserError struct {
 	userId string
 }
-//TODO name-》id
+// name->id
 func (this noUserError) Error() string {
 	return "No such user" + this.userId
 }
@@ -59,7 +59,7 @@ func getUserJson(access_token string) UserJson {
 		panic(err_2)
 	}
 
-	//TODO 获取ID
+	// 获取ID
 	var name string = strings.Split(strings.Split(string(body_2), ",")[0], "\"")[3]
 	var uri string = strings.Split(strings.Split(string(body_2), ",")[3], "\"")[3]
 	var id string = strings.Split(strings.Split(string(body_2),",")[1],":")[1]
@@ -76,7 +76,7 @@ func getUserJson(access_token string) UserJson {
 		ErrorCode: 0,
 		Data:      data,
 	}
-	//TODO 结构体加ID字段
+	// 结构体加ID字段
 
 	return json
 }
@@ -104,7 +104,7 @@ func getAccessToken(code string) (accessToken string, err error) {
 /**
  * 设置Github User这个map的Access Token字段.
  */
-//TODO 参数name-》id
+// 参数name->id
 func (this GithubUserMap) setGithubUserAccessToken(id string, accessToken string) {
 	if _, ok := this[id]; !ok {
 		this[id] = new(GithubInfo)
@@ -112,7 +112,7 @@ func (this GithubUserMap) setGithubUserAccessToken(id string, accessToken string
 	this[id].AccessToken = accessToken
 	this[id].GithubId = id
 }
-//TODO 参数name-》id
+// 参数name-》id
 func (this GithubUserMap) getGithubUserAccessToken(id string) (string, error) {
 	if userInfo, ok := this[id]; ok {
 		return userInfo.AccessToken, nil
