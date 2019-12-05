@@ -31,7 +31,11 @@ type ContributorData []struct {
 	Contributions     int    `json:"contributions"`
 }
 
-//获取项目贡献者信息的接口，返回string,不同contributor在字符串中用" "分割
+//获取项目贡献者信息的接口
+// 函数名：getContributors
+// 函数参数：userName string programName string
+// 返回值：string 包含所有的contributor信息，不同的contributor用" "分割
+
 func getContributors(userName string, programName string) string {
 	var url_1 string = "https://api.github.com/repos/" + userName + "/" + programName + "/" + "contributors"
 
@@ -55,12 +59,12 @@ func getContributors(userName string, programName string) string {
 }
 
 //获取贡献者的人数
+// 函数名：GetContributorNum
+// 函数参数：url string
+// 返回值：int 返回对应项目的贡献者人数
 func GetContributorNum(url string) int {
 
-	str1 := strings.Split(url, "https://github.com/")[1]
-	str2 := strings.Split(str1, "/")
-	user_Name := str2[0]
-	program_Name := str2[1]
+	user_Name, program_Name, _ := ParseGithubHTTPSUrl(url)
 
 	info := getContributors(user_Name, program_Name)
 	res := strings.TrimSpace(info)
