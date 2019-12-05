@@ -1,6 +1,7 @@
 package models
 
 import (
+	"database/sql"
 	"encoding/json"
 	"fmt"
 	"github.com/astaxie/beego/orm"
@@ -114,12 +115,12 @@ func jsonize(info UserInfo) (string, error) {
 	}
 }
 
-func FinduserByGitId(id string)(string, error){
+func FinduserByGitId(id string)(sql.Result, error){
 	o := orm.NewOrm()
 	_ = o.Using("default")
 	querySql := `select * from "K_User" where GITHUB_USER_ID = ?`
-	res, err := o.Raw(querySql, id).QueryRows()
-	return string(res) , err
+	res, err := o.Raw(querySql, id).Exec()
+	return res , err
 }
 
 func InsertUser(name string,uri string ,id string)(error){

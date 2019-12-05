@@ -16,6 +16,7 @@ import (
  */
 type GithubInfo struct {
 	GithubId  string
+	GithubName string
 	AccessToken string
 }
 
@@ -105,26 +106,28 @@ func getAccessToken(code string) (accessToken string, err error) {
  * 设置Github User这个map的Access Token字段.
  */
 // 参数name->id
-func (this GithubUserMap) setGithubUserAccessToken(id string, accessToken string) {
+func (this GithubUserMap) setGithubUserAccessToken(id string,name string, accessToken string) {
 	if _, ok := this[id]; !ok {
 		this[id] = new(GithubInfo)
 	}
 	this[id].AccessToken = accessToken
 	this[id].GithubId = id
+	this[id].GithubName = name
 }
 // 参数name-》id
-func (this GithubUserMap) getGithubUserAccessToken(id string) (string, error) {
-	if userInfo, ok := this[id]; ok {
+func (this GithubUserMap) getGithubUserAccessToken(userId string) (string, error) {
+	if userInfo, ok := this[userId]; ok {
 		return userInfo.AccessToken, nil
 	} else {
-		err := noUserError{userId: id}
+		err := noUserError{userId: userId}
 		return "", err
 	}
 }
-
-func registerGithubWebhooks(userName string, repoName string) {
-	accessToken, _ := GithubUser.getGithubUserAccessToken(userName)
+//getWebhooksUrl 可以通过
+func registerGithubWebhooks(userId string, repoName string) {
+	accessToken, _ := GithubUser.getGithubUserAccessToken(userId)
 	postPayload := getPayloadOfRegisterGithubWebhooks()
+	userName := GithubUser[userId].GithubName
 	api_url := getWebhooksUrlBy(userName, repoName)
 	bytePostPayload := []byte(postPayload)
 	buffer := bytes.NewBuffer(bytePostPayload)

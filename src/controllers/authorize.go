@@ -19,14 +19,14 @@ func (c *AuthoController) Get() {
 	name := text.Data.Name
 	id := text.Data.Id
 	// 修改参数
-	GithubUser.setGithubUserAccessToken(id, accessToken)
+	GithubUser.setGithubUserAccessToken(id,name, accessToken)
 	uri := text.Data.Uri
 
 	o := orm.NewOrm()
 	o.Using("default")
 //  移到model 改成GitID查询
 	res, _ := models.FinduserByGitId(id)
-	if res == "" {
+	if res == nil {
 		//insertSql := `INSERT INTO "K_User" (USER_NAME,REGISTER_TIME,HEAD_SHOT_URL,GITHUB_USER_ID) VALUES (?,now(),?,?);`
 		//_, err := o.Raw(insertSql, name, uri, id).Exec()
 		err := models.InsertUser(name,uri,id)
