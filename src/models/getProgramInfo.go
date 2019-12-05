@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
-	"strings"
 	"time"
 )
 
@@ -144,9 +143,7 @@ func main() {
 func GetStarNum(url string) int {
 	var starNum = 0
 	//从url中获取到用户名和项目名
-	Array := strings.Split(url, "/")
-	userName := Array[3]
-	programName := Array[4]
+	userName, programName, _ := ParseGithubHTTPSUrl(url)
 
 	var Api = "https://api.github.com/repos/" + userName + "/" + programName
 	client := &http.Client{}
