@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8" />
+    <title>工作列表</title>
+    <style>
+        .mainInterface{
+            background-color: #FFFFFF;
+            position: relative;
+            min-height: 70vh;
+            width: 100%;
+            font-size: 20px;
+        }
+
+        .record{
+            position: relative;
+            margin: 50px;
+            width: 900px;
+            height: 150px;
+        }
+
+        .customers{
+            font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+            width:100%;
+            border-collapse:collapse;
+            margin-top: 20px;
+        }
+
+        .customers th {
+            font-size:1em;
+            border:0px solid #ffffff;
+            padding:3px 7px 15px 7px;
+            
+        }
+        
+        .customers td{
+            font-size:1em;
+            border:0px solid #ffffff;
+            padding:3px 7px 2px 7px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+
+<body>
+        {{template "./projectTopNav.html" .}}
+    
+    <script type="text/javascript">
+		document.getElementById("prj-mem").style.backgroundColor = 'white';
+    </script>
+    
+    <div class="mainInterface">
+            <div class="record">
+                DoubleJ的工作信息
+                <table class="customers">
+                    <!--现在使用自定义的数据测试，后续实现从数据库中读取并实现按照读取数据自动分页-->
+                    <tr class="alt">
+                        <th>日期</th>
+                        <th>贡献类型</th>
+                        <th>获得cs数量</th>
+                    </tr>
+                    <tr>
+                        <td>10.23</td>
+                        <td>提交pr</td>
+                        <td>500</td>
+                    </tr>
+                    <tr>
+                        <td>10.23</td>
+                        <td>提交issue</td>
+                        <td>200</td>
+                    </tr>
+                    <tr>
+                        <td>10.24</td>
+                        <td>提交pr</td>
+                        <td>500</td>
+                    </tr>
+                    <tr>
+                        <td>10.24</td>
+                        <td>提交issue</td>
+                        <td>200</td>
+                    </tr>
+                    <tr>
+                        <td>10.25</td>
+                        <td>提交pr</td>
+                        <td>500</td>
+                    </tr>
+                    <tr>
+                        <td>10.27</td>
+                        <td>提交pr</td>
+                        <td>500</td>
+                    </tr>
+                </table>         
+            </div>
+    </div>
+    {{template "./footer.html" .}}
+</body>
