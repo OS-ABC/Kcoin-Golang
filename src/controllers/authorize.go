@@ -25,10 +25,12 @@ func (c *AuthoController) Get() {
 	o := orm.NewOrm()
 	o.Using("default")
 //  移到model 改成GitID查询
-	res, _ := models.FinduserByGitId(id)
-	if res == nil {
-		//insertSql := `INSERT INTO "K_User" (USER_NAME,REGISTER_TIME,HEAD_SHOT_URL,GITHUB_USER_ID) VALUES (?,now(),?,?);`
-		//_, err := o.Raw(insertSql, name, uri, id).Exec()
+	res , _ := models.FinduserByGitId(id)
+	var num int64
+	if res != nil{
+		num, _ = res.RowsAffected()
+	}
+	if res == nil || num == 0{
 		err := models.InsertUser(name,uri,id)
 
 		if err != nil {
