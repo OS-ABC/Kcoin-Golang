@@ -15,7 +15,9 @@
 		<form action="">
 			<p1>1.填写项目名称</p1>
 			<input type="text" class="upload-pjname" placeholder="项目名称">
-			<p2>2.上传项目封面（选填，但只能添加不大于2M的图片）</p2>
+			<p2>2. 填写项目描述</p2>
+			<textarea class = "projectintro" name = "ProjectIntro" maxlength="200" type="text">{{.TextField}}</textarea>
+			<p3>3.上传项目封面（选填，但只能添加不大于2M的图片）</p3>
 			<label class="upload-button" for="xFile">选择文件</label>
 			<input type="file" id="xFile" style="position:absolute;clip:rect(0 0 0 0);">	
 		</form>
