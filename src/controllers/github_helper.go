@@ -11,8 +11,6 @@ import (
 	"net/http"
 	"strings"
 	"github.com/astaxie/beego/orm"
-),
-	"Kcoin-Golang/src/models"
 )
 
 /**
