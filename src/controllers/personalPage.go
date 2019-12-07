@@ -3,8 +3,6 @@ package controllers
 import (
 	"Kcoin-Golang/src/models"
 	_ "Kcoin-Golang/src/models"
-	"encoding/json"
-	"fmt"
 
 	"github.com/astaxie/beego"
 )
@@ -23,20 +21,14 @@ func (c *PersonalPageController) Get() {
 	//		"headShotUrl": "../static/img/tx2.png"
 	//	}
 	//}`
-	status:=c.Ctx.GetCookie("status")
-	{
-		c.Ctx.SetCookie("lastUri",c.Ctx.Request.RequestURI)
-		if status =="0"||status ==""{
-			defer c.Redirect("/login.html",302)
-		}
+	status := c.Ctx.GetCookie("status")
+	c.Ctx.SetCookie("lastUri", c.Ctx.Request.RequestURI)
+	if status == "0" || status == "" {
+		defer c.Redirect("/login.html", 302)
 	}
-	userName := c.Ctx.GetCookie("userName")
-	user := models.UserInfo{Data:&models.UserData{}}//user中存放着json解析后获得的数据。
-	jsonBuf , _ := models.GetUserInfo(userName)
-	errorCode := json.Unmarshal([]byte(jsonBuf), &user)//将jsonBuf的数据解析，然后赋值给user，如果出错会返回对应的errorCode
-	if errorCode != nil {//出错了，panic
-		fmt.Println("you r in personalPage controller ,there is ia bug ,and the information is : ", errorCode.Error())
-	}
+	user := models.UserInfo{Data: &models.UserData{}} //user中存放着json解析后获得的数据。
+	user.Data.UserName = c.Ctx.GetCookie("userName")
+	user.Data.HeadShotUrl = c.Ctx.GetCookie("headShotUrl")
 	c.Data["user"] = user
-	c.TplName = "personalPage.html"//该controller对应的页面
+	c.TplName = "personalPage.html" //该controller对应的页面
 }
