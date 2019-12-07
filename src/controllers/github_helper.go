@@ -10,7 +10,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"strings"
-	"github.com/astaxie/beego/orm"
 )
 
 /**
