@@ -260,19 +260,24 @@ a:link,a:visited,a:hover,a:active
     height: 282px;
 }
 .projectsetting p1{
-    display:block;
-    color: #A9AFB5;
-    margin-top: 110px;
-    margin-left: 20px;
-    font-size: 16px;
-}
+	display:block;
+	color: #A9AFB5;
+	margin-top: 110px;
+	margin-left: 20px;
+	font-size: 16px;
+	}
 .projectsetting p2{
-    display:block;
-    margin-top: 50px;
-    margin-left: 20px;
-    color: #A9AFB5;
-    font-size: 16px;
-}
+	display:block;
+	margin-left: 20px;
+	color: #A9AFB5;
+	font-size: 16px;
+	}
+	.projectsetting p3{
+	display:block;
+	margin-left: 20px;
+	color: #A9AFB5;
+	font-size: 16px;
+	}
 .upload-pjname {
     display:block;
     font-size: 16px;
@@ -293,4 +298,15 @@ a:link,a:visited,a:hover,a:active
     padding:10px;
     border-radius: 10px;
     color: #27D5F5;
+}
+
+textarea.projectintro{
+	border-style: ridge;
+	border-radius: 5px;
+	padding: 5px;
+	color:gray;
+	font-size: 110%;
+	margin-left: 20px;
+    width: 1140px;
+    height:100px;  
 }
