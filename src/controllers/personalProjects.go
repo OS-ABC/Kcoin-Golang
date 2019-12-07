@@ -163,7 +163,6 @@ func (c *PersonalProjectsController) Get() {
 	//}
 	//}`
 	name := c.Ctx.GetCookie("userName")
-	userBuf, _ := models.GetUserInfo(name)
 	projectBuf, _ := models.GetGithubRepos(name)
 
 	status := c.Ctx.GetCookie("status")
@@ -173,15 +172,14 @@ func (c *PersonalProjectsController) Get() {
 		defer c.Redirect("/login.html", 302)
 	}
 
-	user := models.UserInfo{Data: &models.UserData{}}
+	user := models.UserInfo{Data: &models.UserData{}} //user中存放着json解析后获得的数据。
+	user.Data.UserName = c.Ctx.GetCookie("userName")
+	user.Data.HeadShotUrl = c.Ctx.GetCookie("headShotUrl")
+
 	var projects models.ProjectInfo
-	errorCode := json.Unmarshal([]byte(userBuf), &user)
-	errorCode2 := json.Unmarshal([]byte(projectBuf), &projects)
+	errorCode := json.Unmarshal([]byte(projectBuf), &projects)
 
 	if errorCode != nil {
-		fmt.Println("Oops, there is an error:( please keep debugging.", errorCode.Error())
-	}
-	if errorCode2 != nil {
 		fmt.Println("Oops, there is an error:( please keep debugging.", errorCode.Error())
 	}
 
