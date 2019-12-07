@@ -6,11 +6,10 @@ import (
 	"context"
 	_ "encoding/json"
 	"fmt"
+	"github.com/astaxie/beego"
 	"io/ioutil"
 	"net/http"
 	"strings"
-
-	"github.com/astaxie/beego"
 )
 
 /**
