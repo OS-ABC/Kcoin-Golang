@@ -2,44 +2,8 @@
 <head>
     <meta charset="UTF-8" />
     <title>工作列表</title>
-    <style>
-        .mainInterface{
-            background-color: #FFFFFF;
-            position: relative;
-            min-height: 70vh;
-            width: 100%;
-            font-size: 20px;
-        }
+    <link rel="stylesheet" type="text/css" href="/static/css/project.css"/>
 
-        .record{
-            position: relative;
-            margin: 50px;
-            width: 900px;
-            height: 150px;
-        }
-
-        .customers{
-            font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
-            width:100%;
-            border-collapse:collapse;
-            margin-top: 20px;
-        }
-
-        .customers th {
-            font-size:1em;
-            border:0px solid #ffffff;
-            padding:3px 7px 15px 7px;
-            
-        }
-        
-        .customers td{
-            font-size:1em;
-            border:0px solid #ffffff;
-            padding:3px 7px 2px 7px;
-            text-align: center;
-        }
-
-    </style>
 </head>
 
 <body>
@@ -49,12 +13,12 @@
 		document.getElementById("prj-mem").style.backgroundColor = 'white';
     </script>
     
-    <div class="mainInterface">
-            <div class="record">
+    <div class="work-mainInterface">
+            <div class="work-record">
                 DoubleJ的工作信息
-                <table class="customers">
+                <table class="work-customers">
                     <!--现在使用自定义的数据测试，后续实现从数据库中读取并实现按照读取数据自动分页-->
-                    <tr class="alt">
+                    <tr>
                         <th>日期</th>
                         <th>贡献类型</th>
                         <th>获得cs数量</th>
