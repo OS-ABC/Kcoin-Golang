@@ -28,23 +28,28 @@ const (
 	baseURL = "https://github.com"
 )
 var (//用于模拟登录，个人账号，请勿登录
-	username = "scarydemon2"
-	password = "@Gaotianhao123"
+	username = "kcoinTest"
+	password = "@kcoin123"
 )
 //用于接收爬取到的邮箱
 type Email struct {
 	Email string
 }
+var res_error error
+var UsersNotSend []string
 /*
 func (app *App) GetToken() AuthenticityToken
 该函数用于获取github的登录时的authenticity_token，是一个隐藏的值，相当于验证码
 */
 func (app *App) GetToken() (AuthenticityToken,TimeStamp) {
+	var authenticityToken AuthenticityToken
+	var timeAndsecret TimeStamp
 	loginURL := baseURL + "/login"
 	client := app.Client
 	response, err := client.Get(loginURL)
 	if err != nil {
 		log.Fatalln("Error fetching response. ", err)
+		return authenticityToken,timeAndsecret
 	}
 	defer response.Body.Close()
 
@@ -53,19 +58,28 @@ func (app *App) GetToken() (AuthenticityToken,TimeStamp) {
 		log.Fatal("Error loading HTTP response body. ", err)
 	}
 
-	token, _ := document.Find("input[name='authenticity_token']").Attr("value")
-	fmt.Println("token is",token)
-	authenticityToken := AuthenticityToken{
-		Token: token,
+	token, exist := document.Find("input[name='authenticity_token']").Attr("value")
+	if exist!=true{
+		log.Fatal("Error finding authenticity_token,does not exist",exist)
+		exist=true
 	}
-	time,_:=document.Find("input[name='timestamp']").Attr("value")
-	secret,_:=document.Find("input[name='timestamp_secret']").Attr("value")
+
+	fmt.Println("token is",token)
+	authenticityToken.Token=token
+	time,exist:=document.Find("input[name='timestamp']").Attr("value")
+	if exist!=true{
+		log.Fatal("Error finding timestamp,does not exist",exist)
+		exist=true
+	}
+	secret,exist:=document.Find("input[name='timestamp_secret']").Attr("value")
+	if exist!=true{
+		log.Fatal("Error finding timestamp,does not exist",exist)
+		exist=true
+	}
 	fmt.Println("timestamp is ",time)
 	fmt.Println("timestamp_secret is ",secret)
-	timeAndsecret:=TimeStamp{
-		Time:   time,
-		Secret: secret,
-	}
+	timeAndsecret.Secret=secret
+	timeAndsecret.Time=time
 	return authenticityToken,timeAndsecret
 }
 
@@ -154,8 +168,6 @@ func SendEMailToPotentialUsers(users []string)([]string ,error){
 	}
 	app.Login()
 	//返回信息
-	var res_error error
-	var UsersNotSend []string
 
 	for  i:=0;i<len(users); i++{
 		emails := app.getEmails(users[i])

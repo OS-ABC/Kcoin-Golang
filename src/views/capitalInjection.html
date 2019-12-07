@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>资金注入页面</title>
-    <link rel="stylesheet" type="text/css" href="../static/css/capitalInjection.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/platformAdmin.css"/>
     <script type="text/javascript" src="../static/js/capitalInjection.js"></script>
     <style>
 
@@ -15,7 +15,7 @@
     {{template "./platformAdminTopNav.html" .}}
     <div class="container" id="container">
         <script type="text/javascript">
-            document.getElementById("personalProjectsLink").style.backgroundColor = 'white';
+            document.getElementById("prject-capital-injection").style.backgroundColor = 'white';
         </script>
         <div class="container-child">
             {{with .Projects}}
@@ -40,7 +40,7 @@
         </div>
     </div>
 
-    <div id="injection" style="background:rgba(0,0,0,0.9);" onclick="hidePopup();">
+    <div id="injection" style="background:rgba(0,0,0,0.9);" onload="hidePopup();">
         <div  class="main" style="background:rgba(255, 255, 255, 0.9)" onClick="event.cancelBubble = true" >
             <h1 style="color: #FFFFFF ;background: #000000">注资信息
                 <img class="close-button" style="width:50px; height: 100%;position: relative;float:right;top:-5px"
