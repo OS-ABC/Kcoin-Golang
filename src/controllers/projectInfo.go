@@ -24,6 +24,7 @@ func (c *ProjectInfoController) Get() {
 
 	// starNum := models.GetStarNum(fakeURL)
 	// contributorsNum := models.GetContributorNum(fakeURL)
+	//这里的session都没有对不同项目进行区分，后续应当还需要更改
 	starNum := c.GetSession("starNum")
 	if starNum == nil {
 		starNum = models.GetStarNum(fakeURL)
