@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
-	"strings"
 	"time"
 )
 
@@ -126,13 +125,25 @@ type JsonData struct {
 	SubscribersCount int `json:"subscribers_count"`
 }
 
-//获取项目star数量的接口，参数为url:string,返回值为starNum：int
+/*
+
+获取项目star数量的接口
+函数名：GetStarNum
+函数参数：url string
+返回值：starNum int 返回url对应项目的star数目
+
+使用实例：
+func main() {
+	var info =getStarNum("https://github.com/OS-ABC/Kcoin-Golang")
+	fmt.Println(info)
+}
+
+*/
+
 func GetStarNum(url string) int {
 	var starNum = 0
 	//从url中获取到用户名和项目名
-	Array := strings.Split(url, "/")
-	userName := Array[3]
-	programName := Array[4]
+	userName, programName, _ := ParseGithubHTTPSUrl(url)
 
 	var Api = "https://api.github.com/repos/" + userName + "/" + programName
 	client := &http.Client{}
@@ -148,9 +159,3 @@ func GetStarNum(url string) int {
 	starNum = jd.StargazersCount
 	return starNum
 }
-
-//使用实例：
-//func main() {
-//	var info =getStarNum("https://github.com/OS-ABC/Kcoin-Golang")
-//	fmt.Println(info)
-//}
