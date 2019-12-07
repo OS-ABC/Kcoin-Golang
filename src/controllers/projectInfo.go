@@ -11,11 +11,31 @@ type ProjectInfoController struct {
 }
 
 func (c *ProjectInfoController) Get() {
-	id := c.Ctx.Input.Param(":id")
+	//session获取id
+	id := c.GetSession(":id")
+	if id == nil {
+		id = c.Ctx.Input.Param(":id")
+		c.SetSession(":id", id)
+	}
+
+	/*id := c.Ctx.Input.Param(":id")*/
 	c.Data["id"] = id
 	fakeURL := "https://github.com/Darkone0/weatherForcast"
-	starNum := models.GetStarNum(fakeURL)
-	contributorsNum := models.GetContributorNum(fakeURL)
+
+	// starNum := models.GetStarNum(fakeURL)
+	// contributorsNum := models.GetContributorNum(fakeURL)
+	starNum := c.GetSession("starNum")
+	if starNum == nil {
+		starNum = models.GetStarNum(fakeURL)
+		c.SetSession("starNum", starNum)
+	}
+
+	contributorsNum := c.GetSession("contributorsNum")
+	if contributorsNum == nil {
+		contributorsNum = models.GetContributorNum(fakeURL)
+		c.SetSession("contributorsNum", contributorsNum)
+	}
+
 	c.Data["starNum"] = starNum
 	c.Data["contributorsNum"] = contributorsNum
 	c.TplName = "projectInfo.html"
