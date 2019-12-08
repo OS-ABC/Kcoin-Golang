@@ -126,7 +126,9 @@ func FinduserByGitId(id string)(sql.Result, error){
 func InsertUser(name string,uri string ,id string)(error){
 	o := orm.NewOrm()
 	_ = o.Using("default")
-	insertSql := `INSERT INTO "K_User" (USER_NAME,REGISTER_TIME,HEAD_SHOT_URL,GITHUB_USER_ID) VALUES (?,now(),?,?);`
-	_, err := o.Raw(insertSql, name, uri, id).Exec()
+	time := time.Now().Format("2006-01-02 15:04:05.000000")
+
+	insertSql := `INSERT INTO "K_User" (USER_NAME,REGISTER_TIME,HEAD_SHOT_URL,GITHUB_USER_ID) VALUES (?,?,?,?);`
+	_, err := o.Raw(insertSql, name, uri,time, id).Exec()
 	return err
 }
