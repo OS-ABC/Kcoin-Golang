@@ -4,7 +4,6 @@ import (
 	"Kcoin-Golang/src/models"
 	"encoding/json"
 	"fmt"
-	"log"
 	"strconv"
 
 	"github.com/astaxie/beego"
@@ -17,151 +16,32 @@ type PersonalProjectsController struct {
 	beego.Controller
 }
 
+//导入项目
 func (c *PersonalProjectsController) Post() {
-	var U models.Project
-	//var U test_Project
-	ProjectIntro = c.GetString("ProjectIntro")
-
-	if error := c.ParseForm(&U); error != nil {
-		c.Ctx.WriteString("出错了！")
-	}
-
-	// jsonBuf :=
-	// 	`{
-	// "errorCode": "0",
-	// "data": {
-	// "userName": "Cyan",
-	// "headshotUrl": "../static/img/tx1.png",
-	// "projectList":
-	// [
-	// {
-	//     "projectName": "天气预报1",
-	//     "projectCoverUrl": "../static/img/projectbg.png",
-	//     "projectUrl": "",
-	//     "memberList": [
-	//         {
-	//             "userName": "Tony",
-	//             "headshotUrl": "../static/img/tx2.png"
-	//         },
-	//         {
-	//             "userName": "Tony",
-	//             "headshotUrl": "../static/img/tx1.png"
-	//         }
-	//     ]
-	// },
-	// {
-	//     "projectName": "天气预报2",
-	//     "projectCoverUrl": "../static/img/projectbg.png",
-	//     "projectUrl": "",
-	//     "memberList": [
-	//         {
-	//             "userName": "Joy",
-	//             "headshotUrl": "../static/img/tx1.png"
-	//         },
-	//         {
-	//             "userName": "Tony",
-	//             "headshotUrl": "../static/img/tx2.png"
-	//         }
-	//     ]
-	// }
-	// ]
-	// }
-	// }`
-
-	name := c.Ctx.GetCookie("userName")
-	userBuf, _ := models.GetUserInfo(name)
-	projectBuf, _ := models.GetGithubRepos(name)
-
-	status := c.Ctx.GetCookie("status")
-	//判断是否登录，如果未登录，登录后跳转到原页面
-	c.Ctx.SetCookie("lastUri", c.Ctx.Request.RequestURI)
-	if status == "0" || status == "" {
-		defer c.Redirect("/login.html", 302)
-	}
-
-	user := models.UserInfo{Data: &models.UserData{}}
-	var projects models.ProjectInfo
-	errorCode := json.Unmarshal([]byte(userBuf), &user)
-	errorCode2 := json.Unmarshal([]byte(projectBuf), &projects)
-
-	if errorCode != nil {
-		fmt.Println("Oops, there is an error:( please keep debugging.", errorCode.Error())
-	}
-	if errorCode2 != nil {
-		fmt.Println("Oops, there is an error:( please keep debugging.", errorCode.Error())
-	}
-
-	c.Data["user"] = user
-	c.Data["repos"] = projects
-	c.Data["memberList_len"] = strconv.Itoa(len(projects.Data)) //个人项目数量
-	c.Data["test_projectName"] = U.ProjectName
-	c.Data["test_projectUrl"] = U.ProjectUrl
-
-	//textfield
-	c.Data["test_ProjectIntro"] = ProjectIntro
-
-	//session获取textfiled
-	textfield := c.GetSession("TextField")
-	if textfield != nil {
-		c.DelSession("TextField")
-	}
-	c.Data["TextField"] = textfield
-	//session获取textfiled
-	c.SetSession("TextField", ProjectIntro)
-
-	f, h, err := c.GetFile("uploadname")
+	pUrl := c.GetString("ProjectUrl")       //项目地址
+	pName := c.GetString("ProjectName")     //项目名称
+	pIntro := c.GetString("ProjectIntro")   //项目介绍
+	uploadname := c.GetString("uploadname") //项目封面
+	fmt.Println(pUrl, pName, pIntro, uploadname)
+	//检查Url合法性
+	err := CheckGithubRepoUrl("0", pUrl) //*************写这个方法的人帮忙看一下这里第一个参数id要传什么*********
 	if err != nil {
-		log.Fatal("getfile err ", err)
+		//url不合法，返回错误并给出提示
 	}
-	defer f.Close()
-	c.Data["test_filename"] = h.Filename
+	//获取项目所有的开发者信息
+	//err = GetAllContributor(pUrl)
+	if err != nil {
+		//url不合法，后台log输出日志
+	}
+	//将开发人员信息存入数据库的临时用户表中
 
-	c.TplName = "personalProjects.html"
+	//向被邀请的人发送邮件
+	//err = SendEMailToPotentialUsers()
 
+	//返回导入成功信息
 }
 
 func (c *PersonalProjectsController) Get() {
-	//	jsonBuf :=
-	//		`{
-	//"errorCode": "0",
-	//"data": {
-	//"userName": "Cyan",
-	//"headshotUrl": "../static/img/tx1.png",
-	//"projectList":
-	//[
-	//    {
-	//        "projectName": "天气预报1",
-	//        "projectCoverUrl": "../static/img/projectbg.png",
-	//        "projectUrl": "",
-	//        "memberList": [
-	//            {
-	//                "userName": "Tony",
-	//                "headshotUrl": "../static/img/tx2.png"
-	//            },
-	//            {
-	//                "userName": "Tony",
-	//                "headshotUrl": "../static/img/tx1.png"
-	//            }
-	//        ]
-	//    },
-	//    {
-	//        "projectName": "天气预报2",
-	//        "projectCoverUrl": "../static/img/projectbg.png",
-	//        "projectUrl": "",
-	//        "memberList": [
-	//            {
-	//                "userName": "Joy",
-	//                "headshotUrl": "../static/img/tx1.png"
-	//            },
-	//            {
-	//                "userName": "Tony",
-	//                "headshotUrl": "../static/img/tx2.png"
-	//            }
-	//        ]
-	//    }
-	//]
-	//}
-	//}`
 	name := c.Ctx.GetCookie("userName")
 	projectBuf, _ := models.GetGithubRepos(name)
 
