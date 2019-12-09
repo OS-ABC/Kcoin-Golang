@@ -5,7 +5,6 @@ import (
 	"testing"
 )
 
-
 func Test_getContributors(t *testing.T) {
 	type args struct {
 		userName    string
@@ -17,7 +16,7 @@ func Test_getContributors(t *testing.T) {
 		want string
 	}{
 		//测试用例
-		{args:args{userName:"rjkris", programName:"fluffy-robot"}, want:"rjkris "},//PASS
+		{args: args{userName: "rjkris", programName: "fluffy-robot"}, want: "rjkris "}, //PASS
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -38,8 +37,8 @@ func TestGetContributorNum(t *testing.T) {
 		want int
 	}{
 		//测试用例
-		{args:args{url:"https://github.com/OS-ABC/HelloWorld"}, want:115},//FAIL 通过该API获得的contributors可能不全
-		{args:args{url:"https://github.com/OS-ABC/Kcoin-Golang"}, want:17},//PASS
+		{args: args{url: "https://github.com/OS-ABC/HelloWorld"}, want: 115},  //FAIL 通过该API获得的contributors可能不全
+		{args: args{url: "https://github.com/OS-ABC/Kcoin-Golang"}, want: 17}, //PASS
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -60,13 +59,36 @@ func TestGetStarNum(t *testing.T) {
 		want int
 	}{
 		//测试用例
-		{args: args{url:"https://github.com/OS-ABC/Kcoin-Golang"}, want:16},//PASS
-		{args: args{url:"https://github.com/OS-ABC/HelloWorld"}, want:86},//PASS
+		{args: args{url: "https://github.com/OS-ABC/Kcoin-Golang"}, want: 16}, //PASS
+		{args: args{url: "https://github.com/OS-ABC/HelloWorld"}, want: 86},   //PASS
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := models.GetStarNum(tt.args.url); got != tt.want {
 				t.Errorf("GetStarNum() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestParseGithubHTTPSUrl(t *testing.T) {
+	type args struct {
+		url string
+	}
+	tests := []struct {
+		name         string
+		args         args
+		wantUserName string
+		wantUserRepo string
+	}{
+		//测试用例
+		{args: args{url: "https://github.com/OS-ABC/Kcoin-Golang"}, wantUserName: "OS-ABC", wantUserRepo: "Kcoin-Golang"},   //PASS
+		{args: args{url: "https://github.com/zhang2j/HelloWorld.git"}, wantUserName: "zhang2j", wantUserRepo: "HelloWorld"}, //PASS
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if gotName, gotRepo, _ := models.ParseGithubHTTPSUrl(tt.args.url); gotName != tt.wantUserName || gotRepo != tt.wantUserRepo {
+				t.Errorf("userName = %v, want %v; userRepo = %v; want %v", gotName, tt.wantUserName, gotRepo, tt.wantUserRepo)
 			}
 		})
 	}
