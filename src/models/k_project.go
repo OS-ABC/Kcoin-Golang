@@ -44,3 +44,16 @@ func GetAllProjectsInfo() (string, error) {
 	}
 	return string(res), nil
 }
+
+func GetProjectsCC(projectName string) (float64, error) {
+	o := orm.NewOrm()
+	o.Using("default")
+
+	queryProjectSql := `SELECT project_cc FROM "K_Project" WHERE project_name=? `
+	var num float64
+	err := o.Raw(queryProjectSql, projectName).QueryRow(&num)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	return num, nil
+}
