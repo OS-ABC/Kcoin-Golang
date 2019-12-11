@@ -1,0 +1,6 @@
+http://blog.devep.net/virushuo/2010/01/14/blog56google_blogtinyfool_1_go.html
+https://coolshell.cn/articles/9308.html
+git config --global http.proxy http://127.0.0.1:1080
+https://doi.org/10.1016/j.jclepro.2019.117923.
+https://www.cnblogs.com/nancyzhu/p/8120085.html
+https://www.jianshu.com/p/7f031fa2739a

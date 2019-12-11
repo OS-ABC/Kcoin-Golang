@@ -271,7 +271,7 @@ a:link,a:visited,a:hover,a:active
 /*以下是projectSetting.html页面的css*/
 .projectsetting{
     margin-top: 60px;
-    height: 282px;
+    height: 352px;
 }
 .projectsetting p1{
 	display:block;
@@ -286,13 +286,13 @@ a:link,a:visited,a:hover,a:active
 	color: #A9AFB5;
 	font-size: 16px;
 	}
-	.projectsetting p3{
+.projectsetting p3{
 	display:block;
 	margin-left: 20px;
 	color: #A9AFB5;
 	font-size: 16px;
 	}
-.upload-pjname {
+.projectsetting-pjname {
     display:block;
     font-size: 16px;
     width: 1150px;
@@ -303,7 +303,7 @@ a:link,a:visited,a:hover,a:active
     margin-top: 10px;
     margin-left: 20px;
 }
-.upload-button {
+.projectsetting-pjcover {
     display:block;
     width: 70px;
     margin-top: 10px;
@@ -313,7 +313,17 @@ a:link,a:visited,a:hover,a:active
     border-radius: 10px;
     color: #27D5F5;
 }
-
+.projectsetting-submit {
+    display:block;
+    width: 70px;
+    margin-top: 30px;
+    margin-left:20px;
+    border:2px solid #27D5F5;
+    padding:10px;
+    border-radius: 10px;
+    color: #27D5F5;
+    background-color: #fff;
+}
 textarea.projectintro{
 	border-style: ridge;
 	border-radius: 5px;

@@ -49,3 +49,28 @@ func (c *ProjectSettingController) Get() {
 	}
 
 }
+
+type project struct {
+    Projectname    string        `form:"Projectname"`
+    ProjectIntro  string         `form:"ProjectIntro"`
+}
+func (c *ProjectSettingController)Post()  {
+    var p project
+    if error:=c.ParseForm(&p);error!=nil {
+        c.Ctx.WriteString("出错了！")
+    }
+     file,head,err:=c.GetFile("Projectcover")
+	if err!=nil {
+		c.Ctx.WriteString("获取文件失败")
+		return
+	}
+	defer file.Close()
+ 
+	filename:=head.Filename
+	err =c.SaveToFile("Projectcover","static/"+filename)
+	if err!=nil {
+		c.Ctx.WriteString("上传失败1")
+	}
+
+	c.Get()
+}
