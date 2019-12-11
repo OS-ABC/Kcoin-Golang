@@ -40,7 +40,7 @@ func (c *PersonalPageController) Get() {
 
 	// 函数定义在models目录下的searchCcAndCs.go中，根据用户名查询CC余额
 	jsonBuf2, _ := models.GetPersonalRemainingCc(userName)
-	var remainingCc float64    // CC余额
+	var remainingCc float64    // CC余额，在数据库中的类型是double precise
 	errorCode2 := json.Unmarshal([]byte(jsonBuf2), &remainingCc)
 	if errorCode2 != nil {
 		fmt.Println("you r in personalPage controller, something got wrong " + 
