@@ -1,7 +1,6 @@
 package models
 
 import (
-	"database/sql"
 	"encoding/json"
 	"fmt"
 	"github.com/astaxie/beego/orm"
@@ -116,12 +115,19 @@ func jsonize(info UserInfo) (string, error) {
 	}
 }
 
-func FinduserByGitId(id string)(sql.Result, error){
+func FinduserByGitId(id string)(UserData, error){
 	o := orm.NewOrm()
 	_ = o.Using("default")
 	querySql := `select * from "K_User" where GITHUB_USER_ID = ?`
-	res, err := o.Raw(querySql, id).Exec()
-	return res , err
+	var maps []orm.Params
+	var u = UserData{}
+	_, err := o.Raw(querySql, id).Values(&maps);
+	if  err != nil {
+		fmt.Println(err.Error())
+	}
+	u.UserId = maps[0]["k_user_id"].(string)
+	u.UserName = maps[0]["user_name"].(string)
+	return u , err
 }
 
 func InsertUser(name string,uri string ,id string)(error){
@@ -131,6 +137,7 @@ func InsertUser(name string,uri string ,id string)(error){
 
 	insertSql := `INSERT INTO "K_User" (USER_NAME,REGISTER_TIME,HEAD_SHOT_URL,GITHUB_USER_ID) VALUES (?,?,?,?);`
 	_, err := o.Raw(insertSql, name, uri,time, id).Exec()
+
 	return err
 }
 func IsSupervisor(id string)(bool){
