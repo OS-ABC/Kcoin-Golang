@@ -29,24 +29,26 @@ func (c *HomePageController) Get() {
     c.Data["Projects"] = proj
 
 
-
+    isPlatformAdmin := false
     //判断当前登录状态
     if isLogin == "1"{
         c.Data["isLogin"] = true
         user := models.UserInfo{Data:&models.UserData{}}//user中存放着json解析后获得的数据。
         user.Data.UserName = c.Ctx.GetCookie("userName")
+        user.Data.UserId = c.Ctx.GetCookie("userId")
         user.Data.HeadShotUrl = c.Ctx.GetCookie("headShotUrl")
         c.Data["user"] = user
         //判断当前用户是不是平台管理员
-        isPlatformAdmin := models.IsSupervisor(user.Data.UserId)
-        c.Data[isPlatformAdmin] = isPlatformAdmin
+        isPlatformAdmin = models.IsSupervisor(user.Data.UserId)
     } else {
         c.Data["isLogin"] = false
         c.Ctx.SetCookie("userName","",100)
         c.Ctx.SetCookie("headShotUrl","",100)
         c.Ctx.SetCookie("status", string('0'),100)
         c.Ctx.SetCookie("lastUri",c.Ctx.Request.RequestURI)
+
     }
+    c.Data["isPlatformAdmin"] = isPlatformAdmin
 
     //设置Get方法对应展示的模板
     c.TplName = "homePage.tpl"
