@@ -133,3 +133,15 @@ func InsertUser(name string,uri string ,id string)(error){
 	_, err := o.Raw(insertSql, name, uri,time, id).Exec()
 	return err
 }
+func IsSupervisor(id string)(bool){
+	o := orm.NewOrm()
+	_ = o.Using("default")
+	findSql := `select * from "k_supervisor" where K_USER_ID = ?`
+	res , _ := o.Raw(findSql, id).Exec()
+	if res == nil {
+		return false
+	} else if n , _ := res.RowsAffected();n == 0{
+		return false
+	}
+	return true
+}
