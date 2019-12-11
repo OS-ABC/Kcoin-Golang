@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
+	"time"
 )
 
 type AuthoController struct {
@@ -24,25 +25,34 @@ func (c *AuthoController) Get() {
 
 	o := orm.NewOrm()
 	o.Using("default")
-//  移到model 改成GitID查询
+	//  移到model 改成GitID查询
 	res , _ := models.FinduserByGitId(id)
-	var num int64
-	if res != nil{
-		num, _ = res.RowsAffected()
-	}
-	if res == nil || num == 0{
+	
+	if res.UserId == "" {
 		err := models.InsertUser(name,uri,id)
 
 		if err != nil {
 			panic(err)
 		}
+	}else{
+		time := time.Now().Format("2006-01-02 15:04:05.000000")
+		updateSql := `update "K_User" set register_time = ? where GITHUB_USER_ID = ?`
+		_,err := o.Raw(updateSql, time, id).Exec()
+		if err != nil {
+			panic(err)
+		}
 	}
+
+
+
 	//存储用户名到cooike中，获取语法：c.Ctx.GetCookie("userName")
 	c.Ctx.SetCookie("userName", text.Data.Name, 3600)
+	//存储用户名到cooike中，获取语法：c.Ctx.GetCookie("userId")
+	c.Ctx.SetCookie("userId", res.UserId, 3600)
 	//存储用户头像url到cooike中，获取语法：c.Ctx.GetCookie("headShotUrl")
 	c.Ctx.SetCookie("headShotUrl", text.Data.Uri, 3600)
 	//存储用户登录状态到cooike中，其中1表示已登录，获取语法：c.Ctx.GetCookie("status")
-
+  
 	c.Ctx.SetCookie("status", string('1'), 3600)
 
 	if redirectUrl := c.Ctx.GetCookie("lastUri"); redirectUrl != "" {
