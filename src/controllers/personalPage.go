@@ -37,6 +37,17 @@ func (c *PersonalPageController) Get() {
 	if errorCode != nil {//出错了，panic
 		fmt.Println("you r in personalPage controller ,there is ia bug ,and the information is : ", errorCode.Error())
 	}
+
+	// 函数定义在models目录下的searchCcAndCs.go中，根据用户名查询CC余额
+	jsonBuf2, _ := models.GetPersonalRemainingCc(userName)
+	var remainingCc float64    // CC余额
+	errorCode2 := json.Unmarshal([]byte(jsonBuf2), &remainingCc)
+	if errorCode2 != nil {
+		fmt.Println("you r in personalPage controller, something got wrong " + 
+					"while getting the remainingCc, the information is: ", errorCode2.Error())
+	}
+
 	c.Data["user"] = user
+	c.Data["remainingCc"] = remainingCc
 	c.TplName = "personalPage.html"//该controller对应的页面
 }
