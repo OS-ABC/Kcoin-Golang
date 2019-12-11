@@ -125,8 +125,10 @@ func FinduserByGitId(id string)(UserData, error){
 	if  err != nil {
 		fmt.Println(err.Error())
 	}
-	u.UserId = maps[0]["k_user_id"].(string)
-	u.UserName = maps[0]["user_name"].(string)
+	for i := range maps {
+		u.UserId = maps[i]["k_user_id"].(string)
+		u.UserName = maps[i]["user_name"].(string)
+	}
 	return u , err
 }
 
@@ -136,7 +138,7 @@ func InsertUser(name string,uri string ,id string)(error){
 	time := time.Now().Format("2006-01-02 15:04:05.000000")
 
 	insertSql := `INSERT INTO "K_User" (USER_NAME,REGISTER_TIME,HEAD_SHOT_URL,GITHUB_USER_ID) VALUES (?,?,?,?);`
-	_, err := o.Raw(insertSql, name, uri,time, id).Exec()
+	_, err := o.Raw(insertSql, name, time, uri, id).Exec()
 
 	return err
 }
