@@ -31,7 +31,27 @@ function hidePopup(){
 } 
 
 function next_step(){
-    if(step_num >=1 && step_num < 3)
+    if(step_num === 1) {            //在第一步输入url后，点击下一步时，进行判断，验证其权限
+        var isProjOwner = false;    //表示仓库是否属于此用户，默认为false
+        var orgMember = false;      //表示仓库是否属于用户所在的组织，暂且默认为false，待后端写好再实现
+        var projUrl = document.getElementById("projectUrl").value;    //获取用户输入的URL
+        var temp = projUrl.split('/');
+
+        //用cookie获取用户的用户名。当前后端数据解析不出来，先设为一个常量
+        var userName = 'Guibeen'    //c.Ctx.getCookie('userName');
+       
+        //用斜杠‘/’分割项目url，则倒数第二项为用户名。两个用户名相等，则项目属于该用户
+        if(userName === temp[temp.length-2] ||
+            userName === temp[temp.length-2].replace("git@github.com:", ""))    //使用SSH
+            isProjOwner = true;
+        //如果两个条件都不满足，则提示错误并返回
+        if(!isProjOwner && !orgMember) {
+            alert('请检查输入的URL:您不是此项目的所有者，且不属于此项目的组织。（当前仅支持https）');
+            return;
+        }
+    }
+
+    if(step_num >= 1 && step_num < 3)
         step_num += 1;
     switch(step_num){
         case 2:
@@ -91,12 +111,12 @@ function back_step(){
 
 function showImg(input) {
     var file = input.files[0];
-    var url = window.URL.createObjectURL(file)
-    document.getElemtById('upload_image').src=url
+    var url = window.URL.createObjectURL(file);
+    document.getElemtById('upload_image').src=url;
 }
 
 function show_joined(){   
-    var popUp = document.getElementById("joined_projects"); 
+    var popUp = document.getElementById("joined_projects");
     popUp.style.display = "block";
     popUp = document.getElementById("managed_projects"); 
     popUp.style.display = "none";

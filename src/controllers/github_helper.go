@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"Kcoin-Golang/src/models"
 	"bytes"
 	"context"
 	_ "encoding/json"
@@ -15,19 +16,22 @@ import (
  * 这是一个全局数据结构，目前只有两个字段，用来保存Github名和对应access_token
  */
 type GithubInfo struct {
-	GithubId  string
-	GithubName string
+	GithubId    string
+	GithubName  string
 	AccessToken string
 }
 
 type GithubUserMap map[string]*GithubInfo
+
 //Github UserID -》GithubInfo
 
 var GithubUser GithubUserMap
+
 // name->id
 type noUserError struct {
 	userId string
 }
+
 // name->id
 func (this noUserError) Error() string {
 	return "No such user" + this.userId
@@ -39,7 +43,7 @@ func init() {
 }
 
 type Data struct {
-	Id string `json:userId`
+	Id   string `json:userId`
 	Name string `json:"userName"`
 	Uri  string `json:"headShotUrl"`
 }
@@ -63,15 +67,14 @@ func getUserJson(access_token string) UserJson {
 	// 获取ID
 	var name string = strings.Split(strings.Split(string(body_2), ",")[0], "\"")[3]
 	var uri string = strings.Split(strings.Split(string(body_2), ",")[3], "\"")[3]
-	var id string = strings.Split(strings.Split(string(body_2),",")[1],":")[1]
+	var id string = strings.Split(strings.Split(string(body_2), ",")[1], ":")[1]
 
 	//select id according to name
-
 
 	data := Data{
 		Name: name,
 		Uri:  uri,
-		Id:  id,
+		Id:   id,
 	}
 	json := UserJson{
 		ErrorCode: 0,
@@ -106,7 +109,7 @@ func getAccessToken(code string) (accessToken string, err error) {
  * 设置Github User这个map的Access Token字段.
  */
 // 参数name->id
-func (this GithubUserMap) setGithubUserAccessToken(id string,name string, accessToken string) {
+func (this GithubUserMap) setGithubUserAccessToken(id string, name string, accessToken string) {
 	if _, ok := this[id]; !ok {
 		this[id] = new(GithubInfo)
 	}
@@ -114,6 +117,7 @@ func (this GithubUserMap) setGithubUserAccessToken(id string,name string, access
 	this[id].GithubId = id
 	this[id].GithubName = name
 }
+
 // 参数name-》id
 func (this GithubUserMap) getGithubUserAccessToken(userId string) (string, error) {
 	if userInfo, ok := this[userId]; ok {
@@ -123,6 +127,33 @@ func (this GithubUserMap) getGithubUserAccessToken(userId string) (string, error
 		return "", err
 	}
 }
+
+//查询项目url是否合法，且判断用户是否有权限导入
+
+func CheckGithubRepoUrl(userId, url string) error {
+	_, repoName, err := models.ParseGithubHTTPSUrl(url)
+	//TODO:err处理等待解析函数pr合并后更新
+	if err != nil {
+		return err
+	}
+	info := GithubUser[userId]
+	userName := info.GithubName
+	apiUrl := "https://api.github.com/repos/" + userName + "/" + repoName
+	resp, err := http.Get(apiUrl)
+	if err != nil {
+		return err
+	}
+	if resp.StatusCode != 200 {
+		if resp.StatusCode == 404 {
+			//fmr.Errorf()可直接返回error类型，参数为error.Error()返回值
+			return fmt.Errorf("this repo Url is not valid")
+		} else {
+			return fmt.Errorf("err %d", resp.StatusCode)
+		}
+	}
+	return nil
+}
+
 //getWebhooksUrl 可以通过
 func registerGithubWebhooks(userId string, repoName string) {
 	accessToken, _ := GithubUser.getGithubUserAccessToken(userId)

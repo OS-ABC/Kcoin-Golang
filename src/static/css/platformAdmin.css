@@ -18,6 +18,22 @@ a:link,a:visited,a:hover,a:active
     background-color: #333333;
 }
 
+.topNavLogo{
+    float: left;
+    width: 60px;
+    height: 60px;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 10px;
+}
+
+.topNavName{
+    float: left;
+    line-height: 70px;
+    font-size: 28px;
+    color: aliceblue;
+}
+
 .navigation {
     position: relative;
     height: 160px;

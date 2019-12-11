@@ -15,6 +15,11 @@
             document.getElementById("personalProjectsLink").style.backgroundColor = 'white';
         </script>
 
+        <!--自定义cookie，获取用户名-->
+        <script type="text/javascript">
+            document.cookie = "userID=" + {{.user.Data.UserName}}
+        </script>
+
         <div class="mainInterface">
             <div class="navigation">
                 <a  class="first" id="manage" onclick="show_joined()">我参加的项目({{.memberList_len}})</a>
@@ -28,17 +33,18 @@
                 <div class="container-child">
                     {{with .user}}
                     {{range .Data.ProjectList}}
+                    <a href="/project/{{.ProjectName}}/info">    <!--点击项目时，跳转到项目详情页面-->
                     <div class="project">
                         <img class="project-cover" alt="project" src="{{.ProjectCoverUrl}}"/>
                         <div class="project-name">{{.ProjectName}} </div>
                         <div class="introduction">introduction</div>
                         <div class="CC">CC:12138</div>
-                        <hr/>
+                        <hr/>    <!--hr表示水平分割线-->
                         {{range .MemberList}}
                         <img class="head_shot" alt="" src="{{.HeadShotUrl}}"/>
-                        <!--后续或许可以设置成，如果成员过多，只显示前几名成员，后面加上点点点。-->
                         {{end}}
                     </div>
+                    </a>
                     {{end}}
                     {{end}}
                 </div>
@@ -48,6 +54,7 @@
                 <p>{{.test_projectUrl}}</p>
                 <p>{{.test_projectName}}</p>
                 <p>{{.test_filename}}</p>
+                <p>{{.test_ProjectIntro}}</p>
             </div>  
         </div>
     </div>
@@ -90,7 +97,9 @@
                         <p>&nbsp</p>
                         <p>1. 填写项目名称</p>
                         <input class = "projectname" name = "ProjectName" type="text">
-                        <p>2. 上传项目封面（选填，但只能添加不大于2M的图片）</p>
+                        <p>2. 填写项目描述</p>
+                        <textarea class = "projectintro" name = "ProjectIntro" maxlength="200" placeholder="不超过200字符" type="text"></textarea>
+                        <p>3. 上传项目封面（选填，但只能添加不大于2M的图片）</p>
                         <a href="javascript:;" class="upload">选择文件
                             <input class="change" id="upload_image" name = "uploadname" type="file" accept=".jpg, .png" onchange="showImg(this)"/>
                         </a>

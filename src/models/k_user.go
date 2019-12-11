@@ -1,10 +1,10 @@
 package models
 
 import (
-	"database/sql"
 	"encoding/json"
 	"fmt"
 	"github.com/astaxie/beego/orm"
+	"time"
 )
 
 type noResultErr int
@@ -115,18 +115,42 @@ func jsonize(info UserInfo) (string, error) {
 	}
 }
 
-func FinduserByGitId(id string)(sql.Result, error){
+func FinduserByGitId(id string)(UserData, error){
 	o := orm.NewOrm()
 	_ = o.Using("default")
 	querySql := `select * from "K_User" where GITHUB_USER_ID = ?`
-	res, err := o.Raw(querySql, id).Exec()
-	return res , err
+	var maps []orm.Params
+	var u = UserData{}
+	_, err := o.Raw(querySql, id).Values(&maps);
+	if  err != nil {
+		fmt.Println(err.Error())
+	}
+	for i := range maps {
+		u.UserId = maps[i]["k_user_id"].(string)
+		u.UserName = maps[i]["user_name"].(string)
+	}
+	return u , err
 }
 
 func InsertUser(name string,uri string ,id string)(error){
 	o := orm.NewOrm()
 	_ = o.Using("default")
-	insertSql := `INSERT INTO "K_User" (USER_NAME,REGISTER_TIME,HEAD_SHOT_URL,GITHUB_USER_ID) VALUES (?,now(),?,?);`
-	_, err := o.Raw(insertSql, name, uri, id).Exec()
+	time := time.Now().Format("2006-01-02 15:04:05.000000")
+
+	insertSql := `INSERT INTO "K_User" (USER_NAME,REGISTER_TIME,HEAD_SHOT_URL,GITHUB_USER_ID) VALUES (?,?,?,?);`
+	_, err := o.Raw(insertSql, name, time, uri, id).Exec()
+
 	return err
+}
+func IsSupervisor(id string)(bool){
+	o := orm.NewOrm()
+	_ = o.Using("default")
+	findSql := `select * from "k_supervisor" where K_USER_ID = ?`
+	res , _ := o.Raw(findSql, id).Exec()
+	if res == nil {
+		return false
+	} else if n , _ := res.RowsAffected();n == 0{
+		return false
+	}
+	return true
 }

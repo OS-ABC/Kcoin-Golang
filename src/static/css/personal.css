@@ -355,6 +355,16 @@ a:link,a:visited,a:hover,a:active
     height: 60px;
 }
 
+textarea.projectintro{
+	border-style: ridge;
+	border-radius: 5px;
+	padding: 5px;
+	color:gray;
+	font-size: 110%;
+    width:98%;
+    height:100px;  
+}
+
 /*以下是import.tpl页面用到的css*/
 html, body {
     width: 100%;

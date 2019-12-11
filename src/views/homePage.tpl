@@ -18,7 +18,7 @@
 
 
 			{{if .isPlatformAdmin}}
-				<a class="head-bt" href="./projectfunding">平台管理</a>
+				<a class="head-bt" href="/platformInformation">平台管理</a>
 			{{else}}
 				<!--不是平台管理员，不显示平台管理按钮-->
 			{{end}}
