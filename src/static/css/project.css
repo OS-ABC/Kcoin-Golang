@@ -349,6 +349,7 @@ textarea.projectintro{
     margin: 50px;
     width: 900px;
     height: 150px;
+    top:60px
 }
 
 .work-customers{
@@ -375,7 +376,7 @@ textarea.projectintro{
 .work-back{
     position: absolute;
     font-size: 15px;
-    left: 100px;
-    top: 420px;
-    color: rgb(93, 197, 238);
+    left: 25px;
+    top: 15px;
+    color: rgb(75, 192, 238);
 }
