@@ -48,6 +48,13 @@ type UserInfo struct {
 	ErrorCode string   `json:"errorCode"`
 	Data      *UserData `json:"data"`
 }
+//projectSetting
+/*ProjectSetting:为projectSetting的主要结构体，定义了项目名称、项目描述
+ */
+type ProjectSetting struct {
+    Projectname    string        `form:"Projectname"`
+    ProjectIntro  string         `form:"ProjectIntro"`
+}
 
 func init() {
 	_ = orm.RegisterDriver("postgres", orm.DRPostgres)

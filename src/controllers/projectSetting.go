@@ -50,12 +50,9 @@ func (c *ProjectSettingController) Get() {
 
 }
 
-type project struct {
-    Projectname    string        `form:"Projectname"`
-    ProjectIntro  string         `form:"ProjectIntro"`
-}
+
 func (c *ProjectSettingController)Post()  {
-    var p project
+    var p models.ProjectSetting
     if error:=c.ParseForm(&p);error!=nil {
         c.Ctx.WriteString("出错了！")
     }
