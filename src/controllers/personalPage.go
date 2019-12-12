@@ -35,12 +35,17 @@ func (c *PersonalPageController) Get() {
 	c.TplName = "personalPage.html"//该controller对应的页面
 
 	// 函数定义在models目录下的searchCcAndCs.go中，根据用户名查询CC余额
-	jsonBuf2, _ := models.GetPersonalRemainingCc(user.Data.UserName)
-	var remainingCc float64    // CC余额，在数据库中的类型是double precise
-	errorCode2 := json.Unmarshal([]byte(jsonBuf2), &remainingCc)
-	if errorCode2 != nil {
+	jsonBuf, err1 := models.GetPersonalRemainingCc(user.Data.UserName)
+	if err1 != nil {
 		fmt.Println("you r in personalPage controller, something got wrong " + 
-					"while getting the remainingCc, the information is: ", errorCode2.Error())
+					"while querying the database: ", err1.Error())
+	}
+
+	var remainingCc float64    // CC余额，在数据库中的类型是double precise
+	err2 := json.Unmarshal([]byte(jsonBuf), &remainingCc)
+	if err2 != nil {
+		fmt.Println("you r in personalPage controller, something got wrong " + 
+					"while unmarshalling the query result: ", err2.Error())
 	}
   
 	c.Data["remainingCc"] = remainingCc

@@ -37,8 +37,8 @@ function next_step(){
         var projUrl = document.getElementById("projectUrl").value;    //获取用户输入的URL
         var temp = projUrl.split('/');
 
-        //用cookie获取用户的用户名。当前后端数据解析不出来，先设为一个常量
-        var userName = 'Guibeen'    //c.Ctx.getCookie('userName');
+        //用cookie获取用户的用户名。
+        var userName = c.Ctx.getCookie('userName');
        
         //用斜杠‘/’分割项目url，则倒数第二项为用户名。两个用户名相等，则项目属于该用户
         if(userName === temp[temp.length-2] ||
