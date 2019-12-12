@@ -100,9 +100,9 @@ func GetCS(project string,member string,x int,y int,z int,m int) []CS{
 	return cs_total
 }
 
-func main() {
-	var info =GetCS("OS-ABC","Kcoin-Golang",1,2,3,1)
-	fmt.Println(info)
-}
+//func main() {
+//	var info =GetCS("OS-ABC","Kcoin-Golang",1,2,3,1)
+//	fmt.Println(info)
+//}
 
 
