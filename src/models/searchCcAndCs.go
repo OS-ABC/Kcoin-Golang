@@ -1,8 +1,6 @@
 package models
 
 import (
-	"encoding/json"
-	_ "encoding/json"
 	"fmt"
 	"github.com/astaxie/beego/orm"
 )
@@ -27,22 +25,4 @@ func getQuery() string {
 	return `select user_cs, b.user_cc from "K_User_in_Project" a, "K_User" b where a.user_id=? and a.project_id=? and a.user_id = b.user_id`
 }
 
-// 实现personalPage控制器中的查询CC余额
-func GetPersonalRemainingCc(userName string) (string, error) {
-	o1 := orm.NewOrm()
-	o1.Using("default")
-	ccQuery := `select user_cc from "K_User" a where a.user_name=?`
-	// 分别代表数据库中查到的余额和错误
-	sum, err1 := o1.Raw(ccQuery, userName).Exec()
-	if err1 != nil {
-		fmt.Println(err1.Error())
-		return "", err1
-	}
-	// json.Marshal函数将sum封装成json格式存进res，同时返回错误信息
-	res, err2 := json.Marshal(sum)
-	if err2 != nil {
-		fmt.Println(err2.Error())
-		return "", err2
-	}
-	return string(res), nil
-}
+
