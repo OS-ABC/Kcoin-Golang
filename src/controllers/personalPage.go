@@ -3,6 +3,8 @@ package controllers
 import (
 	"Kcoin-Golang/src/models"
 	_ "Kcoin-Golang/src/models"
+	"encoding/json"
+	"fmt"
 
 	"github.com/astaxie/beego"
 )
@@ -33,7 +35,7 @@ func (c *PersonalPageController) Get() {
 	c.TplName = "personalPage.html"//该controller对应的页面
 
 	// 函数定义在models目录下的searchCcAndCs.go中，根据用户名查询CC余额
-	jsonBuf2, _ := models.GetPersonalRemainingCc(userName)
+	jsonBuf2, _ := models.GetPersonalRemainingCc(user.Data.UserName)
 	var remainingCc float64    // CC余额，在数据库中的类型是double precise
 	errorCode2 := json.Unmarshal([]byte(jsonBuf2), &remainingCc)
 	if errorCode2 != nil {
