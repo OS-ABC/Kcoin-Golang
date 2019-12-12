@@ -57,3 +57,12 @@ func GetProjectsCC(projectName string) (float64, error) {
 	}
 	return num, nil
 }
+
+func GetProjectidByRepoName(reponame string) (int, error) {
+	o := orm.NewOrm()
+	_ = o.Using("default")
+	var project_id int
+	querySql := `select project_id from "K_Project" where project_name=?`
+	err := o.Raw(querySql, reponame).QueryRow(&project_id)
+	return project_id, err
+}

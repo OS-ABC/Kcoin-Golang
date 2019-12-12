@@ -1,6 +1,7 @@
 package models
 
 import (
+	"database/sql"
 	"encoding/json"
 	"fmt"
 	"github.com/astaxie/beego/orm"
@@ -131,7 +132,37 @@ func FinduserByGitId(id string)(UserData, error){
 	}
 	return u , err
 }
-
+func FindUserByUsername(username string)(sql.Result, error){
+	o := orm.NewOrm()
+	_ = o.Using("default")
+	querySql := `select k_user_id from "K_User" where user_name = ?`
+	res,err:=o.Raw(querySql,username).Exec()
+	return res,err
+}
+func GetUseridByUsername(username string)(int,error){
+	var k_user_id int
+	o:=orm.NewOrm()
+	_ = o.Using("default")
+	querySql := `select k_user_id from "K_User" where user_name = ?`
+	err:=o.Raw(querySql,username).QueryRow(&k_user_id)
+	return k_user_id,err
+}
+func InsertIntoKUserInProject(projectId int,userId int)(sql.Result,error){
+	o:=orm.NewOrm()
+	_ = o.Using("default")
+	insertSql:= `insert into "K_User_in_Project" (project_id,user_id)values(?,?)`
+	res, err :=o.Raw(insertSql,projectId,userId).Exec()
+	return res,err
+}
+func InsertIntoKTemporaryUser(inviterId,gitId int,gitName string,projectId int)(sql.Result,error){
+	o:=orm.NewOrm()
+	_ = o.Using("default")
+	insertSql:=`insert into "k_temporary_user" (inviter_id,git_id,git_name,project_id,invite_time)values(?,?,?,?,?)`
+	currentTime:=time.Now()
+	currentTime.Format("2006-01-02 15:04:05:000000")
+	res,err:=o.Raw(insertSql,inviterId,gitId,gitName,projectId,currentTime).Exec()
+	return res,err
+}
 func InsertUser(name string,uri string ,id string)(error){
 	o := orm.NewOrm()
 	_ = o.Using("default")
