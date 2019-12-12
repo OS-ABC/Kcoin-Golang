@@ -29,17 +29,18 @@ func getQuery() string {
 
 // 实现personalPage控制器中的查询CC余额
 func GetPersonalRemainingCc(userName string) (string, error) {
-	o1 := orm.NewOrm()
-	o1.Using("default")
-	ccQuery := `select user_cc from "K_User" a where a.user_name=?`
+	o := orm.NewOrm()
+	o.Using("default")
+
+	ccQuery := `SELECT user_name, user_cc FROM "K_User" WHERE user_name=?`
 	// 分别代表数据库中查到的余额和错误
-	sum, err1 := o1.Raw(ccQuery, userName).Exec()
+	sum, err1 := o.Raw(ccQuery, userName).Exec()
 	if err1 != nil {
 		fmt.Println(err1.Error())
 		return "", err1
 	}
 	// json.Marshal函数将sum封装成json格式存进res，同时返回错误信息
-	res, err2 := json.Marshal(sum)
+	res, err2 := json.Marshal(&sum)
 	if err2 != nil {
 		fmt.Println(err2.Error())
 		return "", err2
