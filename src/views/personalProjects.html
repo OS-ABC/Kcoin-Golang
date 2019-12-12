@@ -22,17 +22,17 @@
 
         <div class="mainInterface">
             <div class="navigation">
-                <a  class="first" id="manage" onclick="show_joined()">我参加的项目({{.memberList_len}})</a>
+                <a  class="first" id="manage" onclick="show_joined()">我参加的项目({{.joinedprojects_len}})</a>
                 <a  id="join" onclick="show_managed()">我管理的项目({{.memberList_len}})</a>
                 <div style="padding-right: 30px; padding-top: 25px; float: right; font-size: 25px;">
                     <input type="button" style="width:125px; height:40px;" onclick="showPopup();" value="添加项目">
                 </div>
             </div>
 
+            <!-- 参加的项目 -->
             <div class="container" id="joined_projects">
                 <div class="container-child">
-                    {{with .user}}
-                    {{range .Data.ProjectList}}
+                    {{range .joinedProjects}}
                     <a href="/project/{{.ProjectName}}/info">    <!--点击项目时，跳转到项目详情页面-->
                     <div class="project">
                         <img class="project-cover" alt="project" src="{{.ProjectCoverUrl}}"/>
@@ -46,9 +46,9 @@
                     </div>
                     </a>
                     {{end}}
-                    {{end}}
                 </div>
             </div> 
+            <!-- 管理的项目，目前是测试用 -->
             <div class="container" id="managed_projects">
                 <p>test</p>
                 <p>{{.test_projectUrl}}</p>
@@ -59,9 +59,9 @@
         </div>
     </div>
 
-    <div id="import" style="background:rgba(0,0,0,0.9);" onclick="hidePopup();" >
+    <div id="import" style="background:rgba(0,0,0,0.9);" onMouseDown="hidePopup();" >
         <!-- onClick="event.cancelBubble = true"   div嵌套div时，点击子级div不触发父级div点击事件。-->
-        <div class="main" style="background:rgba(255, 255, 255, 0.9)" onClick="event.cancelBubble = true">
+        <div class="main" style="background:rgba(255, 255, 255, 0.9)" onMouseDown="event.cancelBubble = true">
             <h1>导入项目
                 <img class="close-button" style="width:50px; height: 100%;position: relative;float:right;top:-5px" 
                 onclick="hidePopup();" src="../static/img/close2.png"/>
