@@ -339,6 +339,7 @@ textarea.projectintro{
     margin: 50px;
     width: 900px;
     height: 150px;
+    top:60px
 }
 
 .work-customers{
@@ -362,3 +363,10 @@ textarea.projectintro{
     text-align: center;
 }
 
+.work-back{
+    position: absolute;
+    font-size: 15px;
+    left: 25px;
+    top: 15px;
+    color: rgb(75, 192, 238);
+}
