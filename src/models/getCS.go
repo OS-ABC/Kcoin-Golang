@@ -1,5 +1,4 @@
 package models
-
 import (
 	"encoding/json"
 	"fmt"
@@ -7,6 +6,7 @@ import (
 	"net/http"
 	"strings"
 )
+
 type CS struct {
 	sort string
 	content string
@@ -91,7 +91,7 @@ func getCS_issue(project string,member string,m int) []CS{
 /*
 获取CS数和CS贡献度列表
 */
-func getCS(project string,member string,x int,y int,z int,m int) []CS{
+func GetCS(project string,member string,x int,y int,z int,m int) []CS{
 	var cs_total=[]CS{}
 	cs_total = append(getCS_pr(project, member, x), getCS_mergePr(project, member, x)...)
 	cs_total = append(cs_total, getCS_review(project,member,y)...)
@@ -100,9 +100,9 @@ func getCS(project string,member string,x int,y int,z int,m int) []CS{
 	return cs_total
 }
 
-//func main() {
-//	var info =getCS("OS-ABC","Kcoin-Golang",1,2,3,1)
-//	fmt.Println(info)
-//}
+func main() {
+	var info =GetCS("OS-ABC","Kcoin-Golang",1,2,3,1)
+	fmt.Println(info)
+}
 
 
