@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func ImportProject(url string)error{
+func ImportProject(url string,cover_url string)error{
 
 	//首先将string类型的currentUserId转成Int型
 	currentUserId_int,err:=strconv.Atoi(currentUserId)
@@ -42,6 +42,8 @@ func ImportProject(url string)error{
 				notIn= append(notIn, singleUser)
 				//通过github API获取这个用户的git id
 				singleUser_git_id:=GetGithubId(singleUser)
+				//插入项目到数据库
+				_, _ = models.InsertProject(repoName, url, cover_url)
 				//根据根据项目名查K_Project表获取project_id
 				project_id,err=models.GetProjectidByRepoName(repoName)
 				if err!=nil{
