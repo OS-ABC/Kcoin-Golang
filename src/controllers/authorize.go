@@ -5,12 +5,13 @@ import (
 	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
+	"time"
 )
 
 type AuthoController struct {
 	beego.Controller
 }
-
+var currentUserId string
 func (c *AuthoController) Get() {
 	var code string = c.GetString("code")
 	accessToken, _ := getAccessToken(code)
@@ -18,6 +19,7 @@ func (c *AuthoController) Get() {
 
 	name := text.Data.Name
 	id := text.Data.Id
+	currentUserId=id
 	// 修改参数
 	GithubUser.setGithubUserAccessToken(id,name, accessToken)
 	uri := text.Data.Uri
