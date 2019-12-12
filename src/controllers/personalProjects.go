@@ -4,45 +4,23 @@ import (
 	"Kcoin-Golang/src/models"
 	"encoding/json"
 	"fmt"
+	"log"
 	"strconv"
 
 	"github.com/astaxie/beego"
 )
 
 var memberList_len int //获取用户github中项目数量
+var joinedprojects_len int //参加项目的数量
 var ProjectIntro string
 
 type PersonalProjectsController struct {
 	beego.Controller
 }
 
-//导入项目
-func (c *PersonalProjectsController) Post() {
-	pUrl := c.GetString("ProjectUrl")       //项目地址
-	pName := c.GetString("ProjectName")     //项目名称
-	pIntro := c.GetString("ProjectIntro")   //项目介绍
-	uploadname := c.GetString("uploadname") //项目封面
-	fmt.Println(pUrl, pName, pIntro, uploadname)
-	//检查Url合法性
-	err := CheckGithubRepoUrl("0", pUrl) //*************写这个方法的人帮忙看一下这里第一个参数id要传什么*********
-	if err != nil {
-		//url不合法，返回错误并给出提示
-	}
-	//获取项目所有的开发者信息
-	//err = GetAllContributor(pUrl)
-	if err != nil {
-		//url不合法，后台log输出日志
-	}
-	//将开发人员信息存入数据库的临时用户表中
-
-	//向被邀请的人发送邮件
-	//err = SendEMailToPotentialUsers()
-
-	//返回导入成功信息
-}
-
-func (c *PersonalProjectsController) Get() {
+func (c *PersonalProjectsController) GetPersonalInfo() {
 	name := c.Ctx.GetCookie("userName")
+	userBuf, _ := models.GetUserInfo(name)
 	projectBuf, _ := models.GetGithubRepos(name)
 
 	status := c.Ctx.GetCookie("status")
@@ -52,20 +30,72 @@ func (c *PersonalProjectsController) Get() {
 		defer c.Redirect("/login.html", 302)
 	}
 
-	user := models.UserInfo{Data: &models.UserData{}} //user中存放着json解析后获得的数据。
-	user.Data.UserName = c.Ctx.GetCookie("userName")
-	user.Data.HeadShotUrl = c.Ctx.GetCookie("headShotUrl")
-
+	user := models.UserInfo{Data: &models.UserData{}}
 	var projects models.ProjectInfo
-	errorCode := json.Unmarshal([]byte(projectBuf), &projects)
+	errorCode := json.Unmarshal([]byte(userBuf), &user)
+	errorCode2 := json.Unmarshal([]byte(projectBuf), &projects)
 
 	if errorCode != nil {
+		fmt.Println("Oops, there is an error:( please keep debugging.", errorCode.Error())
+	}
+	if errorCode2 != nil {
 		fmt.Println("Oops, there is an error:( please keep debugging.", errorCode.Error())
 	}
 
 	c.Data["user"] = user
 	c.Data["repos"] = projects
 	c.Data["memberList_len"] = strconv.Itoa(len(projects.Data)) //个人项目数量
+
+	//获取已加入项目
+	//使用testid=95
+	testid := "95"
+	joinedprojects, _ := models.GetAllJoinedProjects(testid)
+	fmt.Print(models.GetAllJoinedProjects("95"))
+	c.Data["joinedProjects"] = joinedprojects
+	c.Data["joinedprojects_len"] = strconv.Itoa(len(joinedprojects))
+}
+
+func (c *PersonalProjectsController) Post() {
+	var U models.Project
+	//var U test_Project
+	ProjectIntro = c.GetString("ProjectIntro")
+
+	if error := c.ParseForm(&U); error != nil {
+		c.Ctx.WriteString("出错了！")
+	}
+
+	c.GetPersonalInfo()
+
+	//获取刚刚post的数据
+	c.Data["test_projectName"] = U.ProjectName
+	c.Data["test_projectUrl"] = U.ProjectUrl
+
+	//textfield
+	c.Data["test_ProjectIntro"] = ProjectIntro
+
+	//session获取textfiled
+	textfield := c.GetSession("TextField")
+	if textfield != nil {
+		c.DelSession("TextField")
+	}
+	c.Data["TextField"] = textfield
+	//session获取textfiled
+	c.SetSession("TextField", ProjectIntro)
+
+	//提交图片
+	f, h, err := c.GetFile("uploadname")
+	if err != nil {
+		log.Fatal("getfile err ", err)
+	}
+	defer f.Close()
+	c.Data["test_filename"] = h.Filename
+
 	c.TplName = "personalProjects.html"
 
+}
+
+func (c *PersonalProjectsController) Get() {
+	c.GetPersonalInfo()
+
+	c.TplName = "personalProjects.html"
 }
