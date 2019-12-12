@@ -22,8 +22,8 @@ func GetAllProjectsInfo() (string, error) {
 	_, err := o.Raw(queryProjectSql).QueryRows(&projectsInfo.Data)
 
 	/******************************************query menberList in one project**********************************/
-	queryUsersInProjectSql := `select u.user_id,u.user_name,u.head_shot_url
-								from "K_User" u left join "K_User_in_Project" up on u.user_id=up.user_id
+	queryUsersInProjectSql := `select u.k_user_id,u.user_name,u.head_shot_url
+								from "K_User" u left join "K_User_in_Project" up on u.k_user_id=up.user_id
        							where up.project_id=?`
 	/**********************************************************************************************************/
 	for _, v := range projectsInfo.Data {
@@ -42,4 +42,12 @@ func GetAllProjectsInfo() (string, error) {
 		return fmt.Sprint(projectsInfo), err
 	}
 	return string(res), nil
+}
+func GetProjectidByRepoName(reponame string)(int,error){
+	o:=orm.NewOrm()
+	_ = o.Using("default")
+	var project_id int
+	querySql:=`select project_id from "K_Project" where project_name=?`
+	err := o.Raw(querySql,reponame).QueryRow(&project_id)
+	return project_id,err
 }
