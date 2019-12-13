@@ -93,3 +93,25 @@ func TestParseGithubHTTPSUrl(t *testing.T) {
 		})
 	}
 }
+
+func TestGetProjectsCC(t *testing.T) {
+	type args struct {
+		projectName string
+	}
+	tests := []struct {
+		name string
+		args args
+		want float64
+	}{
+		//测试用例
+		{args: args{projectName: "baidu"}, want: 1},        //PASS
+		{args: args{projectName: "i_love_Kcoin"}, want: 3}, //PASS
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got, _ := models.GetProjectsCC(tt.args.projectName); got != tt.want {
+				t.Errorf("CCNum = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
