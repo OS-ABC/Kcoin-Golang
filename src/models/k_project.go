@@ -1,9 +1,11 @@
 package models
 
 import (
+	"database/sql"
 	"encoding/json"
 	_ "encoding/json"
 	"fmt"
+	"log"
 
 	"github.com/astaxie/beego/orm"
 )
@@ -65,4 +67,15 @@ func GetProjectidByRepoName(reponame string) (int, error) {
 	querySql := `select project_id from "K_Project" where project_name=?`
 	err := o.Raw(querySql, reponame).QueryRow(&project_id)
 	return project_id, err
+}
+
+func InsertProject(reponame string, url string, project_cover_url string) (sql.Result, error) {
+	o := orm.NewOrm()
+	_ = o.Using("default")
+	querySql := `insert into "K_Project"(project_name,project_url,project_cover_url)values(?,?,?)`
+	res, err := o.Raw(querySql, reponame, url, project_cover_url).Exec()
+	if err != nil {
+		log.Fatal("error when insert project,", err)
+	}
+	return res, err
 }
