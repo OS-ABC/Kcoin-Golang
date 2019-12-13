@@ -46,21 +46,36 @@ func GetAllProjectsInfo() (string, error) {
 	}
 	return string(res), nil
 }
-func GetProjectidByRepoName(reponame string)(int,error){
-	o:=orm.NewOrm()
+
+func GetProjectsCC(projectName string) (float64, error) {
+	o := orm.NewOrm()
+	o.Using("default")
+
+	queryProjectSql := `SELECT project_cc FROM "K_Project" WHERE project_name=? `
+	var num float64
+	err := o.Raw(queryProjectSql, projectName).QueryRow(&num)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	return num, nil
+}
+
+func GetProjectidByRepoName(reponame string) (int, error) {
+	o := orm.NewOrm()
 	_ = o.Using("default")
 	var project_id int
-	querySql:=`select project_id from "K_Project" where project_name=?`
-	err := o.Raw(querySql,reponame).QueryRow(&project_id)
-	return project_id,err
+	querySql := `select project_id from "K_Project" where project_name=?`
+	err := o.Raw(querySql, reponame).QueryRow(&project_id)
+	return project_id, err
 }
-func InsertProject(reponame string,url string,project_cover_url string)(sql.Result,error){
-	o:=orm.NewOrm()
+
+func InsertProject(reponame string, url string, project_cover_url string) (sql.Result, error) {
+	o := orm.NewOrm()
 	_ = o.Using("default")
-	querySql:=`insert into "K_Project"(project_name,project_url,project_cover_url)values(?,?,?)`
-	res,err := o.Raw(querySql,reponame,url,project_cover_url).Exec()
-	if err!=nil{
-		log.Fatal("error when insert project,",err)
+	querySql := `insert into "K_Project"(project_name,project_url,project_cover_url)values(?,?,?)`
+	res, err := o.Raw(querySql, reponame, url, project_cover_url).Exec()
+	if err != nil {
+		log.Fatal("error when insert project,", err)
 	}
-	return res,err
+	return res, err
 }
