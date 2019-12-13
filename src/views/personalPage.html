@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8" />
     <title>个人中心</title>
-    <script type="text/javascript">
+    <script type="text/javascript" src="../static/js/paging.js">
 		function changePersonalPageColor(){
 			document.getElementById("personalPageLink").style.backgroundColor = 'white';
 		}
@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="../static/css/personal.css"/>
 </head>
 
-<body>
+<body onload="goPage1(1,5);goPage2(1,5);">
     <div id="container">
         <div class="left-nav">
             {{template "./leftNav.html" .}}
@@ -28,7 +28,7 @@
             <div class="record">
                 Kcoin记录
                 <a class="sermore" href="./ccsearchpage">查看更多</a>
-                <table class="customers">
+                <table class="customers" id="idData1">
                     <tr class="alt">
                         <th>日期</th>
                         <th>操作类型</th>
@@ -36,20 +36,128 @@
                     </tr>
                     <!--之后从数据库读取cc的操作数据-->
                     <tr>
-                        <th>11.19</th>
-                        <th>sell</th>
-                        <th>-1000</th>
+                        <td>11.19</td>
+                        <td>sell</td>
+                        <td>-1000</td>
                     </tr>
                     <tr>
-                        <th>11.20</th>
-                        <th>buy</th>
-                        <th>5000</th>
+                        <td>11.20</td>
+                        <td>buy</td>
+                        <td>+5000</td>
                     </tr>
                     <tr>
-                        <th>11.21</th>
-                        <th>sell</th>
-                        <th>-1500</th>
+                        <td>11.21</td>
+                        <td>sell</td>
+                        <td>-1500</td>
                     </tr>
+                    <tr>
+                        <td>11.22</td>
+                        <td>sell</td>
+                        <td>-1000</td>
+                    </tr>
+                    <tr>
+                        <th>日期</th>
+                        <th>操作类型</th>
+                        <th>cc数量</th>
+                    </tr>
+                    <tr>
+                        <td>11.23</td>
+                        <td>sell</td>
+                        <td>-1500</td>
+                    </tr>
+                    <tr>
+                        <td>11.24</td>
+                        <td>sell</td>
+                        <td>-2000</td>
+                    </tr>
+                    <tr>
+                        <td>11.25</td>
+                        <td>buy</td>
+                        <td>+3000</td>
+                    </tr>
+                    <tr>
+                        <td>11.26</td>
+                        <td>sell</td>
+                        <td>-2500</td>
+                    </tr>
+                    <tr>
+                        <th>日期</th>
+                        <th>操作类型</th>
+                        <th>cc数量</th>
+                    </tr>
+                    <tr>
+                        <td>11.27</td>
+                        <td>buy</td>
+                        <td>+1000</td>
+                    </tr>
+                    <tr>
+                        <td>11.28</td>
+                        <td>sell</td>
+                        <td>-1500</td>
+                    </tr>
+                        <td>11.29</td>
+                        <td>sell</td>
+                        <td>-1000</td>
+                    </tr>
+                    <!--之后从数据库读取cc的操作数据-->
+                    <tr>
+                        <td>11.30</td>
+                        <td>sell</td>
+                        <td>-2000</td>
+                    </tr>
+                    <tr>
+                        <th>日期</th>
+                        <th>操作类型</th>
+                        <th>cc数量</th>
+                    </tr>
+                    <tr>
+                        <td>12.01</td>
+                        <td>buy</td>
+                        <td>+4000</td>
+                    </tr>
+                    <tr>
+                        <td>12.02</td>
+                        <td>sell</td>
+                        <td>-1000</td>
+                    </tr>
+                    <tr>
+                        <td>12.03</td>
+                        <td>buy</td>
+                        <td>+6000</td>
+                    </tr>
+                    <tr>
+                        <td>12.04</td>
+                        <td>sell</td>
+                        <td>-1500</td>
+                    </tr>
+                    <tr>
+                        <th>日期</th>
+                        <th>操作类型</th>
+                        <th>cc数量</th>
+                    </tr>
+                    <tr>
+                        <td>12.05</td>
+                        <td>sell</td>
+                        <td>-1000</td>
+                    </tr>
+                    <tr>
+                        <td>12.06</td>
+                        <td>sell</td>
+                        <td>-1500</td>
+                    </tr>
+                    <tr>
+                        <td>12.07</td>
+                        <td>sell</td>
+                        <td>-1000</td>
+                    </tr>
+                    <tr>
+                        <td>12.08</td>
+                        <td>buy</td>
+                        <td>+1000</td>
+                    </tr>
+
+
+				</table>
                     <!--<tr>
                     {{with .user.Data}}
                     {{range .UserCcOpeList}}
@@ -60,10 +168,161 @@
                     {{end}}
                     {{end}}
                     -->
-            </div>
-            </div>
-            <div class="token">
-                项目token记录
+			<div>
+				<table width="60%" align="center">
+                    <tr>
+                        <td><div style="margin-top: 30px" id="barcon1" name="barcon"></div></td>
+                    </tr>
+  				</table>
+			</div>
+
+				<div style="margin-top: 50px">项目token记录</div>
+                <table class="customers" id="idData2" >
+
+                    <tr class="alt">
+                        <th>日期</th>
+                        <th>操作类型</th>
+                        <th>cc数量</th>
+                    </tr>
+                    <!--之后从数据库读取cc的操作数据-->
+                    <tr>
+                        <td>11.19</td>
+                        <td>sell</td>
+                        <td>-1000</td>
+                    </tr>
+                    <tr>
+                        <td>11.20</td>
+                        <td>buy</td>
+                        <td>+5000</td>
+                    </tr>
+                    <tr>
+                        <td>11.21</td>
+                        <td>sell</td>
+                        <td>-1500</td>
+                    </tr>
+                    <tr>
+                        <td>11.22</td>
+                        <td>sell</td>
+                        <td>-1000</td>
+                    </tr>
+                    <tr>
+                        <th>日期</th>
+                        <th>操作类型</th>
+                        <th>cc数量</th>
+                    </tr>
+                    <tr>
+                        <td>11.23</td>
+                        <td>sell</td>
+                        <td>-1500</td>
+                    </tr>
+                    <tr>
+                        <td>11.24</td>
+                        <td>sell</td>
+                        <td>-2000</td>
+                    </tr>
+                    <tr>
+                        <td>11.25</td>
+                        <td>buy</td>
+                        <td>+3000</td>
+                    </tr>
+                    <tr>
+                        <td>11.26</td>
+                        <td>sell</td>
+                        <td>-2500</td>
+                    </tr>
+                    <tr>
+                        <th>日期</th>
+                        <th>操作类型</th>
+                        <th>cc数量</th>
+                    </tr>
+                    <tr>
+                        <td>11.27</td>
+                        <td>buy</td>
+                        <td>+1000</td>
+                    </tr>
+                    <tr>
+                        <td>11.28</td>
+                        <td>sell</td>
+                        <td>-1500</td>
+                    </tr>
+                        <td>11.29</td>
+                        <td>sell</td>
+                        <td>-1000</td>
+                    </tr>
+                    <!--之后从数据库读取cc的操作数据-->
+                    <tr>
+                        <td>11.30</td>
+                        <td>sell</td>
+                        <td>-2000</td>
+                    </tr>
+                    <tr>
+                        <th>日期</th>
+                        <th>操作类型</th>
+                        <th>cc数量</th>
+                    </tr>
+                    <tr>
+                        <td>12.01</td>
+                        <td>buy</td>
+                        <td>+4000</td>
+                    </tr>
+                    <tr>
+                        <td>12.02</td>
+                        <td>sell</td>
+                        <td>-1000</td>
+                    </tr>
+                    <tr>
+                        <td>12.03</td>
+                        <td>buy</td>
+                        <td>+6000</td>
+                    </tr>
+                    <tr>
+                        <td>12.04</td>
+                        <td>sell</td>
+                        <td>-1500</td>
+                    </tr>
+                    <tr>
+                        <th>日期</th>
+                        <th>操作类型</th>
+                        <th>cc数量</th>
+                    </tr>
+                    <tr>
+                        <td>12.05</td>
+                        <td>sell</td>
+                        <td>-1000</td>
+                    </tr>
+                    <tr>
+                        <td>12.06</td>
+                        <td>sell</td>
+                        <td>-1500</td>
+                    </tr>
+                    <tr>
+                        <td>12.07</td>
+                        <td>sell</td>
+                        <td>-1000</td>
+                    </tr>
+                    <tr>
+                        <td>12.08</td>
+                        <td>buy</td>
+                        <td>+1000</td>
+                    </tr>
+
+
+				</table>
+                    <!--<tr>
+                    {{with .user.Data}}
+                    {{range .UserCcOpeList}}
+                        <td>{{.OpeCcDate}}</td>
+                        <td>{{.OpeCcType}}</td>
+                        <td>{{.OpeCcNumber}}</td>
+                    </tr>
+                    {{end}}
+                    {{end}}
+                    -->
+				<table width="60%" align="center" id="location">
+                    <tr>
+                        <td><div style="margin-top: 30px" align="left" id="barcon2" name="barcon2"></div></td>
+                    </tr>
+  				</table>
             </div>
         </div>
     </div>
