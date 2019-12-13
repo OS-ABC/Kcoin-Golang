@@ -189,12 +189,13 @@ func SendEMailToPotentialUsers(users []string) ([]string, error) {
 			//这里为什么用emails[0]呢，因为某种玄学原因，emails里有两个重复的邮箱，我们用一个就行了
 			fmt.Println("now sending email")
 			currentemail := emails[0].Email
+			fmt.Println("email is :", currentemail)
 			//for index, email := range emails {
 			//    fmt.Printf("%d: %s\n", index+1, email.Email)
 			//}
 			//`{"username":"邮箱名称","password":"163的token","host":"SMTP服务器地址","port":对应端口号}`
 			config :=
-				`{"username":"kcoin_golang@163.com","password":"gaotianhao123","host":"smtp.163.com","port":25}`
+				`{"username":"kcoin_golang@163.com","password":"kcoin163","host":"smtp.163.com","port":25}`
 			// 通过存放配置信息的字符串，创建Email对象
 			temail := utils.NewEMail(config)
 			// 指定邮件的基本信息
