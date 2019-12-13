@@ -36,7 +36,8 @@ func (c *ProjectInfoController) Get() {
 		contributorsNum = models.GetContributorNum(fakeURL)
 		c.SetSession("contributorsNum", contributorsNum)
 	}
-
+	projectCC, _ := models.GetProjectsCC(id.(string))
+	c.Data["projectCC"] = projectCC
 	c.Data["starNum"] = starNum
 	c.Data["contributorsNum"] = contributorsNum
 	c.TplName = "projectInfo.html"
