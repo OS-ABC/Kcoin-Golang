@@ -73,7 +73,7 @@ func (c *PersonalProjectsController) Post() {
 	ImportProject(pUrl, "../static/img/projectbg.png")
 
 	c.TplName = "personalProjects.html"
-	c.Redirect("personalProjects", 302)
+	c.Redirect("personalprojects", 302)
 }
 
 func (c *PersonalProjectsController) Get() {

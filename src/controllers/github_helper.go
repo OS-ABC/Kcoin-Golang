@@ -206,7 +206,7 @@ func registerGithubWebhooks(userId string, repoName string) {
 		fmt.Printf("client.Do%v", err)
 	}
 	respBytes, err := ioutil.ReadAll(resp.Body)
-
+	defer resp.Body.Close()
 	if err != nil {
 		fmt.Printf("ioutil.ReadAll%v", err)
 	}
