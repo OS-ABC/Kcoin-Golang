@@ -10,7 +10,7 @@ import (
 	"github.com/astaxie/beego"
 )
 
-var memberList_len int //获取用户github中项目数量
+var memberList_len int     //获取用户github中项目数量
 var joinedprojects_len int //参加项目的数量
 var ProjectIntro string
 
@@ -56,31 +56,12 @@ func (c *PersonalProjectsController) GetPersonalInfo() {
 }
 
 func (c *PersonalProjectsController) Post() {
-	var U models.Project
-	//var U test_Project
-	ProjectIntro = c.GetString("ProjectIntro")
-
-	if error := c.ParseForm(&U); error != nil {
-		c.Ctx.WriteString("出错了！")
-	}
-
-	c.GetPersonalInfo()
-
-	//获取刚刚post的数据
-	c.Data["test_projectName"] = U.ProjectName
-	c.Data["test_projectUrl"] = U.ProjectUrl
-
-	//textfield
-	c.Data["test_ProjectIntro"] = ProjectIntro
-
-	//session获取textfiled
-	textfield := c.GetSession("TextField")
-	if textfield != nil {
-		c.DelSession("TextField")
-	}
-	c.Data["TextField"] = textfield
-	//session获取textfiled
-	c.SetSession("TextField", ProjectIntro)
+	//var U models.Project
+	pUrl := c.GetString("ProjectUrl")     //项目地址
+	pName := c.GetString("ProjectName")   //项目名称
+	pIntro := c.GetString("ProjectIntro") //项目介绍
+	//uploadname := c.GetString("uploadname") //项目封面
+	fmt.Println(pUrl, pName, pIntro)
 
 	//提交图片
 	f, h, err := c.GetFile("uploadname")
@@ -88,10 +69,11 @@ func (c *PersonalProjectsController) Post() {
 		log.Fatal("getfile err ", err)
 	}
 	defer f.Close()
-	c.Data["test_filename"] = h.Filename
+	fmt.Println(f, h, err)
+	ImportProject(pUrl, "../static/img/projectbg.png")
 
 	c.TplName = "personalProjects.html"
-
+	c.Redirect("personalProjects", 302)
 }
 
 func (c *PersonalProjectsController) Get() {
