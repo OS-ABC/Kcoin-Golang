@@ -193,3 +193,25 @@ func FindUserInKUserInProject(userid int) (int, error) {
 	num, err := res.RowsAffected()
 	return int(num), err
 }
+
+//查询并以json形式返回所有的项目信息
+//该函数通过项目id获取该项目的所有成员信息
+func GetAllMembersInfo(ProjectId string) (membersInfo []*UserData, err error) {
+	var memberlist []*UserData
+	o := orm.NewOrm()
+	o.Using("default")
+	queryMembersInProjectSql := getAllMemberQuery()
+	//本行出错
+	if _, err = o.Raw(queryMembersInProjectSql, ProjectId).QueryRows(&memberlist); err != nil {
+		fmt.Print(err.Error())
+		return nil, err
+	}
+
+	return memberlist, nil
+}
+
+func getAllMemberQuery() string {
+	return `SELECT u.k_user_id, u.user_name, u.head_shot_url
+			FROM "K_User" u LEFT JOIN "K_User_in_Project" up on u.k_user_id = up.user_id 
+			WHERE up.project_id = ?`
+}

@@ -19,6 +19,11 @@ func (c *ProjectMemberListController) Get() {
 		c.SetSession(":id", id)
 	}
 	c.Data["id"] = id
+	//解决了session造成的bug后，通过读取项目id返回所有项目的信息
+	test_id := "1"
+
+	membersInfo, _ := models.GetAllMembersInfo(test_id)
+	c.Data["membersInfo"] = membersInfo
 
 	fakeURL := "https://github.com/Darkone0/weatherForcast"
 
