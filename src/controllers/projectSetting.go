@@ -64,7 +64,7 @@ func (c *ProjectSettingController)Post()  {
 	defer file.Close()
  
 	filename:=head.Filename
-	err =c.SaveToFile("Projectcover","static/"+filename)
+	err =c.SaveToFile("Projectcover","static/img/projectcover/"+filename)
 	if err!=nil {
 		c.Ctx.WriteString("上传失败1")
 	}
