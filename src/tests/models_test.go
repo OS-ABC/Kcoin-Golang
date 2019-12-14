@@ -2,6 +2,7 @@ package test
 
 import (
 	"Kcoin-Golang/src/models"
+	"Kcoin-Golang/src/service"
 	"testing"
 )
 
@@ -20,7 +21,7 @@ func Test_getContributors(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := models.GetContributors(tt.args.userName, tt.args.programName); got != tt.want {
+			if got := service.GetContributors(tt.args.userName, tt.args.programName); got != tt.want {
 				t.Errorf("getContributors() = %v, want %v", got, tt.want)
 			}
 		})
@@ -42,7 +43,7 @@ func TestGetContributorNum(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := models.GetContributorNum(tt.args.url); got != tt.want {
+			if got := service.GetContributorNum(tt.args.url); got != tt.want {
 				t.Errorf("GetContributorNum() = %v, want %v", got, tt.want)
 			}
 		})
@@ -64,7 +65,7 @@ func TestGetStarNum(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := models.GetStarNum(tt.args.url); got != tt.want {
+			if got := service.GetStarNum(tt.args.url); got != tt.want {
 				t.Errorf("GetStarNum() = %v, want %v", got, tt.want)
 			}
 		})
@@ -87,7 +88,7 @@ func TestParseGithubHTTPSUrl(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if gotName, gotRepo, _ := models.ParseGithubHTTPSUrl(tt.args.url); gotName != tt.wantUserName || gotRepo != tt.wantUserRepo {
+			if gotName, gotRepo, _ := service.ParseGithubHTTPSUrl(tt.args.url); gotName != tt.wantUserName || gotRepo != tt.wantUserRepo {
 				t.Errorf("userName = %v, want %v; userRepo = %v; want %v", gotName, tt.wantUserName, gotRepo, tt.wantUserRepo)
 			}
 		})

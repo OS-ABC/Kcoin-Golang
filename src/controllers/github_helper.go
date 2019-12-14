@@ -1,7 +1,8 @@
+// TODO 把该文件与importHelper.go移动到service文件夹下, 并保证可以运行
 package controllers
 
 import (
-	"Kcoin-Golang/src/models"
+	"Kcoin-Golang/src/service"
 	"bytes"
 	"context"
 	"encoding/json"
@@ -55,6 +56,7 @@ type API_User struct {
 	Updated_at          string `json:"updated_at"`
 }
 
+// TODO 妥善使用该数据结构, 用户信息应该用session保存, 可以建立一个sessionID->session的映射, 但是不太清楚session如何使用, 这里需要会的人来修改这个丑陋的数据结构
 //Github UserID -》GithubInfo
 type GithubUserMap map[string]*GithubInfo
 
@@ -163,7 +165,7 @@ func (this GithubUserMap) getGithubUserAccessToken(userId string) (string, error
 //查询项目url是否合法，且判断用户是否有权限导入
 
 func CheckGithubRepoUrl(userId, url string) error {
-	_, repoName, err := models.ParseGithubHTTPSUrl(url)
+	_, repoName, err := service.ParseGithubHTTPSUrl(url)
 	//TODO:err处理等待解析函数pr合并后更新
 	if err != nil {
 		return err

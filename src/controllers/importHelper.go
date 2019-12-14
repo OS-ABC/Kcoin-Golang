@@ -1,7 +1,9 @@
+// TODO 把该文件与github_helper.go移动到service文件夹下, 并保证可以运行
 package controllers
 
 import (
 	"Kcoin-Golang/src/models"
+	"Kcoin-Golang/src/service"
 	"fmt"
 	"log"
 	"strings"
@@ -20,9 +22,9 @@ func ImportProject(url string, cover_url string) error {
 		fmt.Println("url合法")
 	}
 	//解析已经合法的地址中的用户名和仓库名
-	userName, repoName, _ := models.ParseGithubHTTPSUrl(url)
+	userName, repoName, _ := service.ParseGithubHTTPSUrl(url)
 	//使用用户名和仓库名获取项目全部contributor
-	userslist_string := models.GetContributors(userName, repoName)
+	userslist_string := service.GetContributors(userName, repoName)
 	users := strings.Split(userslist_string, " ")
 	//将当前登录用户注册到webhook中，
 	fmt.Println(currentUserId)
