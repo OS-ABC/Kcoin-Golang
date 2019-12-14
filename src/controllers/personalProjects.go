@@ -20,6 +20,7 @@ type PersonalProjectsController struct {
 
 func (c *PersonalProjectsController) GetPersonalInfo() {
 	name := c.Ctx.GetCookie("userName")
+	userid := c.Ctx.GetCookie("userId")
 	userBuf, _ := models.GetUserInfo(name)
 	projectBuf, _ := models.GetGithubRepos(name)
 
@@ -48,11 +49,17 @@ func (c *PersonalProjectsController) GetPersonalInfo() {
 
 	//获取已加入项目
 	//使用testid=95
-	testid := "95"
-	joinedprojects, _ := models.GetAllJoinedProjects(testid)
-	fmt.Print(models.GetAllJoinedProjects("95"))
+	//testid := "9"
+	joinedprojects, _ := models.GetAllJoinedProjects(userid)
+	//fmt.Print(models.GetAllJoinedProjects("95")
 	c.Data["joinedProjects"] = joinedprojects
 	c.Data["joinedprojects_len"] = strconv.Itoa(len(joinedprojects))
+
+	//获取管理的项目
+	//fmt.Print(user.Data.UserI)
+	managedprojects, _ := models.GetAllManagedProjects(userid)
+	c.Data["managedprojects_len"] = strconv.Itoa(len(managedprojects))
+	c.Data["managedProjects"] = managedprojects
 }
 
 func (c *PersonalProjectsController) Post() {

@@ -23,7 +23,7 @@
         <div class="mainInterface">
             <div class="navigation">
                 <a  class="first" id="manage" onclick="show_joined()">我参加的项目({{.joinedprojects_len}})</a>
-                <a  id="join" onclick="show_managed()">我管理的项目({{.memberList_len}})</a>
+                <a  id="join" onclick="show_managed()">我管理的项目({{.managedprojects_len}})</a>
                 <div style="padding-right: 30px; padding-top: 25px; float: right; font-size: 25px;">
                     <input type="button" style="width:125px; height:40px;" onclick="showPopup();" value="添加项目">
                 </div>
@@ -50,11 +50,22 @@
             </div> 
             <!-- 管理的项目，目前是测试用 -->
             <div class="container" id="managed_projects">
-                <p>test</p>
-                <p>{{.test_projectUrl}}</p>
-                <p>{{.test_projectName}}</p>
-                <p>{{.test_filename}}</p>
-                <p>{{.test_ProjectIntro}}</p>
+                <div class="container-child">
+                    {{range .managedProjects}}
+                    <a href="/project/{{.ProjectName}}/info">    <!--点击项目时，跳转到项目详情页面-->
+                    <div class="project">
+                        <img class="project-cover" alt="project" src="{{.ProjectCoverUrl}}"/>
+                        <div class="project-name">{{.ProjectName}} </div>
+                        <div class="introduction">introduction</div>
+                        <div class="CC">CC:12138</div>
+                        <hr/>    <!--hr表示水平分割线-->
+                        {{range .MemberList}}
+                        <img class="head_shot" alt="" src="{{.HeadShotUrl}}"/>
+                        {{end}}
+                    </div>
+                    </a>
+                    {{end}}
+                </div>
             </div>  
         </div>
     </div>
