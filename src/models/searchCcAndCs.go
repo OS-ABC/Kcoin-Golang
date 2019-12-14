@@ -1,7 +1,7 @@
 package models
 
 import (
-	"encoding/json"
+	// "encoding/json"
 	_ "encoding/json"
 	"fmt"
 	"github.com/astaxie/beego/orm"
@@ -28,21 +28,25 @@ func getQuery() string {
 }
 
 // 实现personalPage控制器中的查询CC余额
-func GetPersonalRemainingCc(userName string) (string, error) {
-	o1 := orm.NewOrm()
-	o1.Using("default")
-	ccQuery := `select user_cc from "K_User" a where a.user_name=?`
-	// 分别代表数据库中查到的余额和错误
-	sum, err1 := o1.Raw(ccQuery, userName).Exec()
+func GetPersonalRemainingCc(userName string) (float64, error) {
+	o := orm.NewOrm()
+	_ = o.Using("default")
+
+	type UsrCC struct {
+		User_name    string
+		User_cc      float64
+	}
+	var userCc UsrCC
+
+/**将取回的用户名和CC余额赋值给结构体userCc; 如有错误，则赋值给err1
+***结构体中属性名需要与数据库中对应字段相同，且首字母大写*/
+	ccQuery := `SELECT user_name, user_cc FROM "K_User" WHERE USER_NAME=?`
+	err1 := o.Raw(ccQuery, userName).QueryRow(&userCc)
 	if err1 != nil {
 		fmt.Println(err1.Error())
-		return "", err1
+		return -1.0, err1
 	}
-	// json.Marshal函数将sum封装成json格式存进res，同时返回错误信息
-	res, err2 := json.Marshal(sum)
-	if err2 != nil {
-		fmt.Println(err2.Error())
-		return "", err2
-	}
-	return string(res), nil
+	
+	return userCc.User_cc, nil
+
 }

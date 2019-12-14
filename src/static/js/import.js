@@ -42,7 +42,6 @@ function next_step(){
         if (userName==null) {
             //此时浏览器中cookie已经到期，需要重新登录
         }
-
         //用斜杠‘/’分割项目url，则倒数第二项为用户名。两个用户名相等，则项目属于该用户
         if(userName === temp[temp.length-2] ||
             userName === temp[temp.length-2].replace("git@github.com:", ""))    //使用SSH
