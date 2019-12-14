@@ -3,6 +3,7 @@ src/src
 *.exe
 *.exe~
 src/.idea/
+src/.vscode/
 .idea/
 
 # Mac OS
