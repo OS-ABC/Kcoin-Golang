@@ -4,8 +4,9 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"github.com/astaxie/beego/orm"
 	"time"
+
+	"github.com/astaxie/beego/orm"
 )
 
 type noResultErr int
@@ -194,15 +195,20 @@ func FindUserInKUserInProject(userid int) (int, error) {
 	return int(num), err
 }
 
-//查询并以json形式返回所有的项目信息
 //该函数通过项目id获取该项目的所有成员信息
-func GetAllMembersInfo(ProjectId string) (membersInfo []*UserData, err error) {
+func GetMembersInfoByProjectName(projectName string) (membersInfo []*UserData, err error) {
 	var memberlist []*UserData
+	var projectid int
 	o := orm.NewOrm()
 	o.Using("default")
+	queryProjectIDSql := getProjectIDQuery()
+	if err = o.Raw(queryProjectIDSql, projectName).QueryRow(&projectid); err != nil {
+		fmt.Print(err.Error())
+		return nil, err
+	}
+
 	queryMembersInProjectSql := getAllMemberQuery()
-	//本行出错
-	if _, err = o.Raw(queryMembersInProjectSql, ProjectId).QueryRows(&memberlist); err != nil {
+	if _, err = o.Raw(queryMembersInProjectSql, projectid).QueryRows(&memberlist); err != nil {
 		fmt.Print(err.Error())
 		return nil, err
 	}
@@ -210,8 +216,14 @@ func GetAllMembersInfo(ProjectId string) (membersInfo []*UserData, err error) {
 	return memberlist, nil
 }
 
+//通过连接K_User表和K_User_in_Project表查询用户信息
 func getAllMemberQuery() string {
 	return `SELECT u.k_user_id, u.user_name, u.head_shot_url
 			FROM "K_User" u LEFT JOIN "K_User_in_Project" up on u.k_user_id = up.user_id 
 			WHERE up.project_id = ?`
+}
+
+//ProjectId只能通过查询K_Project表获取，所以getProjectId函数通过函数名查询ProjectId后返回
+func getProjectIDQuery() string {
+	return `SELECT project_id FROM "K_Project" WHERE project_name = ?`
 }
