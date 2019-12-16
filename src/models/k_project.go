@@ -79,3 +79,29 @@ func InsertProject(reponame string, url string, project_cover_url string) (sql.R
 	}
 	return res, err
 }
+
+/*
+查询托管在平台的项目总数
+不需要传入参数，返回查询的结果（项目总数）和错误信息
+*/
+func PlatfmProjNum() (int64, error) {
+	o := orm.NewOrm()
+	_ = o.Using("default")
+	// return o.QueryTable("K_Project").Count()
+	type Row struct{
+		Project_id int
+	}
+	var rows []Row
+	projNumQuery := `SELECT project_id FROM "K_Project"`
+
+	// 这句将结果赋值给rows, 并且将查到的行数（即项目总数）赋值给num
+	// 如果有错误，赋值给err。项目包含KCoin项目本身
+	// 用高级查询里的Count()本来可以不浪费空间存储结构体，可是报错说表名不存在？
+	num, err := o.Raw(projNumQuery).QueryRows(&rows)
+
+	if err != nil {
+		fmt.Println("Error occured:", err.Error())
+		return -1, err
+	}
+	return num, nil
+}
