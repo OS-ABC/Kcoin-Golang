@@ -33,28 +33,31 @@ function goPage1(pno,psize){
     irow.style.display = "none";
     }
     }
-    var tempStr = "共"+num+"条记录 分"+totalPage+"页 当前第"+currentPage+"页";
-    if(currentPage>1){
-    tempStr += "<a href=\"#\" onClick=\"goPage1("+(1)+","+psize+")\">首页</a>";
-    tempStr += "<a href=\"#\" onClick=\"goPage1("+(currentPage-1)+","+psize+")\"><上一页</a>"
-    }else{
-    tempStr += "首页";
-    tempStr += "<上一页";
-    }
-    if(currentPage<totalPage){
-    tempStr += "<a href=\"#\" onClick=\"goPage1("+(currentPage+1)+","+psize+")\">下一页></a>";
-    tempStr += "<a href=\"#\" onClick=\"goPage1("+(totalPage)+","+psize+")\">尾页</a>";
-    }else{
-    tempStr += "下一页>";
-    tempStr += "尾页";
-    }
-    document.getElementById("barcon1").innerHTML = tempStr;
-
-
+    var tempStr="";
+    
+if(currentPage>1){
+    tempStr += "<span class='paging-btn' href=\"#\" onClick=\"goPage1("+(1)+","+psize+")\">首页</span>";
+    tempStr += "<span class='paging-btn' href=\"#\" onClick=\"goPage1("+(currentPage-1)+","+psize+")\"><<</span>";
+}else{
+    tempStr += "<span class='paging-btn'>首页</span>";
+    tempStr += "<span class='paging-btn'><<</span>";
 }
 
+for(var pageIndex= 1;pageIndex<totalPage+1;pageIndex++){
+    tempStr += "<a onclick=\"goPage1("+pageIndex+","+psize+")\"><span class='paging-btn'>"+ pageIndex +"</span></a>";
+}
 
+if(currentPage<totalPage){
+    tempStr += "<span class='paging-btn' href=\"#\" onClick=\"goPage1("+(currentPage+1)+","+psize+")\">>></span>";
+    tempStr += "<span class='paging-btn' href=\"#\" onClick=\"goPage1("+(totalPage)+","+psize+")\">尾页</span>";
+}else{
+    tempStr += "<span class='paging-btn'>>></span>";
+    tempStr += "<span class='paging-btn'>尾页</span>";   
+}
+    document.getElementById("barcon1").innerHTML = tempStr;
+}
 
+//功能相同用于同一个页面第二次分页
 function goPage2(pno,psize){
 
     var itable = document.getElementById("idData2");
@@ -77,25 +80,31 @@ function goPage2(pno,psize){
     for(var i=1;i<(num+1);i++){
     var irow = itable.rows[i-1];
     if(i>=startRow && i<=endRow){
-    irow.style.display = "block";
+    irow.style.display = "table-row";
     }else{
     irow.style.display = "none";
     }
     }
-    var tempStr = "共"+num+"条记录 分"+totalPage+"页 当前第"+currentPage+"页";
-    if(currentPage>1){
-    tempStr += "<a href=\"#barcon2\" onClick=\"goPage2("+(1)+","+psize+")\">首页</a>";
-    tempStr += "<a href=\"#barcon2\" onClick=\"goPage2("+(currentPage-1)+","+psize+")\"><上一页</a>"
-    }else{
-    tempStr += "首页";
-    tempStr += "<上一页";
-    }
-    if(currentPage<totalPage){
-    tempStr += "<a href=\"#barcon2\" onClick=\"goPage2("+(currentPage+1)+","+psize+")\">下一页></a>";
-    tempStr += "<a href=\"#barcon2\" onClick=\"goPage2("+(totalPage)+","+psize+")\">尾页</a>";
-    }else{
-    tempStr += "下一页>";
-    tempStr += "尾页";
-    }
+    var tempStr="";
+    
+if(currentPage>1){
+    tempStr += "<span class='paging-btn' href=\"#barcon2\" onClick=\"goPage2("+(1)+","+psize+")\">首页</span>";
+    tempStr += "<span class='paging-btn' href=\"#barcon2\" onClick=\"goPage2("+(currentPage-1)+","+psize+")\"><<</span>";
+}else{
+    tempStr += "<span class='paging-btn'>首页</span>";
+    tempStr += "<span class='paging-btn'><<</span>";
+}
+
+for(var pageIndex= 1;pageIndex<totalPage+1;pageIndex++){
+    tempStr += "<a href=\"#barcon2\" onclick=\"goPage2("+pageIndex+","+psize+")\"><span class='paging-btn'>"+ pageIndex +"</span></a>";
+}
+
+if(currentPage<totalPage){
+    tempStr += "<span class='paging-btn' href=\"#barcon2\" onClick=\"goPage2("+(currentPage+1)+","+psize+")\">>></span>";
+    tempStr += "<span class='paging-btn' href=\"#barcon2\" onClick=\"goPage2("+(totalPage)+","+psize+")\">尾页</span>";
+}else{
+    tempStr += "<span class='paging-btn'>>></span>";
+    tempStr += "<span class='paging-btn'>尾页</span>";   
+}
     document.getElementById("barcon2").innerHTML = tempStr;
 }

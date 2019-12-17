@@ -4,9 +4,11 @@
     <title>我的项目</title>
     <link rel="stylesheet" type="text/css" href="../static/css/personal.css"/>
     <script type="text/javascript" src="../static/js/import.js"></script>
+    <script type="text/javascript" src="../static/js/paging.js"></script>
+    
 </head>
 
-<body onload="hidePopup();">
+<body onload="hidePopup();goPage1(1,5)">
     <div id="container" style="position: absolute;">
         <div class="left-nav">
             {{template "./leftNav.html" .}}
@@ -82,12 +84,19 @@
                                 <span id ="userprojects">({{.memberList_len}}个项目)</span>
                             </p>
                             
-                            <ul class="projects">
+                            <table class="projects" id="idData1">
                                 {{range .repos.Data}}
-                                    <li onclick="setUrl({{.ProjectUrl}})">{{.ProjectName}}</li>
+                                <tr>
+                                    <td onclick="setUrl({{.ProjectUrl}})">{{.ProjectName}}</td>
+                                </tr>
                                 {{end}}
 
-                            </ul>
+                            </table>
+                            <table width="60%" align="left" style="margin-top: 15px;">
+                                <tr>
+                                    <td><div id="barcon1" name="barcon1"></div></td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                     <div id="init_message">

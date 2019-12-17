@@ -152,3 +152,4 @@ function getCookie(cookieKey){
     }
     return null;
 }
+
