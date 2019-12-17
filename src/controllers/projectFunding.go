@@ -1,3 +1,4 @@
+// TODO Project相关的controller可以全部放到这个文件下, 即这个文件有若干Controller.
 package controllers
 
 import (
@@ -11,5 +12,5 @@ type ProjectFundingController struct {
 }
 
 func (c *ProjectFundingController) Get() {
-	c.TplName = "projectFunding.html"		//该controller对应的页面
+	c.TplName = "projectFunding.html" //该controller对应的页面
 }
