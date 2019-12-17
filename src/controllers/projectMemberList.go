@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"Kcoin-Golang/src/models"
 	_ "Kcoin-Golang/src/models"
+	"Kcoin-Golang/src/service"
 
 	"github.com/astaxie/beego"
 )
@@ -30,13 +30,13 @@ func (c *ProjectMemberListController) Get() {
 	// contributorsNum := models.GetContributorNum(fakeURL)
 	starNum := c.GetSession("starNum")
 	if starNum == nil {
-		starNum = models.GetStarNum(fakeURL)
+		starNum = service.GetStarNum(fakeURL)
 		c.SetSession("starNum", starNum)
 	}
 
 	contributorsNum := c.GetSession("contributorsNum")
 	if contributorsNum == nil {
-		contributorsNum = models.GetContributorNum(fakeURL)
+		contributorsNum = service.GetContributorNum(fakeURL)
 		c.SetSession("contributorsNum", contributorsNum)
 	}
 
