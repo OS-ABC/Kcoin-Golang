@@ -28,7 +28,7 @@ function goPage1(pno,psize){
     for(var i=1;i<(num+1);i++){
     var irow = itable.rows[i-1];
     if(i>=startRow && i<=endRow){
-    irow.style.display = "block";
+    irow.style.display = "table-row";
     }else{
     irow.style.display = "none";
     }
