@@ -14,7 +14,7 @@ func ImportProject(url string, cover_url string) error {
 	//首先将string类型的currentUserId转成Int型
 	//currentUserId_int,err:=strconv.Atoi(currentUserId)
 	//检查地址是否合法
-	err := CheckGithubRepoUrl(currentUserId, url)
+	err := service.CheckGithubRepoUrl(currentUserId, url)
 	if err != nil {
 		log.Fatal("url is illegal", err)
 		return err
@@ -28,7 +28,7 @@ func ImportProject(url string, cover_url string) error {
 	users := strings.Split(userslist_string, " ")
 	//将当前登录用户注册到webhook中，
 	fmt.Println(currentUserId)
-	registerGithubWebhooks(currentUserId, repoName)
+	service.RegisterGithubWebhooks(currentUserId, repoName)
 	host_id, _ := models.GetUseridByUsername(userName)
 	fmt.Println("当前登陆用户id为", host_id, "当前username为", userName)
 	fmt.Println("项目中的全部contributors", users)
@@ -62,7 +62,7 @@ func ImportProject(url string, cover_url string) error {
 			if num == 0 { //如果没查到
 				notIn = append(notIn, singleUser)
 				//通过github API获取这个用户的git id
-				singleUser_git_id := GetGithubId(singleUser)
+				singleUser_git_id := service.GetGithubId(singleUser)
 				//插入到临时用户表
 				//TODO :（其实也不是TODO，是一个提醒）现在这个地方应该是插入不成功的，因为temporary_user_id还不是自动生成的，等待数据库方面将其设置为自增就行了。
 				res, err := models.InsertIntoKTemporaryUser(host_id, singleUser_git_id, singleUser, project_id)
