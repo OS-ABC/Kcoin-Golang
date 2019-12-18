@@ -10,10 +10,6 @@ import (
 	"github.com/astaxie/beego"
 )
 
-var memberList_len int     //获取用户github中项目数量
-var joinedprojects_len int //参加项目的数量
-var ProjectIntro string
-
 type PersonalProjectsController struct {
 	beego.Controller
 }
@@ -39,7 +35,7 @@ func (c *PersonalProjectsController) GetPersonalInfo() {
 		fmt.Println("Oops, there is an error:( please keep debugging.", errorCode.Error())
 	}
 	if errorCode2 != nil {
-		fmt.Println("Oops, there is an error:( please keep debugging.", errorCode.Error())
+		fmt.Println("Oops, there is an error:( please keep debugging.", errorCode2.Error())
 	}
 
 	c.Data["user"] = user
@@ -70,7 +66,11 @@ func (c *PersonalProjectsController) Post() {
 	}
 	defer f.Close()
 	fmt.Println(f, h, err)
-	ImportProject(pUrl, "../static/img/projectbg.png")
+	if err = ImportProject(pUrl, "../static/img/projectbg.png"); err != nil {
+		fmt.Println("Oops, there is an error:( please keep debugging.", err.Error())
+		// 需要返回错误页面
+		return
+	}
 
 	c.TplName = "personalProjects.html"
 	c.Redirect("personalprojects", 302)
