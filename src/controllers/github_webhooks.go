@@ -605,7 +605,7 @@ func DealWhbhookPost(ob WebhooksPushEvent,eventType string){
 		var pr_num int
 		for _,value:=range pr_message_split[1]{
 			//不是数字
-			if value>9||value<0{
+			if value>'9'||value<'0'{
 				break
 			}else{
 				pr_num*=10
@@ -613,7 +613,6 @@ func DealWhbhookPost(ob WebhooksPushEvent,eventType string){
 				pr_num+=temp
 			}
 		}
-		pr_num, _ =strconv.Atoi(string(pr_message_split[1][0]))
 		fmt.Println("pr_num is ",pr_num)
 
 		//下面根据pr_num访问api获取reviewer信息
@@ -685,15 +684,14 @@ func DealWhbhookPost(ob WebhooksPushEvent,eventType string){
 func GetIssueNum(ob WebhooksPushEvent)int{
 	issue_msg:=ob.Commits[0].Message
 	fmt.Println(issue_msg)
-	var issue_num int
 	//r, _ := regexp.Compile("(#d*)?")
 	////match, _ := regexp.MatchString("(d*)?", issue_msg)
 	//fmt.Println("issue number is",r.FindString(issue_msg))
 	split:=strings.Split(issue_msg,"#")
-	issue_num, _ =strconv.Atoi(string(split[1][0]))
+	var issue_num int
 	for _,value:=range split[1]{
 		//不是数字
-		if value>9||value<0{
+		if value>'9'||value<'0'{
 			break
 		}else{
 			issue_num*=10
