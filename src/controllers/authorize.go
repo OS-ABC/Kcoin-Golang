@@ -40,7 +40,7 @@ func (c *AuthoController) Get() {
 		}
 	} else {
 		time := time.Now().Format("2006-01-02 15:04:05.000000")
-		updateSql := `update "K_User" set register_time = ? where GITHUB_USER_ID = ?`
+		updateSql := `update "k_user" set register_time = ? where github_user_id = ?`
 		_, err := o.Raw(updateSql, time, id).Exec()
 		if err != nil {
 			panic(err)
