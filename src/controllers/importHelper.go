@@ -42,7 +42,7 @@ func ImportProject(url string, cover_url string) error {
 	//根据根据项目名查K_Project表获取project_id
 	project_id, err = models.GetProjectidByRepoName(repoName)
 	if err != nil {
-		log.Fatal("when query project_id in K_Project ,error occured:", err)
+		log.Fatal("when query project_id in k_project ,error occured:", err)
 	}
 
 	for _, singleUser := range users {
@@ -78,12 +78,12 @@ func ImportProject(url string, cover_url string) error {
 				//首先根据user_name获取k_user_id
 				k_user_id, err = models.GetUseridByUsername(singleUser)
 				if err != nil {
-					log.Fatal("when query k_user_id in K_User,error occured:", err)
+					log.Fatal("when query k_user_id in k_user,error occured:", err)
 				}
 				//然后根据根据项目名查K_Project表获取project_id
 				project_id, err = models.GetProjectidByRepoName(repoName)
 				if err != nil {
-					log.Fatal("when query project_id in K_Project ,error occured:", err)
+					log.Fatal("when query project_id in k_project ,error occured:", err)
 				}
 				//最后两个id都有了，插入K_user_in_project
 				res, err = models.InsertIntoKUserInProject(project_id, k_user_id)
@@ -93,7 +93,7 @@ func ImportProject(url string, cover_url string) error {
 					id, _ := res.LastInsertId()
 					fmt.Println("last insert id is ", id)
 				} else {
-					log.Fatal("when insert to K_User_in_Project,error occured,", err)
+					log.Fatal("when insert to k_user_in_project,error occured,", err)
 				}
 			}
 		}
