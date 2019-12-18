@@ -1,3 +1,4 @@
+// TODO 该文件并入service层的github_helper.go中, 并删除main函数, 改为测试覆盖.
 package models
 
 import (
@@ -7,9 +8,9 @@ import (
 	"net/http"
 )
 
-type GithubRepos[] struct {
+type GithubRepos []struct {
 	Name string `json:"name"`
-	Url string `json:"html_url"`
+	Url  string `json:"html_url"`
 }
 
 //type ReposInfo struct {
@@ -17,22 +18,22 @@ type GithubRepos[] struct {
 //	Data GithubRepos `json:"data"`
 //}
 //获取一个用户在github上所有公开的repository，返回json
-func GetGithubRepos(user string)(string, error){
+func GetGithubRepos(user string) (string, error) {
 	//var reposInfo ReposInfo
 	//reposInfo.ErrorCode = "default Error"
 	var url string = "https://api.github.com/users/" + user + "/repos"
 
 	client := &http.Client{}
-	response,_ := client.Get(url)
+	response, _ := client.Get(url)
 	defer response.Body.Close()
-	body,err := ioutil.ReadAll(response.Body)
-	if err != nil{
+	body, err := ioutil.ReadAll(response.Body)
+	if err != nil {
 		panic(err)
 	}
 	var repos GithubRepos
 	var projects ProjectInfo
 	err1 := json.Unmarshal([]byte(body), &repos)
-	if err1 != nil{
+	if err1 != nil {
 		panic(err1)
 	}
 	for i := range repos {
@@ -44,14 +45,14 @@ func GetGithubRepos(user string)(string, error){
 	//reposInfo.ErrorCode = "0"
 	//reposInfo.Data = repos
 	//res,err2 := json.Marshal(&reposInfo)
-	res,err2 := json.Marshal(&projects)
-	if err2 != nil{
+	res, err2 := json.Marshal(&projects)
+	if err2 != nil {
 		panic(err2)
 	}
 	return string(res), nil
 }
 
 //测试输出
-func main()  {
+func main() {
 	fmt.Println(GetGithubRepos("Darkone0"))
 }

@@ -1,7 +1,9 @@
+// TODO 把该文件与github_helper.go移动到service文件夹下, 并保证可以运行
 package controllers
 
 import (
 	"Kcoin-Golang/src/models"
+	"Kcoin-Golang/src/service"
 	"fmt"
 	"log"
 	"strings"
@@ -12,7 +14,7 @@ func ImportProject(url string, cover_url string) error {
 	//首先将string类型的currentUserId转成Int型
 	//currentUserId_int,err:=strconv.Atoi(currentUserId)
 	//检查地址是否合法
-	err := CheckGithubRepoUrl(currentUserId, url)
+	err := service.CheckGithubRepoUrl(currentUserId, url)
 	if err != nil {
 		log.Fatal("url is illegal", err)
 		return err
@@ -20,13 +22,13 @@ func ImportProject(url string, cover_url string) error {
 		fmt.Println("url合法")
 	}
 	//解析已经合法的地址中的用户名和仓库名
-	userName, repoName, _ := models.ParseGithubHTTPSUrl(url)
+	userName, repoName, _ := service.ParseGithubHTTPSUrl(url)
 	//使用用户名和仓库名获取项目全部contributor
-	userslist_string := models.GetContributors(userName, repoName)
+	userslist_string := service.GetContributors(userName, repoName)
 	users := strings.Split(userslist_string, " ")
 	//将当前登录用户注册到webhook中，
 	fmt.Println(currentUserId)
-	registerGithubWebhooks(currentUserId, repoName)
+	service.RegisterGithubWebhooks(currentUserId, repoName)
 	host_id, _ := models.GetUseridByUsername(userName)
 	fmt.Println("当前登陆用户id为", host_id, "当前username为", userName)
 	fmt.Println("项目中的全部contributors", users)
@@ -60,7 +62,7 @@ func ImportProject(url string, cover_url string) error {
 			if num == 0 { //如果没查到
 				notIn = append(notIn, singleUser)
 				//通过github API获取这个用户的git id
-				singleUser_git_id := GetGithubId(singleUser)
+				singleUser_git_id := service.GetGithubId(singleUser)
 				//插入到临时用户表
 				res, err := models.InsertIntoKTemporaryUser(host_id, singleUser_git_id, singleUser, project_id)
 				if err == nil {
