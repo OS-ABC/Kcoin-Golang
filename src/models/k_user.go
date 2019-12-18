@@ -4,8 +4,9 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"github.com/astaxie/beego/orm"
 	"time"
+
+	"github.com/astaxie/beego/orm"
 )
 
 type noResultErr int
@@ -60,7 +61,7 @@ func getUserInfoSQLQuery() string {
 (
 SELECT DISTINCT(project_id) AS attended_pro_id from "k_user_in_project"
 where user_id in(
-SELECT User_id from "k_user"
+SELECT user_id from "k_user"
 where user_name=?
 )
 )
@@ -119,7 +120,7 @@ func jsonize(info UserInfo) (string, error) {
 func FinduserByGitId(id string) (UserData, error) {
 	o := orm.NewOrm()
 	_ = o.Using("default")
-	querySql := `select * from "k_user" where GITHUB_USER_ID = ?`
+	querySql := `select * from "k_user" where github_user_id = ?`
 	var maps []orm.Params
 	var u = UserData{}
 	_, err := o.Raw(querySql, id).Values(&maps)
@@ -176,7 +177,7 @@ func InsertUser(name string, uri string, id string) error {
 func IsSupervisor(id string) bool {
 	o := orm.NewOrm()
 	_ = o.Using("default")
-	findSql := `select * from "k_supervisor" where k_user_ID = ?`
+	findSql := `select * from "k_supervisor" where k_user_id= ?`
 	res, _ := o.Raw(findSql, id).Exec()
 	if res == nil {
 		return false
@@ -193,6 +194,7 @@ func FindUserInKUserInProject(userid int) (int, error) {
 	num, err := res.RowsAffected()
 	return int(num), err
 }
+
 func InsertKCsChangeRecord(projectId int,projectName string,acceptUserId int,acceptUserName string,csAmount float64)(sql.Result,error){
 	o:=orm.NewOrm()
 	insertSql:=`insert into "k_cs_change_record"(distribute_project_id,distribute_project_name,accept_user_id,accept_user_name,cs_amount,distribute_time)values(?,?,?,?,?,?)`
@@ -202,3 +204,38 @@ func InsertKCsChangeRecord(projectId int,projectName string,acceptUserId int,acc
 	return  res,err
 
 }
+
+
+//该函数通过项目id获取该项目的所有成员信息
+func GetMembersInfoByProjectName(projectName string) (membersInfo []*UserData, err error) {
+	var memberlist []*UserData
+	var projectid int
+	o := orm.NewOrm()
+	o.Using("default")
+	queryProjectIDSql := getProjectIDQuery()
+	if err = o.Raw(queryProjectIDSql, projectName).QueryRow(&projectid); err != nil {
+		fmt.Print(err.Error())
+		return nil, err
+	}
+
+	queryMembersInProjectSql := getAllMemberQuery()
+	if _, err = o.Raw(queryMembersInProjectSql, projectid).QueryRows(&memberlist); err != nil {
+		fmt.Print(err.Error())
+		return nil, err
+	}
+
+	return memberlist, nil
+}
+
+//通过连接k_user表和k_user_in_project表查询用户信息
+func getAllMemberQuery() string {
+	return `SELECT u.k_user_id, u.user_name, u.head_shot_url
+			FROM "k_user" u LEFT JOIN "k_user_in_project" up on u.k_user_id = up.user_id 
+			WHERE up.project_id = ?`
+}
+
+//ProjectId只能通过查询K_project表获取，所以getProjectId函数通过函数名查询ProjectId后返回
+func getProjectIDQuery() string {
+	return `SELECT project_id FROM "k_project" WHERE project_name = ?`
+}
+
