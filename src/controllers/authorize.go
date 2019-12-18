@@ -24,11 +24,12 @@ func (c *AuthoController) Get() {
 	GithubUser.setGithubUserAccessToken(id,name, accessToken)
 	uri := text.Data.Uri
 
+	c.SetSession("GitHubId", id)
 	o := orm.NewOrm()
 	o.Using("default")
 	//  移到model 改成GitID查询
 	res , _ := models.FinduserByGitId(id)
-	
+
 	if res.UserId == "" {
 		err := models.InsertUser(name,uri,id)
 
@@ -37,7 +38,7 @@ func (c *AuthoController) Get() {
 		}
 	}else{
 		time := time.Now().Format("2006-01-02 15:04:05.000000")
-		updateSql := `update "K_User" set register_time = ? where GITHUB_USER_ID = ?`
+		updateSql := `update "k_user" set register_time = ? where GITHUB_USER_ID = ?`
 		_,err := o.Raw(updateSql, time, id).Exec()
 		if err != nil {
 			panic(err)
@@ -53,7 +54,7 @@ func (c *AuthoController) Get() {
 	//存储用户头像url到cooike中，获取语法：c.Ctx.GetCookie("headShotUrl")
 	c.Ctx.SetCookie("headShotUrl", text.Data.Uri, 3600)
 	//存储用户登录状态到cooike中，其中1表示已登录，获取语法：c.Ctx.GetCookie("status")
-  
+
 	c.Ctx.SetCookie("status", string('1'), 3600)
 
 	if redirectUrl := c.Ctx.GetCookie("lastUri"); redirectUrl != "" {

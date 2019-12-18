@@ -39,6 +39,7 @@ type UserData struct {
 	HeadShotUrl string    `json:"headshotUrl"`
 	ProjectList []*Project `json:"projectList"`
 	UserCcOpeList []*UserCcOpe `json:"userCcOpeList"`
+	CsNum       int       `json:"csNum"`
 }
 
 //import personPage

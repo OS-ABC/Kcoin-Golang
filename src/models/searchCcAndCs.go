@@ -24,7 +24,7 @@ func GetCcAndCsQuery(userId int, projectId int)([]orm.Params, error){
 }
 
 func getQuery() string {
-	return `select user_cs, b.user_cc from "K_User_in_Project" a, "K_User" b where a.user_id=? and a.project_id=? and a.user_id = b.user_id`
+	return `select user_cs, b.user_cc from "k_User_in_project" a, "k_user" b where a.user_id=? and a.project_id=? and a.user_id = b.user_id`
 }
 
 // 实现personalPage控制器中的查询CC余额
@@ -40,13 +40,13 @@ func GetPersonalRemainingCc(userName string) (float64, error) {
 
 /**将取回的用户名和CC余额赋值给结构体userCc; 如有错误，则赋值给err1
 ***结构体中属性名需要与数据库中对应字段相同，且首字母大写*/
-	ccQuery := `SELECT user_name, user_cc FROM "K_User" WHERE USER_NAME=?`
+	ccQuery := `SELECT user_name, user_cc FROM "k_user" WHERE USER_NAME=?`
 	err1 := o.Raw(ccQuery, userName).QueryRow(&userCc)
 	if err1 != nil {
 		fmt.Println(err1.Error())
 		return -1.0, err1
 	}
-	
+
 	return userCc.User_cc, nil
 
 }
