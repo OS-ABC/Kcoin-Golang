@@ -195,6 +195,17 @@ func FindUserInKUserInProject(userid int) (int, error) {
 	return int(num), err
 }
 
+func InsertKCsChangeRecord(projectId int,projectName string,acceptUserId int,acceptUserName string,csAmount float64)(sql.Result,error){
+	o:=orm.NewOrm()
+	insertSql:=`insert into "k_cs_change_record"(distribute_project_id,distribute_project_name,accept_user_id,accept_user_name,cs_amount,distribute_time)values(?,?,?,?,?,?)`
+	currentTime := time.Now()
+	currentTime.Format("2006-01-02 15:04:05:000000")
+	res, err := o.Raw(insertSql, projectId, projectName, acceptUserId, acceptUserName, csAmount,currentTime).Exec()
+	return  res,err
+
+}
+
+
 //该函数通过项目id获取该项目的所有成员信息
 func GetMembersInfoByProjectName(projectName string) (membersInfo []*UserData, err error) {
 	var memberlist []*UserData
@@ -227,3 +238,4 @@ func getAllMemberQuery() string {
 func getProjectIDQuery() string {
 	return `SELECT project_id FROM "k_project" WHERE project_name = ?`
 }
+

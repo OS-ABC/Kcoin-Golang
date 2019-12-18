@@ -39,7 +39,7 @@ func ImportProject(url string, cover_url string) error {
 
 	//插入项目到数据库
 	_, _ = models.InsertProject(repoName, url, cover_url)
-	//根据根据项目名查K_Project表获取project_id
+	//根据根据项目名查k_project表获取project_id
 	project_id, err = models.GetProjectidByRepoName(repoName)
 	if err != nil {
 		log.Fatal("when query project_id in k_project ,error occured:", err)
@@ -64,7 +64,6 @@ func ImportProject(url string, cover_url string) error {
 				//通过github API获取这个用户的git id
 				singleUser_git_id := service.GetGithubId(singleUser)
 				//插入到临时用户表
-				//TODO :（其实也不是TODO，是一个提醒）现在这个地方应该是插入不成功的，因为temporary_user_id还不是自动生成的，等待数据库方面将其设置为自增就行了。
 				res, err := models.InsertIntoKTemporaryUser(host_id, singleUser_git_id, singleUser, project_id)
 				if err == nil {
 					num, _ := res.RowsAffected()
@@ -80,12 +79,12 @@ func ImportProject(url string, cover_url string) error {
 				if err != nil {
 					log.Fatal("when query k_user_id in k_user,error occured:", err)
 				}
-				//然后根据根据项目名查K_Project表获取project_id
+				//然后根据根据项目名查k_project表获取project_id
 				project_id, err = models.GetProjectidByRepoName(repoName)
 				if err != nil {
 					log.Fatal("when query project_id in k_project ,error occured:", err)
 				}
-				//最后两个id都有了，插入K_user_in_project
+				//最后两个id都有了，插入k_user_in_project
 				res, err = models.InsertIntoKUserInProject(project_id, k_user_id)
 				if err == nil {
 					nums, _ := res.RowsAffected()
@@ -98,7 +97,7 @@ func ImportProject(url string, cover_url string) error {
 			}
 		}
 	}
-	//最后判断一下项目拥有者在不在K_user_in_Projet里，不在就插入
+	//最后判断一下项目拥有者在不在k_user_in_Projet里，不在就插入
 	var IfOwnerIn int
 	IfOwnerIn, err = models.FindUserInKUserInProject(host_id)
 	if IfOwnerIn == 0 {
