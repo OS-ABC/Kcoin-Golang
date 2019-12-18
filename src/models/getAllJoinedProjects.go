@@ -42,7 +42,8 @@ func getMemberListQuery() string {
 			FROM "k_user" u LEFT JOIN "k_user_in_project" up on u.k_user_id = up.user_id 
 			WHERE up.project_id = ?`
 	//return "SELECT user_id, user_name, head_shot_url FROM \"k_user\" WHERE user_id in " +
-	//	"(SELECT user_id FROM \"k_user_in_project\" WHERE project_id = ?)"
+	//	"(SELECT user_id FROM \"k_user_in_Project\" WHERE project_id = ?)"
+
 }
 
 //测试
