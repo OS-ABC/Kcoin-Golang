@@ -103,13 +103,13 @@ func (app *App) Login() {
 	data := url.Values{
 		"utf8":                    {"✓"},
 		"commit":                  {"Sign in"},
-		"ga_id":                   {"68898879.1575281271"},
+		"ga_id":                   {"76806099.1573434977"},
 		"login":                   {username},
 		"password":                {password},
 		"webauthn-support":        {"supported"},
 		"webauthn-iuvpaa-support": {"unsupported"},
 
-		"required_field_06f8": {},
+		"required_field_440e": {},
 		"timestamp":           {timeAndsecret.Time},
 		"timestamp_secret":    {timeAndsecret.Secret},
 		"authenticity_token":  {authenticityToken.Token},
@@ -189,7 +189,7 @@ func SendEMailToPotentialUsers(users []string) ([]string, error) {
 			//这里为什么用emails[0]呢，因为某种玄学原因，emails里有两个重复的邮箱，我们用一个就行了
 			fmt.Println("now sending email")
 			currentemail := emails[0].Email
-			fmt.Println("email is :", currentemail)
+			fmt.Println("email is :",currentemail)
 			//for index, email := range emails {
 			//    fmt.Printf("%d: %s\n", index+1, email.Email)
 			//}

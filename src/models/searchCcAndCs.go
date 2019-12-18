@@ -24,14 +24,14 @@ func GetCcAndCsQuery(userId int, projectId int)([]orm.Params, error){
 }
 
 func getQuery() string {
-	return `select user_cs, b.user_cc from "K_User_in_Project" a, "K_User" b where a.user_id=? and a.project_id=? and a.user_id = b.user_id`
+	return `select user_cs, b.user_cc from "k_user_in_project" a, "k_user" b where a.user_id=? and a.project_id=? and a.user_id = b.user_id`
 }
 
 // 实现personalPage控制器中的查询CC余额
 func GetPersonalRemainingCc(userName string) (string, error) {
 	o1 := orm.NewOrm()
 	o1.Using("default")
-	ccQuery := `select user_cc from "K_User" a where a.user_name=?`
+	ccQuery := `select user_cc from "k_user" a where a.user_name=?`
 	// 分别代表数据库中查到的余额和错误
 	sum, err1 := o1.Raw(ccQuery, userName).Exec()
 	if err1 != nil {
