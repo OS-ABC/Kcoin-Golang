@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-func ImportProject(url string, cover_url string) error {
+func ImportProject(url string, cover_url string, currentUserId string) error {
 	fmt.Println("进入ImportProject")
 	//首先将string类型的currentUserId转成Int型
 	//currentUserId_int,err:=strconv.Atoi(currentUserId)
