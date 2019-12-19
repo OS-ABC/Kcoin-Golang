@@ -676,31 +676,42 @@ func DealWhbhookPost(ob WebhooksPushEvent,eventType string){
 			log.Fatal("when insert committer into k cs change record ,error occured",err)
 			err=nil
 		}
+		
+		issuer_id, issuer, csNum := GetIssueNum(ob)
+		_,err=models.InsertKCsChangeRecord(project_id,project_name,issuer_id, issuer, float64(csNum))
+		if err!=nil{
+			log.Fatal("when insert committer into k cs change record ,error occured",err)
+			err=nil
+		}
 	}
+	
 	if eventType=="pull-request"{
 	}
 }
-//得到issue的号码
-func GetIssueNum(ob WebhooksPushEvent)int{
-	issue_msg:=ob.Commits[0].Message
+//处理issue相关的cs change信息
+func GetIssueNum(ob WebhooksPushEvent) (int, string, int){
+
+	issue_msg := ob.Commits[0].Message
 	fmt.Println(issue_msg)
 	//r, _ := regexp.Compile("(#d*)?")
 	////match, _ := regexp.MatchString("(d*)?", issue_msg)
 	//fmt.Println("issue number is",r.FindString(issue_msg))
-	split:=strings.Split(issue_msg,"#")
+	split := strings.Split(issue_msg, "#")
 	var issue_num int
-	for _,value:=range split[1]{
+	for _, value := range split[1] {
 		//不是数字
-		if value>'9'||value<'0'{
+		if value > '9' || value < '0' {
 			break
-		}else{
-			issue_num*=10
-			temp, _ :=strconv.Atoi(string(value))
-			issue_num+=temp
+		} else {
+			issue_num *= 10
+			temp, _ := strconv.Atoi(string(value))
+			issue_num += temp
 		}
 	}
-	fmt.Println("issue num is ",issue_num)
-	return issue_num
+	fmt.Println("issue num is ", issue_num)
+	issuer_id, issuer, csNum := models.Get_issue_info(ob.Repository.Owner.Name, ob.Repository.Name, issue_num)
+
+	return issuer_id, issuer, csNum
 }
 
 
