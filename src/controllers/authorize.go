@@ -13,8 +13,6 @@ type AuthoController struct {
 	beego.Controller
 }
 
-var currentUserId string
-
 func (c *AuthoController) Get() {
 	var code string = c.GetString("code")
 	accessToken, _ := service.GetAccessToken(code)
@@ -22,10 +20,10 @@ func (c *AuthoController) Get() {
 
 	name := text.Data.Name
 	id := text.Data.Id
-	currentUserId = id
 	// 修改参数
 	service.GithubUser.SetGithubUserAccessToken(id, name, accessToken)
 	uri := text.Data.Uri
+	c.SetSession("GitHubId", id)
 
 	o := orm.NewOrm()
 	o.Using("default")
@@ -40,7 +38,7 @@ func (c *AuthoController) Get() {
 		}
 	} else {
 		time := time.Now().Format("2006-01-02 15:04:05.000000")
-		updateSql := `update "k_user" set register_time = ? where github_user_id = ?`
+		updateSql := `update "k_user" set register_time = ? where github_id = ?`
 		_, err := o.Raw(updateSql, time, id).Exec()
 		if err != nil {
 			panic(err)

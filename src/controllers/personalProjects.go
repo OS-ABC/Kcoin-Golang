@@ -67,7 +67,7 @@ func (c *PersonalProjectsController) Post() {
 	}
 	defer f.Close()
 	fmt.Println(f, h, err)
-	if err = ImportProject(pUrl, "../static/img/projectbg.png"); err != nil {
+	if err = ImportProject(pUrl, "../static/img/projectbg.png", service.GithubUser[c.Ctx.GetCookie("userId")].GithubId); err != nil {
 		fmt.Println("Oops, there is an error:( please keep debugging.", err.Error())
 		// 需要返回错误页面
 		return
