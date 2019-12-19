@@ -13,7 +13,7 @@ func GetCsNum(github_id string) int {
 	o := orm.NewOrm()
 	_ = o.Using("default")
 
-	querySql := `select user_cs from "k_user_in_project" where user_id in (select k_user_id from "k_user" where github_user_id = ?)`
+	querySql := `select user_cs from "k_user_in_project" where user_id in (select k_user_id from "k_user" where github_id = ?)`
 	var maps []orm.Params
 	_, err := o.Raw(querySql, github_id).Values(&maps)
 	checkErr(err)
