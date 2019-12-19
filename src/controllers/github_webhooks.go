@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"Kcoin-Golang/src/models"
+	"Kcoin-Golang/src/service"
 	"crypto/hmac"
 	"crypto/sha1"
 	"encoding/hex"
@@ -543,164 +544,166 @@ type pullsInfo struct {
 	Deletions           int         `json:"deletions"`
 	ChangedFiles        int         `json:"changed_files"`
 }
+
 func (c *WebhooksController) Post() {
-	req:=c.Ctx.Input.RequestBody
+	req := c.Ctx.Input.RequestBody
 	//獲取header中的X-Hub-Signature字段，可以成功獲取
 	sign := c.Ctx.Input.Header("X-Hub-Signature")
-	event_type:=c.Ctx.Input.Header("X-GitHub-Event")
-	fmt.Println("event type is ",event_type)
+	event_type := c.Ctx.Input.Header("X-GitHub-Event")
+	fmt.Println("event type is ", event_type)
 	//测试请登录服务器,不然if_valid永远是false，第二种测试方法就是把if ifvalid{xxx}中的xxx拿出来执行。
-	ifvalid:=CheckWebhookPostValid(req,sign)
-	if ifvalid{
-		fmt.Println("valid is",ifvalid)
+	ifvalid := CheckWebhookPostValid(req, sign)
+	if ifvalid {
+		fmt.Println("valid is", ifvalid)
 		var ob WebhooksPushEvent
-		json.Unmarshal(req,&ob)
-		DealWhbhookPost(ob,event_type)
-		issue_num:=GetIssueNum(ob)
-		fmt.Println("issue_num is ",issue_num)
+		json.Unmarshal(req, &ob)
+		DealWhbhookPost(ob, event_type)
+
 	}
 
 }
+
 //验证webhooks的post信息是否合法，已经通过测试
-func CheckWebhookPostValid(payload []byte,Signature string)(bool){
-/*
-  一旦webhooks中设置了secret，所接收到的POST请求的request头部就会有X-Hub-Signature字段，
-设置secret需要在两个地方设置，githubs的webhooks setting，和服务器端（注意千万不要将secret硬编码到代码里，非常不安全）
-github使用 HMAC hexdigest来对在webhooks setting中设置的secret进行哈希，X-Hub_signature中存的就是哈希后的值，
-本地存储的secret应该使用同样的方法进行哈希，然后比较两个字段，判断是否相等，来验证是否合法。
-*/
+func CheckWebhookPostValid(payload []byte, Signature string) bool {
+	/*
+	     一旦webhooks中设置了secret，所接收到的POST请求的request头部就会有X-Hub-Signature字段，
+	   设置secret需要在两个地方设置，githubs的webhooks setting，和服务器端（注意千万不要将secret硬编码到代码里，非常不安全）
+	   github使用 HMAC hexdigest来对在webhooks setting中设置的secret进行哈希，X-Hub_signature中存的就是哈希后的值，
+	   本地存储的secret应该使用同样的方法进行哈希，然后比较两个字段，判断是否相等，来验证是否合法。
+	*/
 	//请求头中的X-Hub-Signature字段
 	//header_form:=r.Form
 	//target_token:=header_form.Get("X-Hub_Signature")
-	secret_hmac_string:=hmacSha1(payload)
+	secret_hmac_string := hmacSha1(payload)
 	fmt.Println(
-		"secret_hmac_string is",secret_hmac_string)
+		"secret_hmac_string is", secret_hmac_string)
 	//将secret进行hash，使用hmac
-	if secret_hmac_string==Signature{
-		return  true
+	if secret_hmac_string == Signature {
+		return true
 	}
 	return false
 }
+
 //哈希的过程，已经通过测试
 func hmacSha1(payloadBody []byte) string {
 	//从app.conf中获取配置好的secret
 	fmt.Println("have enter func")
-	secret:=beego.AppConfig.String("secret_token")
+	secret := beego.AppConfig.String("secret_token")
 	h := hmac.New(sha1.New, []byte(secret))
 	h.Write(payloadBody)
 	return "sha1=" + hex.EncodeToString(h.Sum(nil))
 }
+
 //处理各种webhooks的信息
-func DealWhbhookPost(ob WebhooksPushEvent,eventType string){
-	if eventType=="push"{
+func DealWhbhookPost(ob WebhooksPushEvent, eventType string) {
+
+	if eventType == "push" {
+		//先获取issue的相关内容
+		issue_num := GetIssueNum(ob)
+		issue_value := service.Get_issue_info(ob.Repository.Owner.Name, ob.Repository.Name, issue_num)
 		//当出现merge的时候
 		//reviewer的github username ，就是谁合了这条pr
 		//使用webhooks发送过来的数据中commits的最后一条，这一条是pr的信息
-		commit_num:= len(ob.Commits)//commit_num代表post信息中的commits字段的变量个数
-		fmt.Println("commit numbers is ",commit_num)
-		pr_message:=ob.Commits[commit_num-1].Message//取最后一个message，定义见结构体
-		fmt.Println("pr_message is ",pr_message)
-		pr_message_split:=strings.Split(pr_message,"#")
+		commit_num := len(ob.Commits) //commit_num代表post信息中的commits字段的变量个数
+		fmt.Println("commit numbers is ", commit_num)
+		pr_message := ob.Commits[commit_num-1].Message //取最后一个message，定义见结构体
+		fmt.Println("pr_message is ", pr_message)
+		pr_message_split := strings.Split(pr_message, "#")
 		//pr_num为获取到的pr号
 		var pr_num int
-		for _,value:=range pr_message_split[1]{
+		for _, value := range pr_message_split[1] {
 			//不是数字
-			if value>'9'||value<'0'{
+			if value > '9' || value < '0' {
 				break
-			}else{
-				pr_num*=10
-				temp, _ :=strconv.Atoi(string(value))
-				pr_num+=temp
+			} else {
+				pr_num *= 10
+				temp, _ := strconv.Atoi(string(value))
+				pr_num += temp
 			}
 		}
-		fmt.Println("pr_num is ",pr_num)
+		fmt.Println("pr_num is ", pr_num)
 
 		//下面根据pr_num访问api获取reviewer信息
-		var url_1 string = "https://api.github.com/repos/"+ob.Repository.Owner.Name+"/"+ob.Repository.Name+"/pulls/"+strconv.Itoa(pr_num)+"?state=all"
+		var url_1 string = "https://api.github.com/repos/" + ob.Repository.Owner.Name + "/" + ob.Repository.Name + "/pulls/" + strconv.Itoa(pr_num) + "?state=all"
 		client := &http.Client{}
 		response, _ := client.Get(url_1)
 		defer response.Body.Close()
 		var pullOb pullsInfo
 		body, err_1 := ioutil.ReadAll(response.Body)
 		if err_1 != nil {
-			log.Fatal("when unmarshal pull info ,error occured ",err_1)
+			log.Fatal("when unmarshal pull info ,error occured ", err_1)
 		}
-		json.Unmarshal(body,&pullOb)
+		json.Unmarshal(body, &pullOb)
 		//得到reviewer 切片
 		var reviewer []string
-		for _,value:=range pullOb.RequestedReviewers{
-			reviewer=append(reviewer,value.Login)
+		for _, value := range pullOb.RequestedReviewers {
+			reviewer = append(reviewer, value.Login)
 		}
-		fmt.Println("all reviewers are",reviewer)
-
+		fmt.Println("all reviewers are", reviewer)
 
 		//然后查表，获取reviewer的id
 		var reviewer_id []int
-		for _,name:=range reviewer{
-			fmt.Println("遍历reviewer,当前为",name)
-			id,err:=models.GetUseridByUsername(name)
-			if err!=nil{
-				log.Fatal("In github_webhooks.go func DealWhbhookPost(),when get reviewer id ,error occured",err)
-				err=nil
+		for _, name := range reviewer {
+			fmt.Println("遍历reviewer,当前为", name)
+			id, err := models.GetUseridByUsername(name)
+			if err != nil {
+				log.Fatal("In github_webhooks.go func DealWhbhookPost(),when get reviewer id ,error occured", err)
+				err = nil
 			}
-			reviewer_id=append(reviewer_id,id)
+			reviewer_id = append(reviewer_id, id)
 		}
-
 
 		//commiter的github username ，就是谁提的这个pr
-		commiter:=ob.Commits[0].Author.Name
-		commiter_id,err:=models.GetUseridByUsername(commiter)
-		if err!=nil{
-			log.Fatal("In github_webhooks.go func DealWhbhookPost(),when get commiter id,error occured",err)
-			err=nil
+		commiter := ob.Commits[0].Author.Name
+		commiter_id, err := models.GetUseridByUsername(commiter)
+		if err != nil {
+			log.Fatal("In github_webhooks.go func DealWhbhookPost(),when get commiter id,error occured", err)
 		}
-		fmt.Println("commiter is",commiter)
-		project_name:=ob.Repository.Name
-		project_id, err :=models.GetProjectidByRepoName(project_name)
-		if err!=nil{
-			log.Fatal("In github_webhooks.go func DealWhbhookPost(),when get project id,error occured",err)
-			err=nil
+		fmt.Println("commiter is", commiter)
+		project_name := ob.Repository.Name
+		project_id, err := models.GetProjectidByRepoName(project_name)
+		if err != nil {
+			log.Fatal("In github_webhooks.go func DealWhbhookPost(),when get project id,error occured", err)
 		}
-
 
 		//最后插入k_cs_change_record表
-		for index,_:=range(reviewer){
-			_,err=models.InsertKCsChangeRecord(project_id,project_name,reviewer_id[index],reviewer[index],10.5)
-			if err!=nil{
-				log.Fatal("when insert reviewer into k cs change record ,error occured",err)
-				err=nil
+		for index, _ := range reviewer {
+			_, err = models.InsertKCsChangeRecord(project_id, project_name, reviewer_id[index], reviewer[index], issue_value)
+			if err != nil {
+				log.Fatal("when insert reviewer into k cs change record ,error occured", err)
+				err = nil
 			}
 		}
-		models.InsertKCsChangeRecord(project_id,project_name,commiter_id,commiter,20.5)
-		if err!=nil{
-			log.Fatal("when insert committer into k cs change record ,error occured",err)
-			err=nil
+		_, _ = models.InsertKCsChangeRecord(project_id, project_name, commiter_id, commiter, issue_value)
+		if err != nil {
+			log.Fatal("when insert committer into k cs change record ,error occured", err)
+			err = nil
 		}
 	}
-	if eventType=="pull-request"{
+	if eventType == "pull-request" {
 	}
+
 }
+
 //得到issue的号码
-func GetIssueNum(ob WebhooksPushEvent)int{
-	issue_msg:=ob.Commits[0].Message
+func GetIssueNum(ob WebhooksPushEvent) int {
+	issue_msg := ob.Commits[0].Message
 	fmt.Println(issue_msg)
 	//r, _ := regexp.Compile("(#d*)?")
 	////match, _ := regexp.MatchString("(d*)?", issue_msg)
 	//fmt.Println("issue number is",r.FindString(issue_msg))
-	split:=strings.Split(issue_msg,"#")
+	split := strings.Split(issue_msg, "#")
 	var issue_num int
-	for _,value:=range split[1]{
+	for _, value := range split[1] {
 		//不是数字
-		if value>'9'||value<'0'{
+		if value > '9' || value < '0' {
 			break
-		}else{
-			issue_num*=10
-			temp, _ :=strconv.Atoi(string(value))
-			issue_num+=temp
+		} else {
+			issue_num *= 10
+			temp, _ := strconv.Atoi(string(value))
+			issue_num += temp
 		}
 	}
-	fmt.Println("issue num is ",issue_num)
+	fmt.Println("issue num is ", issue_num)
 	return issue_num
 }
-
-
