@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"Kcoin-Golang/src/models"
+	"Kcoin-Golang/src/service"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -17,7 +18,7 @@ type PersonalProjectsController struct {
 func (c *PersonalProjectsController) GetPersonalInfo() {
 	name := c.Ctx.GetCookie("userName")
 	userBuf, _ := models.GetUserInfo(name)
-	projectBuf, _ := models.GetGithubRepos(name)
+	projectBuf, _ := service.GetGithubRepos(name)
 
 	status := c.Ctx.GetCookie("status")
 	//判断是否登录，如果未登录，登录后跳转到原页面

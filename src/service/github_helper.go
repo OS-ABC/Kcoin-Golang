@@ -1,6 +1,7 @@
 package service
 
 import (
+	"Kcoin-Golang/src/models"
 	"bytes"
 	"context"
 	"encoding/json"
@@ -421,4 +422,82 @@ func GetGithubId(username string) int {
 	json.Unmarshal(body, &res)
 	fmt.Println(res.Id)
 	return res.Id
+}
+
+type GithubRepos []struct {
+	Name string `json:"name"`
+	Url  string `json:"html_url"`
+}
+
+type GithubOrgs []struct{
+	Url  string `json:"repos_url"`
+}
+
+/**
+ * 解析github的reposUrl所对应的所有repos
+ * 参数：reposUrl
+ * 返回值：repos 包括项目名和url
+ */
+func GetPersonalRepos(reposUrl string) GithubRepos {
+	var repos GithubRepos
+	client := &http.Client{}
+	// 根据reposUrl发送GET请求
+	response, _ := client.Get(reposUrl)
+	defer response.Body.Close()
+	body, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		panic(err)
+	}
+	// 解析json
+	err1 := json.Unmarshal([]byte(body), &repos)
+	if err1 != nil {
+		panic(err1)
+	}
+	return repos
+}
+
+/**
+ * 获取个人公开repos和所属org下的repos
+ * 参数：user 用户名
+ * 返回值：ProjectInfo json数据
+ */
+func GetGithubRepos(user string) (string, error) {
+	var orgUrl string = "https://api.github.com/users/" + user + "/orgs"
+	var reposUrl string = "https://api.github.com/users/" + user + "/repos"
+	var orgs GithubOrgs
+	var projects models.ProjectInfo
+	client := &http.Client{}
+	// 根据reposUrl发送GET请求
+	response, _ := client.Get(orgUrl)
+	defer response.Body.Close()
+	body, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		panic(err)
+	}
+	// 解析用户所属org
+	err1 := json.Unmarshal([]byte(body), &orgs)
+	if err1 != nil {
+		panic(err1)
+	}
+	// 用户个人公开repos
+	repos := GetPersonalRepos(reposUrl)
+	// 从每个orgs中获取repos
+	for _, value := range orgs{
+		tmp := GetPersonalRepos(value.Url)
+		for _, v := range tmp{
+			repos = append(repos, v)
+		}
+	}
+
+	for i := range repos {
+		p := &models.Project{}
+		p.ProjectUrl = repos[i].Url
+		p.ProjectName = repos[i].Name
+		projects.Data = append(projects.Data, p)
+	}
+	res, err2 := json.Marshal(&projects)
+	if err2 != nil {
+		panic(err2)
+	}
+	return string(res), nil
 }
