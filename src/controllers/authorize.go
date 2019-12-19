@@ -23,6 +23,7 @@ func (c *AuthoController) Get() {
 	// 修改参数
 	service.GithubUser.SetGithubUserAccessToken(id, name, accessToken)
 	uri := text.Data.Uri
+	c.SetSession("GitHubId", id)
 
 	o := orm.NewOrm()
 	o.Using("default")
