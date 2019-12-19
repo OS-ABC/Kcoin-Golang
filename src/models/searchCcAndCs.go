@@ -4,10 +4,11 @@ import (
 	// "encoding/json"
 	_ "encoding/json"
 	"fmt"
+
 	"github.com/astaxie/beego/orm"
 )
 
-func GetCcAndCsQuery(userId int, projectId int)([]orm.Params, error){
+func GetCcAndCsQuery(userId int, projectId int) ([]orm.Params, error) {
 	o := orm.NewOrm()
 	_ = o.Using("default")
 	SQLQuery := getQuery()
@@ -24,7 +25,7 @@ func GetCcAndCsQuery(userId int, projectId int)([]orm.Params, error){
 }
 
 func getQuery() string {
-	return `select user_cs, b.user_cc from "K_User_in_Project" a, "K_User" b where a.user_id=? and a.project_id=? and a.user_id = b.user_id`
+	return `select user_cs, b.user_cc from "k_user_in_project" a, "k_user" b where a.user_id=? and a.project_id=? and a.user_id = b.user_id`
 }
 
 // 实现personalPage控制器中的查询CC余额
@@ -33,20 +34,20 @@ func GetPersonalRemainingCc(userName string) (float64, error) {
 	_ = o.Using("default")
 
 	type UsrCC struct {
-		User_name    string
-		User_cc      float64
+		User_name string
+		User_cc   float64
 	}
 	var userCc UsrCC
 
-/**将取回的用户名和CC余额赋值给结构体userCc; 如有错误，则赋值给err1
-***结构体中属性名需要与数据库中对应字段相同，且首字母大写*/
-	ccQuery := `SELECT user_name, user_cc FROM "K_User" WHERE USER_NAME=?`
+	/**将取回的用户名和CC余额赋值给结构体userCc; 如有错误，则赋值给err1
+	 ***结构体中属性名需要与数据库中对应字段相同，且首字母大写*/
+	ccQuery := `SELECT user_name, user_cc FROM "k_user" WHERE user_name=?`
 	err1 := o.Raw(ccQuery, userName).QueryRow(&userCc)
 	if err1 != nil {
 		fmt.Println(err1.Error())
 		return -1.0, err1
 	}
-	
+
 	return userCc.User_cc, nil
 
 }
