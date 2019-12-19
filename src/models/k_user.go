@@ -195,7 +195,7 @@ func FindUserInKUserInProject(userid int) (int, error) {
 	return int(num), err
 }
 
-func InsertKCsChangeRecord(projectId int, projectName string, acceptUserId int, acceptUserName string, csAmount float64) (sql.Result, error) {
+func InsertKCsChangeRecord(projectId int, projectName string, acceptUserId int, acceptUserName string, csAmount int) (sql.Result, error) {
 	o := orm.NewOrm()
 	insertSql := `insert into "k_cs_change_record"(distribute_project_id,distribute_project_name,accept_user_id,accept_user_name,cs_amount,distribute_time)values(?,?,?,?,?,?)`
 	currentTime := time.Now()
