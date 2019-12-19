@@ -70,7 +70,13 @@ type IssueData struct {
 // 函数参数：userName string, programName string,issueName int
 // 返回值：string 包含所有的labels信息
 
-func Get_issue_info(userName string, programName string, issueNum int) int {
+type Issue_result struct {
+	issuer_id int
+	issuer string
+	csNum int
+}
+
+func Get_issue_info(userName string, programName string, issueNum int) (int, string, int) {
 	Num := strconv.Itoa(issueNum)
 	var url_1 string = "https://api.github.com/repos/" + userName + "/" + programName + "/" + "issues" + "/" + Num
 	fmt.Println(url_1)
@@ -92,8 +98,12 @@ func Get_issue_info(userName string, programName string, issueNum int) int {
 			issues = append(issues, strings.Split(labelsName, "Kcoin#")[1])
 		}
 	}
-	res, _ := strconv.Atoi(issues[0])
-	return res
+	
+	var res Issue_result
+	res.issuer_id=ib.User.ID
+	res.issuer=ib.User.Login
+	res.csNum,_= strconv.Atoi(issues[0])
+	return res.issuer_id, res.issuer, res.csNum
 }
 
 //使用实例：
