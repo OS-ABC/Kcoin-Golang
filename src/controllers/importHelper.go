@@ -44,6 +44,11 @@ func ImportProject(url string, cover_url string, currentUserId string) error {
 	if err != nil {
 		log.Fatal("when query project_id in k_project ,error occured:", err)
 	}
+	//基金会注入原始cc100.00，捐献种类dtype设为0.
+	err = models.CCInject(0, project_id, 100.00, 0)
+	if err != nil {
+		log.Fatal("when initialize cc injection, error occured: ", err)
+	}
 
 	for _, singleUser := range users {
 		fmt.Println("开始for循环")
