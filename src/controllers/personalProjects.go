@@ -28,6 +28,8 @@ func (c *PersonalProjectsController) GetPersonalInfo() {
 	}
 
 	user := models.UserInfo{Data: &models.UserData{}}
+	user.Data.UserName = name
+	user.Data.HeadShotUrl = c.Ctx.GetCookie("headShotUrl")
 	var projects models.ProjectInfo
 	errorCode := json.Unmarshal([]byte(userBuf), &user)
 	errorCode2 := json.Unmarshal([]byte(projectBuf), &projects)
