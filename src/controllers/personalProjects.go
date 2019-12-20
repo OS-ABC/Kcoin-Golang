@@ -67,7 +67,16 @@ func (c *PersonalProjectsController) Post() {
 	}
 	defer f.Close()
 	fmt.Println(f, h, err)
-	if err = ImportProject(pUrl, "../static/img/projectbg.png", service.GithubUser[c.Ctx.GetCookie("userId")].GithubId); err != nil {
+	githubId := c.Ctx.GetCookie("githubId")
+	githubName := c.Ctx.GetCookie("githubName")
+	githubToken := c.Ctx.GetCookie("githubToken")
+	githubInfo := service.GithubInfo{
+		GithubId:    githubId,
+		GithubName:  githubName,
+		AccessToken: githubToken,
+	}
+
+	if err = ImportProject(pUrl, "../static/img/projectbg.png", githubInfo); err != nil {
 		fmt.Println("Oops, there is an error:( please keep debugging.", err.Error())
 		// 需要返回错误页面
 		return
