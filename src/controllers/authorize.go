@@ -21,9 +21,8 @@ func (c *AuthoController) Get() {
 	name := text.Data.Name
 	id := text.Data.Id
 	// 修改参数
-	service.GithubUser.SetGithubUserAccessToken(id, name, accessToken)
+	//service.GithubUser.SetGithubUserAccessToken(id, name, accessToken)
 	uri := text.Data.Uri
-	c.SetSession("GitHubId", id)
 
 	o := orm.NewOrm()
 	o.Using("default")
@@ -32,7 +31,6 @@ func (c *AuthoController) Get() {
 
 	if res.UserId == "" {
 		err := models.InsertUser(name, uri, id)
-
 		if err != nil {
 			panic(err)
 		}
@@ -52,8 +50,11 @@ func (c *AuthoController) Get() {
 	//存储用户头像url到cooike中，获取语法：c.Ctx.GetCookie("headShotUrl")
 	c.Ctx.SetCookie("headShotUrl", text.Data.Uri, 3600)
 	//存储用户登录状态到cooike中，其中1表示已登录，获取语法：c.Ctx.GetCookie("status")
-
 	c.Ctx.SetCookie("status", string('1'), 3600)
+
+	c.Ctx.SetCookie("githubId", id, 3600)
+	c.Ctx.SetCookie("githubName", name, 3600)
+	c.Ctx.SetCookie("githubToken", accessToken, 3600)
 
 	if redirectUrl := c.Ctx.GetCookie("lastUri"); redirectUrl != "" {
 		fmt.Printf(redirectUrl)

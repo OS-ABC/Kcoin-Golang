@@ -13,6 +13,21 @@ import (
 	"time"
 )
 
+/**
+ * 这是一个全局数据结构，目前只有三个字段，用来保存GithubID, Github Name和对应access_token
+ */
+type GithubInfo struct {
+	GithubId    string
+	GithubName  string
+	AccessToken string
+}
+
+// TODO 妥善使用该数据结构, 用户信息应该用session保存, 可以建立一个sessionID->session的映射, 但是不太清楚session如何使用, 这里需要会的人来修改这个丑陋的数据结构
+//Github UserID -> GithubInfo
+//type GithubUserMap map[string]*GithubInfo
+
+//var GithubUser GithubUserMap
+
 // struct for github api: "https://api.github.com/repos/"+userName+"/"+programName发送请求后的返回值
 type JsonData struct {
 	ID       int    `json:"id"`
@@ -189,24 +204,9 @@ type API_User struct {
 	Updated_at          string `json:"updated_at"`
 }
 
-/**
- * 这是一个全局数据结构，目前只有三个字段，用来保存GithubID, Github Name和对应access_token
- */
-type GithubInfo struct {
-	GithubId    string
-	GithubName  string
-	AccessToken string
-}
-
-// TODO 妥善使用该数据结构, 用户信息应该用session保存, 可以建立一个sessionID->session的映射, 但是不太清楚session如何使用, 这里需要会的人来修改这个丑陋的数据结构
-//Github UserID -> GithubInfo
-type GithubUserMap map[string]*GithubInfo
-
-var GithubUser GithubUserMap
-
 func init() {
 	fmt.Println("Controller initialized!")
-	GithubUser = make(GithubUserMap)
+	//GithubUser = make(GithubUserMap)
 }
 
 /**
@@ -255,7 +255,7 @@ func GetContributors(userName string, programName string) string {
 	json.Unmarshal(body, &cb)
 	var cl string = ""
 	for i := 0; i < len(cb); i++ {
-		var Name string = cb[i].Login
+		var Name = cb[i].Login
 		cl = cl + Name + " "
 	}
 	fmt.Println(cl)
@@ -341,29 +341,29 @@ func GetAccessToken(code string) (accessToken string, err error) {
 /**
  * 设置Github User这个map的Access Token字段.
  */
-func (this GithubUserMap) SetGithubUserAccessToken(id string, name string, accessToken string) {
+/*func (this GithubUserMap) SetGithubUserAccessToken(id string, name string, accessToken string) {
 	if _, ok := this[id]; !ok {
 		this[id] = new(GithubInfo)
 	}
 	this[id].AccessToken = accessToken
 	this[id].GithubId = id
 	this[id].GithubName = name
-}
+}*/
 
-func (this GithubUserMap) GetGithubUserAccessToken(userId string) (string, error) {
+/*func (this GithubUserMap) GetGithubUserAccessToken(userId string) (string, error) {
 	if userInfo, ok := this[userId]; ok {
 		return userInfo.AccessToken, nil
 	} else {
 		return "", fmt.Errorf("user id %s is not valid", userId)
 	}
-}
+}*/
 
 //getWebhooksUrl 可以通过
-func RegisterGithubWebhooks(userId string, repoName string) {
-	accessToken, _ := GithubUser.GetGithubUserAccessToken(userId)
+func RegisterGithubWebhooks(githubName, repoName, accessToken string) {
+	//accessToken, _ := GithubUser.GetGithubUserAccessToken(userId)
 	postPayload := getPayloadOfRegisterGithubWebhooks()
-	userName := GithubUser[userId].GithubName
-	api_url := getWebhooksUrlBy(userName, repoName)
+	//userName := c.Ctx.GetCookie("gethubName")
+	api_url := getWebhooksUrlBy(githubName, repoName)
 	bytePostPayload := []byte(postPayload)
 	buffer := bytes.NewBuffer(bytePostPayload)
 	request, err := http.NewRequest("POST", api_url, buffer)

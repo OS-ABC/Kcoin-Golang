@@ -155,3 +155,11 @@ function getCookie(cookieKey){
     }
     return null;
 }
+
+//JS获取url中项目名称
+function getProjectNameByUrl(){
+    var projUrl = document.getElementById("projectUrl").value;    //获取用户输入的URL
+    var index = projUrl.lastIndexOf("\/");
+    projUrl = projUrl.substring(index + 1, projUrl.length);
+    document.getElementById("projUrl").value = projUrl;
+}

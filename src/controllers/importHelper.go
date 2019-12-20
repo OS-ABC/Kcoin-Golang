@@ -9,12 +9,12 @@ import (
 	"strings"
 )
 
-func ImportProject(url string, cover_url string, currentUserId string) error {
+func ImportProject(url, cover_url string, githubInfo service.GithubInfo) error {
 	fmt.Println("进入ImportProject")
 	//首先将string类型的currentUserId转成Int型
 	//currentUserId_int,err:=strconv.Atoi(currentUserId)
 	//检查地址是否合法
-	err := service.CheckGithubRepoUrl(currentUserId, url)
+	err := service.CheckGithubRepoUrl(githubInfo.GithubName, url)
 	if err != nil {
 		log.Fatal("url is illegal", err)
 		return err
@@ -26,9 +26,8 @@ func ImportProject(url string, cover_url string, currentUserId string) error {
 	//使用用户名和仓库名获取项目全部contributor
 	userslist_string := service.GetContributors(userName, repoName)
 	users := strings.Split(userslist_string, " ")
-	//将当前登录用户注册到webhook中，
-	fmt.Println(currentUserId)
-	service.RegisterGithubWebhooks(currentUserId, repoName)
+	//将当前登录用户注册到webhook中
+	service.RegisterGithubWebhooks(githubInfo.GithubName, repoName, githubInfo.AccessToken)
 	host_id, _ := models.GetUseridByUsername(userName)
 	fmt.Println("当前登陆用户id为", host_id, "当前username为", userName)
 	fmt.Println("项目中的全部contributors", users)
@@ -106,6 +105,6 @@ func ImportProject(url string, cover_url string, currentUserId string) error {
 		_, err = models.InsertIntoKUserInProject(project_id, host_id)
 	}
 	//对所有没有加入的人给他们发个邮件
-	_, err = models.SendEMailToPotentialUsers(notIn)
+	_, err = models.SendEMailToPotentialUsers(notIn, githubInfo.AccessToken)
 	return err
 }

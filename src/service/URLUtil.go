@@ -17,15 +17,15 @@ func ParseGithubHTTPSUrl(url string) (userName string, userRepo string, err erro
 }
 
 //查询项目url是否合法，且判断用户是否有权限导入
-func CheckGithubRepoUrl(userId, url string) error {
+func CheckGithubRepoUrl(githubName, url string) error {
 	_, repoName, err := ParseGithubHTTPSUrl(url)
 	//TODO:err处理等待解析函数pr合并后更新
 	if err != nil {
 		return err
 	}
-	info := GithubUser[userId]
-	userName := info.GithubName
-	apiUrl := "https://api.github.com/repos/" + userName + "/" + repoName
+	//info := GithubUser[userId]
+	//userName := info.GithubName
+	apiUrl := "https://api.github.com/repos/" + githubName + "/" + repoName
 	resp, err := http.Get(apiUrl)
 	if err != nil {
 		return err
