@@ -239,9 +239,10 @@ a:link,a:visited,a:hover,a:active
 }
 .memberItem{
     float:left;
-    width: 300px;
+    width: 600px;
     height: 125px;
     background-color: white;
+    display: flex;
 }
 .pageList{
     position: relative;

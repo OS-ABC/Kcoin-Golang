@@ -25,4 +25,5 @@ func init() {
 	beego.Router("/capitalInjection", &controllers.CapitalInjectionController{})
 	beego.Router("/projectfunding", &controllers.ProjectFundingController{})
 	beego.Router("/platformInformation", &controllers.PlatformInformationController{})
+	beego.Router("/webhooks",&controllers.WebhooksController{})
 }

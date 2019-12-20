@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"Kcoin-Golang/src/models"
+	"Kcoin-Golang/src/service"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -9,10 +10,6 @@ import (
 
 	"github.com/astaxie/beego"
 )
-
-var memberList_len int     //获取用户github中项目数量
-var joinedprojects_len int //参加项目的数量
-var ProjectIntro string
 
 type PersonalProjectsController struct {
 	beego.Controller
@@ -31,6 +28,8 @@ func (c *PersonalProjectsController) GetPersonalInfo() {
 	}
 
 	user := models.UserInfo{Data: &models.UserData{}}
+	user.Data.UserName = name
+	user.Data.HeadShotUrl = c.Ctx.GetCookie("headShotUrl")
 	var projects models.ProjectInfo
 	errorCode := json.Unmarshal([]byte(userBuf), &user)
 	errorCode2 := json.Unmarshal([]byte(projectBuf), &projects)
@@ -39,7 +38,7 @@ func (c *PersonalProjectsController) GetPersonalInfo() {
 		fmt.Println("Oops, there is an error:( please keep debugging.", errorCode.Error())
 	}
 	if errorCode2 != nil {
-		fmt.Println("Oops, there is an error:( please keep debugging.", errorCode.Error())
+		fmt.Println("Oops, there is an error:( please keep debugging.", errorCode2.Error())
 	}
 
 	c.Data["user"] = user
@@ -48,7 +47,7 @@ func (c *PersonalProjectsController) GetPersonalInfo() {
 
 	//获取已加入项目
 	//使用testid=95
-	testid := "95"
+	testid := c.Ctx.GetCookie("userId")
 	joinedprojects, _ := models.GetAllJoinedProjects(testid)
 	fmt.Print(models.GetAllJoinedProjects("95"))
 	c.Data["joinedProjects"] = joinedprojects
@@ -70,7 +69,20 @@ func (c *PersonalProjectsController) Post() {
 	}
 	defer f.Close()
 	fmt.Println(f, h, err)
-	ImportProject(pUrl, "../static/img/projectbg.png")
+	githubId := c.Ctx.GetCookie("githubId")
+	githubName := c.Ctx.GetCookie("githubName")
+	githubToken := c.Ctx.GetCookie("githubToken")
+	githubInfo := service.GithubInfo{
+		GithubId:    githubId,
+		GithubName:  githubName,
+		AccessToken: githubToken,
+	}
+
+	if err = ImportProject(pUrl, "../static/img/projectbg.png", githubInfo); err != nil {
+		fmt.Println("Oops, there is an error:( please keep debugging.", err.Error())
+		// 需要返回错误页面
+		return
+	}
 
 	c.TplName = "personalProjects.html"
 	c.Redirect("personalprojects", 302)

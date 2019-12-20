@@ -1,10 +1,10 @@
 package models
 
 import (
-	"github.com/astaxie/beego/orm"
 	"strconv"
-)
 
+	"github.com/astaxie/beego/orm"
+)
 
 func GetCsNum(github_id string) int {
 
@@ -13,9 +13,9 @@ func GetCsNum(github_id string) int {
 	o := orm.NewOrm()
 	_ = o.Using("default")
 
-	querySql := `select user_cs from "K_User_in_Project" where user_id in (select k_user_id from "K_User" where github_user_id = ?)`
+	querySql := `select user_cs from "k_user_in_project" where user_id in (select k_user_id from "k_user" where github_id = ?)`
 	var maps []orm.Params
-	_,err := o.Raw(querySql, github_id).Values(&maps)
+	_, err := o.Raw(querySql, github_id).Values(&maps)
 	checkErr(err)
 	var user_cs string
 	for _, term := range maps {
@@ -30,4 +30,3 @@ func checkErr(err error) {
 		panic(err)
 	}
 }
-

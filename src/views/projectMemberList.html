@@ -19,13 +19,15 @@
             </div>
         </div>
         <div class="memberItem">
+        {{range.membersInfo}}
             <div class="headShot">
-                <a href="./memberWork"><img src="/static/img/tx1.png" style="width: 100px;height: 100px;border-radius:50%;overflow:hidden" /></a>
+                <a href="./memberWork"><img src="{{.HeadShotUrl}}" style="width: 100px;height: 100px;border-radius:50%;overflow:hidden" /></a>
             </div>
             <div class="memberInfo">
-                <p>用户名：DoubleJ</p>
+                <p>用户名：{{.UserName}}</p>
                 <p>贡献度：1 收益：1</p>
             </div>
+        {{end}}
         </div>
     </div>
     {{template "./footer.html" .}}
