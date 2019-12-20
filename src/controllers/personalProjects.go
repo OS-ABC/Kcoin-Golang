@@ -47,7 +47,7 @@ func (c *PersonalProjectsController) GetPersonalInfo() {
 
 	//获取已加入项目
 	//使用testid=95
-	testid := "95"
+	testid := c.Ctx.GetCookie("userId")
 	joinedprojects, _ := models.GetAllJoinedProjects(testid)
 	fmt.Print(models.GetAllJoinedProjects("95"))
 	c.Data["joinedProjects"] = joinedprojects
