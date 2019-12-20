@@ -429,8 +429,12 @@ type GithubRepos []struct {
 	Url  string `json:"html_url"`
 }
 
-type GithubOrgs []struct{
+type GithubOrgUrl []struct{
 	Url  string `json:"repos_url"`
+}
+
+type GithubOrgName []struct{
+	Name  string `json:"login"`
 }
 
 /**
@@ -464,7 +468,7 @@ func GetPersonalRepos(reposUrl string) GithubRepos {
 func GetGithubRepos(user string) (string, error) {
 	var orgUrl string = "https://api.github.com/users/" + user + "/orgs"
 	var reposUrl string = "https://api.github.com/users/" + user + "/repos"
-	var orgs GithubOrgs
+	var orgs GithubOrgUrl
 	var projects models.ProjectInfo
 	client := &http.Client{}
 	// 根据reposUrl发送GET请求
@@ -500,4 +504,34 @@ func GetGithubRepos(user string) (string, error) {
 		panic(err2)
 	}
 	return string(res), nil
+}
+
+/**
+ * 获取用户所属的所有组织name
+ * 参数：user 用户名
+ * 返回值：res 组织名字符串，使用空格拼接
+ */
+func GetOrgNames(user string) string {
+	var url string = "https://api.github.com/users/" + user + "/orgs"
+	var orgNames GithubOrgName
+	res := ""
+	client := &http.Client{}
+	response, _ := client.Get(url)
+	defer response.Body.Close()
+	body, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		panic(err)
+	}
+	err1 := json.Unmarshal([]byte(body), &orgNames)
+	if err1 != nil {
+		panic(err1)
+	}
+	for i, v := range orgNames{
+		if i == len(orgNames)-1{
+			res = res + v.Name
+		} else {
+			res = res + v.Name + " "
+		}
+	}
+	return res
 }

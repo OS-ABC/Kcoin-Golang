@@ -5,10 +5,9 @@ import (
 	"Kcoin-Golang/src/service"
 	"encoding/json"
 	"fmt"
+	"github.com/astaxie/beego"
 	"log"
 	"strconv"
-
-	"github.com/astaxie/beego"
 )
 
 type PersonalProjectsController struct {
@@ -19,7 +18,6 @@ func (c *PersonalProjectsController) GetPersonalInfo() {
 	name := c.Ctx.GetCookie("userName")
 	userBuf, _ := models.GetUserInfo(name)
 	projectBuf, _ := service.GetGithubRepos(name)
-
 	status := c.Ctx.GetCookie("status")
 	//判断是否登录，如果未登录，登录后跳转到原页面
 	c.Ctx.SetCookie("lastUri", c.Ctx.Request.RequestURI)
@@ -42,6 +40,7 @@ func (c *PersonalProjectsController) GetPersonalInfo() {
 	c.Data["user"] = user
 	c.Data["repos"] = projects
 	c.Data["memberList_len"] = strconv.Itoa(len(projects.Data)) //个人项目数量
+    c.Data["orgNameList"] = service.GetOrgNames(name) //用户所属组织列表
 
 	//获取已加入项目
 	//使用testid=95

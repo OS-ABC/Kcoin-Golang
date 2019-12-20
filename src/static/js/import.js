@@ -30,13 +30,13 @@ function hidePopup(){
     popUp.style.visibility = "hidden";    
 } 
 
-function next_step(){
+function next_step(orgs){
     if(step_num === 1) {            //在第一步输入url后，点击下一步时，进行判断，验证其权限
         var isProjOwner = false;    //表示仓库是否属于此用户，默认为false
         var orgMember = false;      //表示仓库是否属于用户所在的组织，暂且默认为false，待后端写好再实现
         var projUrl = document.getElementById("projectUrl").value;    //获取用户输入的URL
         var temp = projUrl.split('/');
-
+        var orgNameList = orgs.split(' ');
         //用cookie获取用户的用户名
         var userName = getCookie("userName");
         if (userName==null) {
@@ -46,6 +46,9 @@ function next_step(){
         if(userName === temp[temp.length-2] ||
             userName === temp[temp.length-2].replace("git@github.com:", ""))    //使用SSH
             isProjOwner = true;
+        if (orgNameList.includes(temp[temp.length-2]) || orgNameList.includes(temp[temp.length-2].replace("git@github.com:", ""))){
+            orgMember = true;
+        }
         //如果两个条件都不满足，则提示错误并返回
         if(!isProjOwner && !orgMember) {
             alert('请检查输入的URL:您不是此项目的所有者，且不属于此项目的组织。（当前仅支持https）');
@@ -135,10 +138,10 @@ function show_managed(){
     document.getElementById("manage").style.backgroundColor = 'white';
 }
 
-function setUrl(url) {
+function setUrl(url, orgs) {
     var projectUrl = document.getElementById("projectUrl");
     projectUrl.value = url;
-    next_step();
+    next_step(orgs);
 }
 
 function getCookie(cookieKey){

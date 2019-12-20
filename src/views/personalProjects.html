@@ -84,7 +84,7 @@
                             
                             <ul class="projects">
                                 {{range .repos.Data}}
-                                    <li onclick="setUrl({{.ProjectUrl}})">{{.ProjectName}}</li>
+                                    <li onclick="setUrl({{.ProjectUrl}}, {{$.orgNameList}})">{{.ProjectName}}</li>
                                 {{end}}
 
                             </ul>
@@ -105,7 +105,7 @@
                         </a>
                     </div>
                     <div id="next_back">                    
-                        <button class = "next" id="btnNextStep" type="button" onclick="next_step()">下一步</button>
+                        <button class = "next" id="btnNextStep" type="button" onclick="next_step({{$.orgNameList}})">下一步</button>
                         <button class = "confirm" id="btnconfirm" type="submit">&nbsp确&nbsp&nbsp定&nbsp</button>
                         <button class = "back" id="btnBackStep" type="button" onclick="back_step()">前一步</button>
                     </div>
