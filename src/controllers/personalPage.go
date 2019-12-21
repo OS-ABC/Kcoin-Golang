@@ -28,18 +28,27 @@ func (c *PersonalPageController) Get() {
 	if status == "0" || status == "" {
 		defer c.Redirect("/login.html", 302)
 	}
+
+	//获取GitHubId
+	//gitId := c.GetSession("GitHubId").(string)
+	githubId := c.Ctx.GetCookie("githubId")
+	//通过gitHubId查询cs数
+	csNum := models.GetCsNum(githubId)
+
 	user := models.UserInfo{Data: &models.UserData{}} //user中存放着json解析后获得的数据。
 	user.Data.UserName = c.Ctx.GetCookie("userName")
 	user.Data.HeadShotUrl = c.Ctx.GetCookie("headShotUrl")
+	user.Data.CsNum = csNum
+
 	c.Data["user"] = user
-	c.TplName = "personalPage.html"//该controller对应的页面
+	c.TplName = "personalPage.html" //该controller对应的页面
 
 	// 函数定义在models目录下的searchCcAndCs.go中，根据用户名查询CC余额
 	remainingCc, err := models.GetPersonalRemainingCc(user.Data.UserName)
 	if err != nil {
-		fmt.Println("you r in personalPage controller, something got wrong " + 
-					"while querying the database: ", err.Error())
+		fmt.Println("you r in personalPage controller, something got wrong "+
+			"while querying the database: ", err.Error())
 	}
-  
+
 	c.Data["remainingCc"] = remainingCc
 }

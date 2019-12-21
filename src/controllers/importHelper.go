@@ -1,18 +1,20 @@
+// TODO 把该文件与github_helper.go移动到service文件夹下, 并保证可以运行
 package controllers
 
 import (
 	"Kcoin-Golang/src/models"
+	"Kcoin-Golang/src/service"
 	"fmt"
 	"log"
 	"strings"
 )
 
-func ImportProject(url string, cover_url string) error {
+func ImportProject(url, cover_url string, githubInfo service.GithubInfo) error {
 	fmt.Println("进入ImportProject")
 	//首先将string类型的currentUserId转成Int型
 	//currentUserId_int,err:=strconv.Atoi(currentUserId)
 	//检查地址是否合法
-	err := CheckGithubRepoUrl(currentUserId, url)
+	err := service.CheckGithubRepoUrl(githubInfo.GithubName, url)
 	if err != nil {
 		log.Fatal("url is illegal", err)
 		return err
@@ -20,13 +22,12 @@ func ImportProject(url string, cover_url string) error {
 		fmt.Println("url合法")
 	}
 	//解析已经合法的地址中的用户名和仓库名
-	userName, repoName, _ := models.ParseGithubHTTPSUrl(url)
+	userName, repoName, _ := service.ParseGithubHTTPSUrl(url)
 	//使用用户名和仓库名获取项目全部contributor
-	userslist_string := models.GetContributors(userName, repoName)
+	userslist_string := service.GetContributors(userName, repoName)
 	users := strings.Split(userslist_string, " ")
-	//将当前登录用户注册到webhook中，
-	fmt.Println(currentUserId)
-	registerGithubWebhooks(currentUserId, repoName)
+	//将当前登录用户注册到webhook中
+	service.RegisterGithubWebhooks(githubInfo.GithubName, repoName, githubInfo.AccessToken)
 	host_id, _ := models.GetUseridByUsername(userName)
 	fmt.Println("当前登陆用户id为", host_id, "当前username为", userName)
 	fmt.Println("项目中的全部contributors", users)
@@ -37,10 +38,15 @@ func ImportProject(url string, cover_url string) error {
 
 	//插入项目到数据库
 	_, _ = models.InsertProject(repoName, url, cover_url)
-	//根据根据项目名查K_Project表获取project_id
+	//根据根据项目名查k_project表获取project_id
 	project_id, err = models.GetProjectidByRepoName(repoName)
 	if err != nil {
-		log.Fatal("when query project_id in K_Project ,error occured:", err)
+		log.Fatal("when query project_id in k_project ,error occured:", err)
+	}
+	//基金会注入原始cc100.00，捐献种类dtype设为0.
+	err = models.CCInject(0, project_id, 100.00, 0)
+	if err != nil {
+		log.Fatal("when initialize cc injection, error occured: ", err)
 	}
 
 	for _, singleUser := range users {
@@ -60,9 +66,8 @@ func ImportProject(url string, cover_url string) error {
 			if num == 0 { //如果没查到
 				notIn = append(notIn, singleUser)
 				//通过github API获取这个用户的git id
-				singleUser_git_id := GetGithubId(singleUser)
+				singleUser_git_id := service.GetGithubId(singleUser)
 				//插入到临时用户表
-				//TODO :（其实也不是TODO，是一个提醒）现在这个地方应该是插入不成功的，因为temporary_user_id还不是自动生成的，等待数据库方面将其设置为自增就行了。
 				res, err := models.InsertIntoKTemporaryUser(host_id, singleUser_git_id, singleUser, project_id)
 				if err == nil {
 					num, _ := res.RowsAffected()
@@ -76,14 +81,14 @@ func ImportProject(url string, cover_url string) error {
 				//首先根据user_name获取k_user_id
 				k_user_id, err = models.GetUseridByUsername(singleUser)
 				if err != nil {
-					log.Fatal("when query k_user_id in K_User,error occured:", err)
+					log.Fatal("when query k_user_id in k_user,error occured:", err)
 				}
-				//然后根据根据项目名查K_Project表获取project_id
+				//然后根据根据项目名查k_project表获取project_id
 				project_id, err = models.GetProjectidByRepoName(repoName)
 				if err != nil {
-					log.Fatal("when query project_id in K_Project ,error occured:", err)
+					log.Fatal("when query project_id in k_project ,error occured:", err)
 				}
-				//最后两个id都有了，插入K_user_in_project
+				//最后两个id都有了，插入k_user_in_project
 				res, err = models.InsertIntoKUserInProject(project_id, k_user_id)
 				if err == nil {
 					nums, _ := res.RowsAffected()
@@ -91,12 +96,12 @@ func ImportProject(url string, cover_url string) error {
 					id, _ := res.LastInsertId()
 					fmt.Println("last insert id is ", id)
 				} else {
-					log.Fatal("when insert to K_User_in_Project,error occured,", err)
+					log.Fatal("when insert to k_user_in_project,error occured,", err)
 				}
 			}
 		}
 	}
-	//最后判断一下项目拥有者在不在K_user_in_Projet里，不在就插入
+	//最后判断一下项目拥有者在不在k_user_in_Projet里，不在就插入
 	var IfOwnerIn int
 	IfOwnerIn, err = models.FindUserInKUserInProject(host_id)
 	if IfOwnerIn == 0 {
@@ -105,6 +110,6 @@ func ImportProject(url string, cover_url string) error {
 		_, err = models.InsertIntoKUserInProject(project_id, host_id)
 	}
 	//对所有没有加入的人给他们发个邮件
-	_, err = models.SendEMailToPotentialUsers(notIn)
+	_, err = models.SendEMailToPotentialUsers(notIn, githubInfo.AccessToken)
 	return err
 }

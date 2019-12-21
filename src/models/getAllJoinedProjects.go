@@ -1,3 +1,4 @@
+// TODO 该文件并入k_user.go中
 package models
 
 import (
@@ -60,17 +61,18 @@ func GetAllManagedProjects(userId string) (joinedProjects []*Project, err error)
 
 //查询全部参加的项目
 func getAllJoinedProjectsQuery() string {
-	return "select * from \"K_Project\" where project_id in " +
-		"(select project_id from \"K_User_in_Project\" where user_id = ?)"
+	return "select * from \"k_project\" where project_id in " +
+		"(select project_id from \"k_user_in_project\" where user_id = ?)"
 }
 
 //查询子成员项目列表
 func getMemberListQuery() string {
 	return `SELECT u.k_user_id, u.user_name, u.head_shot_url
-			FROM "K_User" u LEFT JOIN "K_User_in_Project" up on u.k_user_id = up.user_id 
+			FROM "k_user" u LEFT JOIN "k_user_in_project" up on u.k_user_id = up.user_id 
 			WHERE up.project_id = ?`
-	//return "SELECT user_id, user_name, head_shot_url FROM \"K_User\" WHERE user_id in " +
-	//	"(SELECT user_id FROM \"K_User_in_Project\" WHERE project_id = ?)"
+	//return "SELECT user_id, user_name, head_shot_url FROM \"k_user\" WHERE user_id in " +
+	//	"(SELECT user_id FROM \"k_user_in_Project\" WHERE project_id = ?)"
+
 }
 
 //查询全部管理的项目
