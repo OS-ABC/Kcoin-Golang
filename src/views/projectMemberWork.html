@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8" />
+    <title>工作列表</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/project.css"/>
+
+</head>
+
+<body>
+        {{template "./projectTopNav.html" .}}
+    
+    <script type="text/javascript">
+		document.getElementById("prj-mem").style.backgroundColor = 'white';
+    </script>
+    
+    <div class="work-mainInterface">
+            <div class="work-record">
+                DoubleJ的工作信息
+                <table class="work-customers">
+                    <!--现在使用自定义的数据测试，后续实现从数据库中读取并实现按照读取数据自动分页-->
+                    <tr>
+                        <th>日期</th>
+                        <th>贡献类型</th>
+                        <th>获得cs数量</th>
+                    </tr>
+                    <tr>
+                        <td>10.23</td>
+                        <td>提交pr</td>
+                        <td>500</td>
+                    </tr>
+                    <tr>
+                        <td>10.23</td>
+                        <td>提交issue</td>
+                        <td>200</td>
+                    </tr>
+                    <tr>
+                        <td>10.24</td>
+                        <td>提交pr</td>
+                        <td>500</td>
+                    </tr>
+                    <tr>
+                        <td>10.24</td>
+                        <td>提交issue</td>
+                        <td>200</td>
+                    </tr>
+                    <tr>
+                        <td>10.25</td>
+                        <td>提交pr</td>
+                        <td>500</td>
+                    </tr>
+                    <tr>
+                        <td>10.27</td>
+                        <td>提交pr</td>
+                        <td>500</td>
+                    </tr>
+                </table>         
+            </div>
+            <div>
+                <a href="./memberList">
+                    <div class="work-back"> &lt 返回 </div>
+                </a>
+            </div>
+    </div>
+    {{template "./footer.html" .}}
+</body>

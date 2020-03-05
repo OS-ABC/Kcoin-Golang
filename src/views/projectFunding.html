@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8" />
+    <title>项目信息</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/platformAdmin.css"/>
+    <script type="text/javascript" src="../static/js/paging.js"></script>
+</head>
+
+<body onload="goPage1(1,9);">
+
+    {{template "./platformAdminTopNav.html" .}}
+
+    <script type="text/javascript">
+        document.getElementById("proj-notice").style.backgroundColor = 'white';
+    </script>
+
+    <div class="record" >
+        <table class="customers" id="idData1">
+            <!--现在使用自定义的数据测试，后续实现从数据库中读取并实现按照读取数据自动分页-->
+            <tr>
+                <th>日期</th>
+                <th>注资项目</th>
+                <th>cc数量</th>
+            </tr>
+            <tr>
+                <td>11.22</td>
+                <td>Sonorous77/Robot</td>
+                <td>2000</td>
+            </tr>
+            <tr>
+                <td>11.22</td>
+                    <td>Sonorous77/Weather forecast</td>
+                    <td>3000</td>
+            </tr>
+            <tr>
+                <td>11.23</td>
+                <td>OS-ABC/HelloWorld</td>
+                <td>5000</td>
+            </tr>
+            <tr>
+                <td>11.24</td>
+                <td>Sonorous77/Robot</td>
+                <td>5000</td>
+            </tr>
+            <tr>
+                <td>11.24</td>
+                <td>OS-ABC/HelloWorld</td>
+                <td>2000</td>
+            </tr>
+            <tr>
+                <td>11.25</td>
+                <td>OS-ABC/HelloWorld</td>
+                <td>6000</td>
+            </tr>
+            <tr>
+                <td>11.25</td>
+                <td>Sonorous77/Robot</td>
+                <td>2000</td>
+            </tr>
+            <tr>
+                <td>11.26</td>
+                <td>Sonorous77/Weather forecast</td>
+                <td>3000</td>
+            </tr>
+            <tr>
+                <th>日期</th>
+                <th>注资项目</th>
+                <th>cc数量</th>
+            </tr>
+       
+            <tr>
+                <td>11.27</td>
+                <td>OS-ABC/HelloWorld</td>
+                <td>1000</td>
+            </tr>
+            <tr>
+                <td>11.27</td>
+                <td>Sonorous77/Weather forecast</td>
+                <td>3000</td>
+            </tr>
+            <tr>
+                <td>11.28</td>
+                <td>Sonorous77/Robot</td>
+                <td>3000</td>
+            </tr>
+            <tr>
+                <td>11.28</td>
+                <td>OS-ABC/HelloWorld</td>
+                <td>5000</td>
+            </tr>
+            <tr>
+                <td>11.29</td>
+                <td>Sonorous77/Robot</td>
+                <td>4000</td>
+            </tr>
+            <tr>
+                <td>11.29</td>
+                <td>OS-ABC/HelloWorld</td>
+                <td>6000</td>
+            </tr>
+            <tr>
+                <td>11.30</td>
+                <td>Sonorous77/Weather forecast</td>
+                <td>2000</td>
+            </tr>
+            <tr>
+                <td>11.30</td>
+                <td>Sonorous77/Robot</td>
+                <td>3000</td>
+            </tr>
+            <tr>
+                <th>日期</th>
+                <th>注资项目</th>
+                <th>cc数量</th>
+            </tr>
+            <tr>
+                <td>12.01</td>
+                <td>Sonorous77/Weather forecast</td>
+                <td>2000</td>
+            </tr>
+            <tr>
+                <td>12.01</td>
+                <td>Sonorous77/Robot</td>
+                <td>3000</td>
+            </tr>
+            <tr>
+                <td>12.02</td>
+                <td>Sonorous77/Robot</td>
+                <td>5000</td>
+            </tr>
+            <tr>
+                <td>12.02</td>
+                <td>OS-ABC/HelloWorld</td>
+                <td>5000</td>
+            </tr>
+            <tr>
+                <td>12.03</td>
+                <td>OS-ABC/HelloWorld</td>
+                <td>2000</td>
+            </tr>
+            <tr>
+                <td>12.03</td>
+                <td>OS-ABC/HelloWorld</td>
+                <td>6000</td>
+            </tr>
+            <tr>
+                <td>12.04</td>
+                <td>Sonorous77/Robot</td>
+                <td>2000</td>
+            </tr>
+            <tr>
+                <td>12.04</td>
+                <td>Sonorous77/Weather forecast</td>
+                <td>3000</td>
+            </tr>   
+        </table>
+  		<table width="60%" align="left" >
+    		<tr>
+				<td><div id="barcon1" name="barcon1"></div></td>
+			</tr>
+  		</table>
+            </div>
+        </table>         
+    </div>
+
+    {{template "./footer.html" .}}
+</body>

@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"Kcoin-Golang/src/models"
 	"encoding/json"
 	"fmt"
 	"strconv"
@@ -11,9 +12,6 @@ import (
 type ImportController struct {
 	beego.Controller
 }
-
-
-var memberList_len int //获取用户github中项目数量
 
 func (c *ImportController) Get() {
 	jsonBuf :=
@@ -57,7 +55,7 @@ func (c *ImportController) Get() {
         ]
     }
     }`
-	var user UserInfo
+	var user models.UserInfo
 	errorCode := json.Unmarshal([]byte(jsonBuf), &user)
 	if errorCode != nil {
 		fmt.Println("there is an error ,sorry ,please continue debug,haha", errorCode.Error())

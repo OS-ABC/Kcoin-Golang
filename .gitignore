@@ -3,4 +3,9 @@ src/src
 *.exe
 *.exe~
 src/.idea/
+src/.vscode/
 .idea/
+src/__debug_bin
+
+# Mac OS
+**/.DS_Store

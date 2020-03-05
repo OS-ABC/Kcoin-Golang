@@ -1,0 +1,373 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*以下是projectTopNav页面用到的css*/
+body {
+    margin: 0;
+}
+
+a:link,a:visited,a:hover,a:active
+{
+    color: #1B1B1B;
+    text-decoration:none;
+}
+
+.head {
+    position: relative;
+    height: 70px;
+    background-color: #333333;
+}
+.navigation {
+    position: relative;
+    height: 160px;
+    padding-left: 100px;
+    background-color: #bfbfbf;
+}
+.navigation > img {
+    position: absolute;
+    width: 150px;
+    height: 100%;
+    border-style: solid;
+    border-width: 6px;
+    border-color: #FFFFFF;
+    border-radius: 5px;
+    margin-left: 50px;
+    margin-top: 20px;
+}
+.navigation > .prj-name {
+    position: absolute;
+    font-size: 60px;
+    margin-left: 250px;
+    margin-top: 30px;
+    color: #323a45;
+}
+
+.navigation > .invest{
+    position: absolute;
+    right: 150px;
+    top: 50px;
+    width: 100px;
+    height: 50px;
+    text-align: center;
+    background-color: rgb(56, 212, 69);
+    border-radius: 20px;
+    font-size: 25px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+
+.navigation > .starNum{
+    position:absolute;
+    right: 300px;
+    top: 60px;
+    font-size: 20px;
+    
+}
+
+
+.navigation > .first {
+    margin-left: 250px;
+
+}
+.navigation > a {
+    float: left;
+    margin-top: 110px;
+    margin-left: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    border-radius: 10px;
+    font-size: 30px;
+    height: 60px;
+}
+
+.topNavLogo{
+    float: left;
+    width: 60px;
+    height: 60px;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 10px;
+}
+
+.topNavName{
+    float: left;
+    line-height: 70px;
+    font-size: 28px;
+    color: aliceblue;
+}
+
+/*以下是projectInfo页面的css*/
+.projectInfo-container {
+    margin: auto;
+    width: 1200px;
+    font-size: 0;
+}
+.projectInfo-card {
+    display: inline-block;
+    vertical-align: top;
+    border-style: solid;
+    border-width: 4px;
+    border-radius: 10px;
+    border-color: #bfbfbf;
+    width: 500px;
+    height: 500px;
+    margin-top: 70px;
+    margin-left: 46px;
+    margin-right: 46px;
+}
+.projectInfo-card-head {
+    height: 70px;
+    background-color: #bfbfbf;
+}
+.projectInfo-card-title {
+    display: inline-block;
+    vertical-align: bottom;
+    font-size: 25px;
+    height: 70px;
+    line-height: 70px;
+    text-align: center;
+    margin-left: 20px;
+}
+.projectInfo-card-value {
+    display: inline-block;
+    vertical-align: bottom;
+    font-size: 35px;
+    font-weight: bold;
+    color: #ff3600;
+    height: 70px;
+    line-height: 70px;
+    text-align: center;
+    margin-left: 300px;
+}
+.projectInfo-record-label {
+    font-size: 15px;
+    text-align: center;
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+    margin: -15px auto;
+    background-color: #FFFFFF;
+    border-radius: 15px;
+}
+
+.projectInfo-card-rule {
+    display: inline-block;
+    vertical-align: top;
+    border-style: solid;
+    border-width: 4px;
+    border-radius: 10px;
+    border-color: #bfbfbf;
+    width: 1100px;
+    height: 350px;
+    margin-top: 70px;
+    margin-left: 46px;
+    margin-right: 46px;
+}
+
+/*以下是projectNotice页面的css*/
+.container {
+    width: 1200px;
+    padding-left: 150px;
+    padding-top: 150px;
+    font-size: 20px;
+
+}
+
+.yearNode {         /*表示年份的结点*/
+    width: 80px;
+    height: 30px;
+    border-radius: 15px;    /*给矩形增加圆角*/
+    background-color: #ff7070;
+    position: relative;
+    left: -45px;
+    top: 30px;
+    text-align: center;
+    margin-bottom: 100px; 
+}
+
+
+.time-vertical {
+    list-style-type: none;
+    border-left: 10px solid #ff7070;/*左侧边界，显示效果为纵向的时间线*/ 
+    margin-left: 10px;
+    padding: 0px;
+}
+ 
+.time-vertical div {
+    height: 100px;
+    position: relative;
+}
+ 
+.time-vertical div a {
+    display: inline-block;
+    margin-left: 20px;
+    margin-top: 15px;
+    text-decoration: none;
+    color: #000;
+}
+ 
+.time-vertical div b:before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: -16px;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #ff7070;
+    border-radius: 10px;
+    background: #fff;
+    vertical-align: middle;
+}
+ 
+.time-vertical div span {
+    position: absolute;
+    color: #ff5050;
+    top: 18px;
+    left: -65px;
+}
+
+/*以下是projectMemberList页面的css*/
+.memberListContainer{
+    background-color: white;
+    margin: auto;
+    margin-top: 80px;
+    width: 1200px;
+    height: 300px;
+}
+.memberItem{
+    float:left;
+    width: 600px;
+    height: 125px;
+    background-color: white;
+    display: flex;
+}
+.pageList{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    background-color: white;
+}
+.lookMore{
+    line-height: 50px;
+}
+.lookMore > a{
+    position: relative;
+    left: 92%;
+    color:cadetblue;
+}
+.memberItem > .headShot{
+    float:left;
+    width: 125px;
+    height: 125px;
+}
+.memberItem > .memberInfo{
+    float: left;
+    width: 175px;
+    height: 125px;
+}
+
+/*以下是projectSetting.html页面的css*/
+.projectsetting{
+    margin-top: 60px;
+    height: 282px;
+}
+.projectsetting p1{
+	display:block;
+	color: #A9AFB5;
+	margin-top: 110px;
+	margin-left: 20px;
+	font-size: 16px;
+	}
+.projectsetting p2{
+	display:block;
+	margin-left: 20px;
+	color: #A9AFB5;
+	font-size: 16px;
+	}
+	.projectsetting p3{
+	display:block;
+	margin-left: 20px;
+	color: #A9AFB5;
+	font-size: 16px;
+	}
+.upload-pjname {
+    display:block;
+    font-size: 16px;
+    width: 1150px;
+    height: 35px;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid #B5B3B3;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+.upload-button {
+    display:block;
+    width: 70px;
+    margin-top: 10px;
+    margin-left:20px;
+    border:2px solid #27D5F5;
+    padding:10px;
+    border-radius: 10px;
+    color: #27D5F5;
+}
+
+textarea.projectintro{
+	border-style: ridge;
+	border-radius: 5px;
+	padding: 5px;
+	color:gray;
+	font-size: 110%;
+	margin-left: 20px;
+    width: 1140px;
+    height:100px;  
+}
+
+/*以下是projectMemberWork.html页面的css*/
+.work-mainInterface{
+    background-color: #FFFFFF;
+    position: relative;
+    min-height: 70vh;
+    width: 100%;
+    font-size: 20px;
+}
+
+.work-record{
+    position: relative;
+    margin: 50px;
+    width: 900px;
+    height: 150px;
+    top:60px
+}
+
+.work-customers{
+    font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+    width:100%;
+    border-collapse:collapse;
+    margin-top: 20px;
+}
+
+.work-customers th {
+    font-size:1em;
+    border:0px solid #ffffff;
+    padding:3px 7px 15px 7px;
+    
+}
+
+.work-customers td{
+    font-size:1em;
+    border:0px solid #ffffff;
+    padding:3px 7px 2px 7px;
+    text-align: center;
+}
+
+.work-back{
+    position: absolute;
+    font-size: 15px;
+    left: 25px;
+    top: 15px;
+    color: rgb(75, 192, 238);
+}

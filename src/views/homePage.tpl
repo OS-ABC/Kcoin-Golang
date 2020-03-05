@@ -3,18 +3,26 @@
 <head>
 	<meta charset="utf-8">
 	<title>HomePage</title>
-	<link rel="stylesheet" type="text/css" href="../static/css/homepage.css"/>
+	<link rel="stylesheet" type="text/css" href="/static/css/homepage.css"/>
 </head>
 
 <body>
 	<div class="header">
 		<div class="head">
 			{{if .isLogin}}
-				<a href="./personalpage"><img class="login-headshot"  alt="" src="{{.user.Data.HeadShotUrl}}"></a>
+				<a href="./personalpage"><img class="login-headshot" style="border-radius:50%;overflow:hidden" alt="" src="{{.user.Data.HeadShotUrl}}"></a>
 			{{else}}
 				<a class="login-bt" href="login.html">登录</a>
 			{{end}}
 			<a class="head-bt" href="#container">项目列表</a>
+
+
+			{{if .isPlatformAdmin}}
+				<a class="head-bt" href="/platformInformation">平台管理</a>
+			{{else}}
+				<!--不是平台管理员，不显示平台管理按钮-->
+			{{end}}
+			
 			<a class="head-bt" href="javascript:location.reload();">首页</a>
 		</div>
 		<div class="title">
@@ -33,6 +41,7 @@
 		<div class="container-child">
             {{with .Projects}}
             {{range .Data}}
+			<a href="/project/{{.ProjectName}}/info">
 			<div class="project">
 				<img class="project-cover" alt="project" src="{{.ProjectCoverUrl}}"/>
 				<div class="project-name">{{.ProjectName}} </div>
@@ -44,13 +53,12 @@
 
                 {{end}}
 			</div>
+			</a>
             {{end}}
             {{end}}
 		</div>
 	</div>
 	<div style="clear: both"></div>
-	<div class="footer">
-		<p>北京大学软件与微电子学院-新工科试验班</p>
-	</div>
+	{{template "./footer.html" .}}
 </body>
 </html>

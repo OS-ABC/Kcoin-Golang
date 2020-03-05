@@ -1,60 +1,42 @@
 package models
 
 import (
+	"database/sql"
 	"encoding/json"
 	_ "encoding/json"
 	"fmt"
+	"log"
+
 	"github.com/astaxie/beego/orm"
 )
-
-type KProject struct {
-	ProjectId       int64  `json:"pid" orm:"pk;column(project_id);"`
-	ProjectName     string `json:"pname"`
-	ProjectUrl      string `json:"purl"`
-	ProjectCoverUrl string `json:"pcurl"`
-}
-
-type Project struct {
-	ProjectName string          `json:"projectName"`
-	ProjectCoverUrl string      `json:"projectCoverUrl"`
-	ProjectUrl string           `json:"projectUrl"`
-	MemberList []UserData       `json:"memberList"`
-}
-type UserData struct {
-	UserName    string    `json:"userName"`
-	HeadShotUrl string    `json:"headshotUrl"`
-	ProjectList []Project `json:"projectList"`
-}
-type projectInfo struct {
-	ErrorCode string     `json:"errorCode"`
-	Projects  []Project `json:"data"`
-}
-type kprojectInfo struct {
-	ErrorCode string     `json:"errorCode"`
-	Projects  []KProject `json:"data"`
-}
 
 //查询并以json形式返回所有的项目信息
 func GetAllProjectsInfo() (string, error) {
 	o := orm.NewOrm()
 	o.Using("default")
 
-	var projectsInfo projectInfo
-	//var projects []Project
+	var projectsInfo ProjectInfo
 	projectsInfo.ErrorCode = "default Error"
 
-	//var projects []KProject
-	querySql := `SELECT project_name , project_url , project_cover_url FROM "K_Project"`
-	_, err := o.Raw(querySql).QueryRows(&projectsInfo.Projects)
-	for i := range projectsInfo.Projects {
-		var u UserData
-		u.HeadShotUrl = "../static/img/tx1.png"
-		u.UserName = "abc"
-		projectsInfo.Projects[i].MemberList = append(projectsInfo.Projects[i].MemberList, u)
-	}
-	if err != nil {
-		fmt.Println(err.Error())
-		return fmt.Sprint(projectsInfo), err
+	/******************************************query all projects************************************************/
+	queryProjectSql := `SELECT project_id , project_name , project_url , project_cover_url FROM "k_project" `
+	/***********************************************************************************************************/
+
+	_, err := o.Raw(queryProjectSql).QueryRows(&projectsInfo.Data)
+
+	/******************************************query menberList in one project**********************************/
+	queryUsersInProjectSql := `select u.k_user_id,u.user_name,u.head_shot_url
+								from "k_user" u left join "k_user_in_project" up on u.k_user_id=up.user_id
+       							where up.project_id=?`
+	/**********************************************************************************************************/
+	for _, v := range projectsInfo.Data {
+		var memberList []*UserData
+		_, err := o.Raw(queryUsersInProjectSql, v.ProjectId).QueryRows(&memberList)
+		if err != nil {
+			fmt.Println(err.Error())
+			return fmt.Sprint(projectsInfo), err
+		}
+		v.MemberList = memberList
 	}
 	projectsInfo.ErrorCode = "0"
 	res, err := json.Marshal(&projectsInfo)
@@ -63,4 +45,40 @@ func GetAllProjectsInfo() (string, error) {
 		return fmt.Sprint(projectsInfo), err
 	}
 	return string(res), nil
+}
+
+func GetProjectsCC(projectName string) (float64, error) {
+	o := orm.NewOrm()
+	o.Using("default")
+
+	queryProjectSql := `SELECT project_cc FROM "k_project" WHERE project_name=? `
+	var num float64
+	err := o.Raw(queryProjectSql, projectName).QueryRow(&num)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	return num, nil
+}
+
+func GetProjectidByRepoName(reponame string) (int, error) {
+	o := orm.NewOrm()
+	_ = o.Using("default")
+	var project_id int
+	querySql := `select project_id from "k_project" where project_name=?`
+	err := o.Raw(querySql, reponame).QueryRow(&project_id)
+	return project_id, err
+
+}
+
+func InsertProject(reponame string, url string, project_cover_url string) (sql.Result, error) {
+	o := orm.NewOrm()
+	_ = o.Using("default")
+
+	querySql := `insert into "k_project"(project_name,project_url,project_cover_url)values(?,?,?)`
+
+	res, err := o.Raw(querySql, reponame, url, project_cover_url).Exec()
+	if err != nil {
+		log.Fatal("error when insert project,", err)
+	}
+	return res, err
 }

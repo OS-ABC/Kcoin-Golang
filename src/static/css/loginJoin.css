@@ -1,3 +1,54 @@
+/*以下是login和join页面的css*/
+.logo-join {
+    display:block;
+    margin-top:50px;
+    position: relative;
+    width:100%;
+    height: auto;
+    text-align: center;
+}
+
+.title-join {
+    display: block;
+    font-family: PingFangHK-Semibold;
+    font-size: 20px;
+    color: #ffffff;
+    position: relative;
+    margin-top: 20px;
+    width:100%;
+    height:auto;
+    text-align:center;
+}
+
+.join-label {
+    padding-left: 32px;
+    text-align: left;
+    color:#ffffff;
+}
+
+.grid-join {
+    display: block;
+    position: relative;
+    width: 376px;
+    left:35%;
+    height: 700px;
+    z-index: 1001;
+}
+
+.father-div {
+    display: block;
+    width: 100%;
+    position: relative;
+    text-align: center;
+}
+
+.form-submit {
+    display: block;
+    position: relative;
+    width: 376px;
+    height: 95px;
+}
+
 .content {
     position: relative;
     width: 100%;
@@ -44,8 +95,6 @@
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    margin-left: -12px;
-    margin-right: -12px
 }
 
 .cell {
@@ -66,13 +115,11 @@
     font-family: PingFangHK-Semibold;
     font-size: 13px;
     margin-bottom: 5px;
-    margin-left: 30px;
-    text-align: initial;
 }
 
 .required {
     border: 1px #1ba1e2 dashed !important;
-    width: 320px;
+    width: 310px !important;
     height: 40px;
 }
 
@@ -123,7 +170,6 @@
 .block-dark {
     display: block;
     position: relative;
-    top:22px;
     border-radius: 5px;
     font-size: 16px;
     margin-bottom: 5px;
@@ -146,14 +192,20 @@
     width: 25px !important;
     height: 25px !important;
     position: relative;
-    top: 7px;
-    left: 25px;
 }
 
 .gitee-icon {
     width: 36px !important;
     height: 36px !important;
     position: relative;
-    top: 3px;
-    left: -7px;
+}
+
+.form-login {
+    width: 100%;
+}
+
+.form-login-buttom {
+    display: block;
+    position: relative;
+    height:65px;
 }
