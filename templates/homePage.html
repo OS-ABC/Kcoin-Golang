@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>HomePage</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<div id="app">
+	<h1>这是首页</h1>
+	<p>是否登录：{{info.isLogin}}</p>
+
+	<p v-if = !info.isLogin>请<a href = "/login">登录</a> </p>
+	<p v-if = info.isLogin>您好{{info.userName}}</p>
+</div>
+
+</body>
+<script>
+	var app = new Vue({
+		el: '#app',
+		data: {
+			info: {},
+		},
+		mounted () {
+			axios
+				.get('/v1/isLogin')
+				.then(response => (this.info = response.data))
+				.catch(function (error) { // 请求失败处理
+					console.log(error);
+				});
+		},
+	})
+</script>
+</html>
