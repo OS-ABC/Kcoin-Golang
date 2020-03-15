@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "Kcoin-Golang/conf"
 	"Kcoin-Golang/routers"
 )
 

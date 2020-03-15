@@ -24,7 +24,7 @@
 		},
 		mounted () {
 			axios
-				.get('/v1/isLogin')
+				.get('http://localhost:8080/v1/isLogin')
 				.then(response => (this.info = response.data))
 				.catch(function (error) { // 请求失败处理
 					console.log(error);

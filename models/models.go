@@ -1,6 +1,7 @@
 package models
 
 import (
+	"Kcoin-Golang/conf"
 	"fmt"
 	"time"
 
@@ -20,10 +21,9 @@ type User struct {
 }
 
 func init() {
-
-	// TODO 修改从config文件中读取这些信息。
 	var err error
-	DB, err = gorm.Open("postgres", "host=114.115.133.140 port=5432 user=sspkukcoin dbname=postgres password=kcoin2019")
+	DB, err = gorm.Open("postgres", fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s", conf.Config.MySQL.Host, conf.Config.MySQL.Port, conf.Config.MySQL.User, conf.Config.MySQL.DBname, conf.Config.MySQL.Password))
+
 	if err != nil {
 		fmt.Println("open database failed, err: ", err)
 	}

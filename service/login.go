@@ -1,6 +1,7 @@
 package service
 
 import (
+	"Kcoin-Golang/conf"
 	"Kcoin-Golang/models"
 	"encoding/json"
 	"errors"
@@ -16,8 +17,7 @@ var GithubAccessToken sync.Map
 
 // 获取github的accessToken
 func GetAccessToken(code string) (accessToken string, err error) {
-	// TODO 需要修改为从配置文件中读取clientId和clientSecret
-	url := "https://github.com/login/oauth/access_token?code=" + code + "&client_id=" + "17a8c3e212ff56ace267" + "&client_secret=" + "6725d566c37d0eeb6e27a4d57c93a16602c5cc05"
+	url := "https://github.com/login/oauth/access_token?code=" + code + "&client_id=" + conf.Config.GithubOAuth.ClientID + "&client_secret=" + conf.Config.GithubOAuth.ClientSecret
 	fmt.Println(url)
 	client := &http.Client{}
 	response, err := client.Get(url)
