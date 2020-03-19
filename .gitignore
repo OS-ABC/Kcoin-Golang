@@ -1,10 +1,8 @@
 #add ignore files
-src/src
 *.exe
 *.exe~
-src/.idea/
-src/.vscode/
 .idea/
+.vscode/
 src/__debug_bin
 
 # Mac OS
