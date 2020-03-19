@@ -2,7 +2,6 @@ package routers
 
 import (
 	"Kcoin-Golang/controller"
-
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
@@ -24,6 +23,16 @@ func RouterInit() *gin.Engine {
 	r.GET("/oauth", controller.OAuth)
 	// 判断用户是否已经登录
 	r.GET("/v1/isLogin", controller.IsLogin)
+
+	//获取用户参与的项目以及用户管理的项目
+	//这里建立了一个路由组
+	projects := r.Group("/v1/my/projects")
+	{
+		//参与项目
+		projects.GET("/join",controller.GetJoinProjects)
+		//管理项目
+		projects.GET("/manage",controller.GetManageProjects)
+	}
 
 	return r
 }
