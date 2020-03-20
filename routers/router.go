@@ -29,9 +29,9 @@ func RouterInit() *gin.Engine {
 	projects := r.Group("/v1/my/projects")
 	{
 		//参与项目
-		projects.GET("/join",controller.GetJoinProjects)
+		projects.GET("/join", controller.GetJoinProjects)
 		//管理项目
-		projects.GET("/manage",controller.GetManageProjects)
+		projects.GET("/manage", controller.GetManageProjects)
 	}
 
 	return r
