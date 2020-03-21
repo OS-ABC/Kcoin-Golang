@@ -2,6 +2,7 @@ package routers
 
 import (
 	"Kcoin-Golang/controller"
+	"Kcoin-Golang/middleware"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -23,7 +24,10 @@ func RouterInit() *gin.Engine {
 	// github Oauth回调路由
 	r.GET("/oauth", controller.OAuth)
 	// 判断用户是否已经登录
-	r.GET("/v1/isLogin", controller.IsLogin)
+
+	apiv1 := r.Group("v1")
+	apiv1.Use(middleware.JWT())
+	apiv1.GET("isLogin", controller.IsLogin)
 
 	return r
 }

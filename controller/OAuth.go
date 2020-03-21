@@ -5,6 +5,7 @@ import (
 	"Kcoin-Golang/service"
 	"fmt"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -41,8 +42,11 @@ func OAuth(c *gin.Context) {
 	} else {
 		models.DB.Debug().Where("github_id = ?", user.GithubID).Update(user)
 	}
-	// TODO 使用jwt来记住用户和鉴定用户权限
-	c.SetCookie("jwt", "test", 3600, "/", "localhost", false, true)
+	models.DB.Where("github_id = ?", user.GithubID).First(temUser)
+	// 在cookie中设置jwt来标记用户
+	var jwt string
+	jwt, err = service.GenerateToken(strconv.Itoa(temUser.ID))
+	c.SetCookie("jwt", jwt, 3600, "/", "localhost", false, true)
 	// TODO 跳转回刚才访问的页面或者首页
 	c.Redirect(302, "/")
 }
