@@ -2,6 +2,8 @@ package routers
 
 import (
 	"Kcoin-Golang/controller"
+	"Kcoin-Golang/middleware"
+
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
@@ -22,16 +24,21 @@ func RouterInit() *gin.Engine {
 	// github Oauth回调路由
 	r.GET("/oauth", controller.OAuth)
 	// 判断用户是否已经登录
-	r.GET("/v1/isLogin", controller.IsLogin)
 
-	//获取用户参与的项目以及用户管理的项目
-	//这里建立了一个路由组
-	projects := r.Group("/v1/my/projects")
+	// apiv1路由组，里面是需要jwt鉴权才能使用的api
+	apiv1 := r.Group("v1")
+	apiv1.Use(middleware.JWT())
 	{
-		//参与项目
-		projects.GET("/join", controller.GetJoinProjects)
-		//管理项目
-		projects.GET("/manage", controller.GetManageProjects)
+		apiv1.GET("isLogin", controller.IsLogin)
+		//获取用户参与的项目以及用户管理的项目
+		//这里建立了一个路由组
+		projects := apiv1.Group("/my/projects")
+		{
+			//参与项目
+			projects.GET("/join", controller.GetJoinProjects)
+			//管理项目
+			projects.GET("/manage", controller.GetManageProjects)
+		}
 	}
 
 	return r

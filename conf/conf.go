@@ -8,6 +8,7 @@ import (
 type AllConfig struct {
 	MySQL
 	GithubOAuth
+	Jwt
 }
 
 // MySQL配置信息
@@ -23,6 +24,10 @@ type MySQL struct {
 type GithubOAuth struct {
 	ClientID     string `ini:"clientID"`
 	ClientSecret string `ini:"clientSecret"`
+}
+
+type Jwt struct {
+	JwtSecret string `ini:"jwtSecret"`
 }
 
 // 保存读取的配置信息的变量
