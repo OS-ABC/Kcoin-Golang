@@ -39,7 +39,7 @@ func GetManageProjects(c *gin.Context) {
 		fmt.Println(err.Error())
 	}
 	//获取当前用户管理的项目
-	managedProjects.Projects = models.GetJoinProjects(userID)
+	managedProjects.Projects = models.GetManageProjects(userID)
 	//返回json数组
 	c.JSON(http.StatusOK, managedProjects)
 }
