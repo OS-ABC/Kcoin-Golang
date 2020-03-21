@@ -20,6 +20,26 @@ type User struct {
 	GithubID    int64     `gorm:"column:github_id" json:"id"`
 }
 
+//用户信息结构体，tag里的json字段是与需要返回给前端的json名称保持一致
+type UserData struct {
+	UserId      string `gorm:"primary_key;column:k_user_id" json:"userID"`
+	UserName    string `json:"userName"`
+	HeadShotUrl string `json:"HeadShotUrl"`
+}
+
+//项目集合结构体，用于封装获取到的全部项目集合，并作为json数据作为get请求的返回
+type ProjectInfo struct {
+	Projects []*Project `json:"projects"`
+}
+
+//项目信息结构体，tag里的json字段与需要返回给前端的json名称保持一致
+type Project struct {
+	ProjectID       int         `gorm:"primary_key" json:"projectID"`
+	ProjectName     string      `json:"projectName"`
+	ProjectCoverUrl string      `json:"projectCoverUrl"`
+	MemberList      []*UserData `json:"memberList"`
+}
+
 func init() {
 	var err error
 	DB, err = gorm.Open("postgres", fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s", conf.Config.MySQL.Host, conf.Config.MySQL.Port, conf.Config.MySQL.User, conf.Config.MySQL.DBname, conf.Config.MySQL.Password))

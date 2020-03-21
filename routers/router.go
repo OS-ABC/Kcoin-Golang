@@ -25,9 +25,21 @@ func RouterInit() *gin.Engine {
 	r.GET("/oauth", controller.OAuth)
 	// 判断用户是否已经登录
 
+	// apiv1路由组，里面是需要jwt鉴权才能使用的api
 	apiv1 := r.Group("v1")
 	apiv1.Use(middleware.JWT())
-	apiv1.GET("isLogin", controller.IsLogin)
+	{
+		apiv1.GET("isLogin", controller.IsLogin)
+		//获取用户参与的项目以及用户管理的项目
+		//这里建立了一个路由组
+		projects := apiv1.Group("/my/projects")
+		{
+			//参与项目
+			projects.GET("/join", controller.GetJoinProjects)
+			//管理项目
+			projects.GET("/manage", controller.GetManageProjects)
+		}
+	}
 
 	return r
 }
