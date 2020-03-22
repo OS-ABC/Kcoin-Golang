@@ -39,6 +39,12 @@ func RouterInit() *gin.Engine {
 			//管理项目
 			projects.GET("/manage", controller.GetManageProjects)
 		}
+
+		projectsOperation := apiv1.Group("/projects")
+		{
+			//导入项目
+			projectsOperation.POST("/add", controller.AddProject)
+		}
 	}
 
 	return r
