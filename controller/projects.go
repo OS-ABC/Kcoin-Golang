@@ -59,12 +59,13 @@ func AddProject(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"result":"抱歉，您没有导入项目的权限"})
 		return
 	}
-
+/*
 	c.JSON(http.StatusOK, gin.H{
 		"url": project.GithubUrl,
 		"name": project.ProjectName,
 	})
-/*
+*/
+
 	code := models.AddProject(project)
 	var result string
 	if code == 0 {
@@ -76,5 +77,5 @@ func AddProject(c *gin.Context) {
 		result = "项目导入成功"
 	}
 	c.JSON(http.StatusOK, gin.H{"result": result})
-*/	
+	
 }

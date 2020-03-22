@@ -15,6 +15,7 @@ type ProjectDetail struct {
 
 func AddProject(project *ProjectDetail) int {
 	tem := -1
+	//查询数据库是否已有该url的项目，若有则将其id保存在tem里
 	DB.Table("k_project").Select("project_id").Where("project_url = ?", project.GithubUrl).First(&tem)
 	if tem >= 0 { // 说明有ID，即项目已在平台内
 		return 0
