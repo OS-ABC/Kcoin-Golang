@@ -45,6 +45,7 @@ func GetManageProjects(c *gin.Context) {
 }
 
 func AddProject(c *gin.Context) {
+
 	// TODO: 判断是否是已注册用户
 	var project *models.ProjectDetail
 	// 解析传入的json数据，并绑定到project上。若失败，将返回错误并在http头部写入400状态码
@@ -59,22 +60,18 @@ func AddProject(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"result":"抱歉，您没有导入项目的权限"})
 		return
 	}
-/*
-	c.JSON(http.StatusOK, gin.H{
-		"url": project.GithubUrl,
-		"name": project.ProjectName,
-	})
-*/
 
-	code := models.AddProject(project)
 	var result string
-	if code == 0 {
-		// url已经存在，说明项目已经在平台上，进行相应处理
-		result = "项目已在平台中"
-	} else if code == -1 {
-		result = "项目导入失败"
-	} else {
+	code, err := models.AddProject(project)
+	if err == nil {
 		result = "项目导入成功"
+	} else {
+		if code == -1 {
+			result = "数据库插入错误: " + err.Error()
+		}
+		if code == 0{
+			result = "请求错误: " + err.Error()
+		}
 	}
 	c.JSON(http.StatusOK, gin.H{"result": result})
 	
