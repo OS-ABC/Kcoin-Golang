@@ -46,7 +46,9 @@ func OAuth(c *gin.Context) {
 	// 在cookie中设置jwt来标记用户
 	var jwt string
 	jwt, err = service.GenerateToken(strconv.Itoa(temUser.ID))
-	c.SetCookie("jwt", jwt, 3600, "/", "localhost", false, true)
+	// Gin更新后SetCookie函数的签名参数列表与旧版本不同了，现在修改为符合新版本的，使用旧版本的Gin会编译失败
+	// 更新本地Gin版本的方法为 `go get -u github.com/gin-gonic/gin`
+	c.SetCookie("jwt", jwt, 3600, "/", "localhost", http.SameSiteLaxMode, false, true)
 	// TODO 跳转回刚才访问的页面或者首页
 	c.Redirect(302, "/")
 }
