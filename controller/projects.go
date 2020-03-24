@@ -72,6 +72,7 @@ func AddProject(c *gin.Context) {
 		if code == 0{
 			result = "请求错误: " + err.Error()
 		}
+		fmt.Println(result)
 	}
 	c.JSON(http.StatusOK, gin.H{"result": result})
 	
