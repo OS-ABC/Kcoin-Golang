@@ -38,9 +38,9 @@ func OAuth(c *gin.Context) {
 	fmt.Println(temUser)
 	if temUser.Name == "" {
 		user.Time = time.Now()
-		models.DB.Debug().Create(user)
+		models.DB.Table("k_user").Debug().Create(user)
 	} else {
-		models.DB.Debug().Where("github_id = ?", user.GithubID).Update(user)
+		models.DB.Table("k_user").Debug().Where("github_id = ?", user.GithubID).Update(user)
 	}
 	models.DB.Where("github_id = ?", user.GithubID).First(temUser)
 	// 在cookie中设置jwt来标记用户

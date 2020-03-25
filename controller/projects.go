@@ -43,3 +43,37 @@ func GetManageProjects(c *gin.Context) {
 	//返回json数组
 	c.JSON(http.StatusOK, managedProjects)
 }
+
+func AddProject(c *gin.Context) {
+
+	// TODO: 判断是否是已注册用户
+	var project *models.ProjectDetail
+	// 解析传入的json数据，并绑定到project上。若失败，将返回错误并在http头部写入400状态码
+	c.BindJSON(&project)    
+	// TODO: 需要判断Url是否合法
+	if urlLegal := true; !urlLegal {
+		c.JSON(http.StatusOK, gin.H{"result":"项目url不合法，请检查"})
+		return
+	}
+	// TODO: 需要判断用户是否有权限将项目导入平台
+	if authorized := true; !authorized {
+		c.JSON(http.StatusOK, gin.H{"result":"抱歉，您没有导入项目的权限"})
+		return
+	}
+
+	var result string
+	code, err := models.AddProject(project)
+	if err == nil {
+		result = "项目导入成功"
+	} else {
+		if code == -1 {
+			result = "数据库插入错误: " + err.Error()
+		}
+		if code == 0{
+			result = "请求错误: " + err.Error()
+		}
+		fmt.Println(result)
+	}
+	c.JSON(http.StatusOK, gin.H{"result": result})
+	
+}
