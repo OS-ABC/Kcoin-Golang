@@ -43,6 +43,9 @@ func RouterInit() *gin.Engine {
 		// 项目操作路由组。获取项目CC记录也可以放在此组里面
 		projectsOperation := apiv1.Group("/projects")
 		{
+			//获取平台所有项目信息
+			projectsOperation.GET("/all", controller.GetAllProjectsInfo)
+
 			//导入项目
 			projectsOperation.POST("/add", controller.AddProject)
 		}

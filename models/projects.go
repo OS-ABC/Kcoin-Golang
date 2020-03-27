@@ -1,16 +1,16 @@
 package models
 
-import(
+import (
 	"errors"
 )
 
 // 导入项目时的信息
 type ProjectDetail struct {
-	ProjectName string     `gorm:"column:project_name" json:"projectName"`
+	ProjectName     string `gorm:"column:project_name" json:"projectName"`
 	ProjectCoverUrl string `gorm:"column:project_cover_url" json:"projectCoverUrl"`
-	Introduction string    `gorm:"column:project_description" json:"introdection"`
-	GithubUrl string       `gorm:"column:project_url" json:"githubUrl"`
-	DecideType int         `json:"decideType"` 
+	Introduction    string `gorm:"column:project_description" json:"introdection"`
+	GithubUrl       string `gorm:"column:project_url" json:"githubUrl"`
+	DecideType      int    `json:"decideType"`
 }
 
 //获取每个项目的memberlist
@@ -54,6 +54,17 @@ func GetManageProjects(userID string) []*Project {
 	GetMemberList(managedProjects)
 
 	return managedProjects
+}
+
+//获取平台所有项目信息
+func GetAllProjectsInfo() []*Project {
+	var allProjects []*Project
+	//从k_project从取出所有项目的信息
+	DB.Table("k_project").Find(&allProjects)
+	//获取每个项目的memberlist
+	GetMemberList(allProjects)
+
+	return allProjects
 }
 
 func AddProject(project *ProjectDetail) (int, error) {
